@@ -1,0 +1,40 @@
+.requst-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+.textF {
+  width: 80%;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease-in-out;
+}
+.textF:focus {
+  opacity: 1;
+}
+.felids {
+  align-items: center;
+  text-align: start;
+  width: 90%;
+}
+.labelT {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.checkbox3 {
+  margin-left: 20px;
+}
+.scro {
+  overflow-y: scroll;
+  display: flex;
+}

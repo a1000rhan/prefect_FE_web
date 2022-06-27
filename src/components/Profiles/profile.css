@@ -1,0 +1,42 @@
+.top-profile {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px;
+}
+.card {
+  width: 90%;
+  padding: 10px;
+  height: 180px;
+  margin: 10px;
+}
+.reqs {
+  flex: flex;
+
+  width: 100%;
+
+  justify-content: stretch;
+  align-items: flex-start;
+  flex-flow: row wrap;
+  margin: 10px;
+}
+.all-req {
+  overflow-y: scroll;
+  display: flex;
+  width: 90%;
+}
+
+@media screen and (max-width: 480px) {
+  .reqs {
+    flex: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+    touch-action: auto;
+    width: 100%;
+  }
+  .all-req {
+    display: block;
+  }
+}

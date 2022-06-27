@@ -1,0 +1,160 @@
+.App {
+  margin-top: 50px;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  width: 100%;
+}
+
+.nav {
+  display: flex;
+}
+.nav-txt {
+  text-decoration: none;
+  font-weight: bold;
+  color: #000;
+}
+.drawer-btn {
+  background-color: "#004e9d";
+}
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
+}
+.App-logo2 {
+  height: 20vmin;
+  margin-top: 10px;
+  pointer-events: none;
+}
+
+.perfect-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px #000;
+
+  margin-top: 40px;
+}
+.perfect-subtitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px #000;
+
+  margin-bottom: 70px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-image: linear-gradient(to top, #00034f, #004e9d);
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 480px) {
+  .App-header {
+    height: 100vh;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    overflow-x: hidden;
+
+    position: fixed;
+  }
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.divider {
+  width: 60%;
+  opacity: 0.3;
+}
+
+.btn {
+  font-size: calc(10px + 2vmin);
+  color: aliceblue;
+  background-color: #5b9bd5;
+  touch-action: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 60%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #bad8f4;
+  color: aliceblue;
+}
+
+.form-container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+}
+.form-control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100px;
+}
+.form-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+}
+.spinner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
