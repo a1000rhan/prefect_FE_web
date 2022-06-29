@@ -8,6 +8,7 @@ import { observer } from "mobx-react";
 import Swal from "sweetalert2";
 
 const SignIn = () => {
+  authstore.loading && <h1>loading</h1>;
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -20,18 +21,22 @@ const SignIn = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     authstore.signIn(user, Swal, navigate);
   };
 
   return (
-    <header hidden={true} className="App-header" id="signIn">
+    <div className="bk">
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
 
         <h1>Sign In</h1>
-        <hr className="divider" />
+      </div>
+
+      <hr className="divider" />
+      <div className="container">
         <div className="form-container">
           <Form onSubmit={handleSubmit} className="form">
             <Form.Group className="form-control">
@@ -61,14 +66,14 @@ const SignIn = () => {
               />
             </Form.Group>
           </Form>
-        </div>
 
-        <hr className="divider" />
-        <button className="btn" onClick={handleSubmit}>
-          Sign In
-        </button>
+          <hr className="divider" />
+          <button className="btn" onClick={handleSubmit}>
+            Sign In
+          </button>
+        </div>
       </div>
-    </header>
+    </div>
   );
 };
 

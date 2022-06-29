@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import CreateRequest from "./components/Requests/CreateRequest";
 import RequestDetails from "./components/Requests/RequestDetails";
+import CreateRequestProblem from "./components/Requests/CreateRequestProblem";
 
 function App() {
   const [showNav, setShowNav] = useState("none");
@@ -27,6 +28,15 @@ function App() {
     civilId: "",
     age: "",
     address: "",
+  });
+  const [request, setRequest] = useState({
+    customerName: "",
+    customerAddress: "",
+    customerPhone: "",
+    time: "",
+    date: "",
+    notes: "",
+    problemDesc: {},
   });
 
   const location = useLocation();
@@ -45,7 +55,26 @@ function App() {
 
         <Route path="/requests" element={<Requests />} />
         <Route path="/requests/:slug" element={<RequestDetails />} />
-        <Route path="/requests/createRequest" element={<CreateRequest />} />
+        <Route
+          path="/requests/createRequest"
+          element={
+            <CreateRequest
+              key={request._id}
+              request={request}
+              setRequest={setRequest}
+            />
+          }
+        />
+        <Route
+          path="/requests/createRequest/2"
+          element={
+            <CreateRequestProblem
+              key={request._id}
+              request={request}
+              setRequest={setRequest}
+            />
+          }
+        />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profiles" element={<Profiles />} />

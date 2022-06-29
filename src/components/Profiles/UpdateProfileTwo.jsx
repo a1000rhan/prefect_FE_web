@@ -23,57 +23,62 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
   };
 
   return (
-    <div className="App-header">
-      <img src={logo} className="App-logo2" alt="logo" />
-      <h1>Update Profile</h1>
-      <hr className="divider" />
-      <div className="form-container">
-        <Form onSubmit={handleSubmit} className="form">
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.PersonCircle /> &nbsp; Civil Id
-            </Form.Label>
-
-            <Form.Control
-              name="civilId"
-              value={profile.civilId}
-              type="number"
-              placeholder="Enter your First Name"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Key />
-              &nbsp; Age
-            </Form.Label>
-            <Form.Control
-              name="age"
-              value={profile.age}
-              type="text"
-              placeholder="Enter your Last Name"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Key />
-              &nbsp; Address
-            </Form.Label>
-            <Form.Control
-              name="address"
-              value={profile.address}
-              type="text"
-              placeholder="Enter your Phone Number"
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Form>
+    <div className="bk">
+      <div className="App">
+        <img src={logo} className="App-logo2" alt="logo" />
+        <h1>Update Profile</h1>
       </div>
       <hr className="divider" />
-      <button className="btn" onClick={handleSubmit}>
-        Update Profile
-      </button>
+
+      <div className="container">
+        <div className="form-container">
+          <Form onSubmit={handleSubmit} className="form">
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.PersonCircle /> &nbsp; Civil Id
+              </Form.Label>
+
+              <Form.Control
+                name="civilId"
+                value={profile.civilId}
+                type="number"
+                placeholder="Enter your First Name"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Key />
+                &nbsp; Age
+              </Form.Label>
+              <Form.Control
+                name="age"
+                value={profile.age}
+                type="text"
+                placeholder="Enter your Last Name"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Key />
+                &nbsp; Address
+              </Form.Label>
+              <Form.Control
+                name="address"
+                value={profile.address}
+                type="text"
+                placeholder="Enter your Phone Number"
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Form>
+        </div>
+        <hr className="divider" />
+        <button className="btn" onClick={handleSubmit}>
+          Update Profile
+        </button>
+      </div>
     </div>
   );
 };

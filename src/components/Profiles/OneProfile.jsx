@@ -21,21 +21,28 @@ const OneProfile = () => {
   ));
 
   return (
-    <header className="App-header">
-      <div className="top-profile">
-        <Avatar />
-        <h1>{authstore.user.username} Profile</h1>
+    <>
+      <header className="App-header">
+        <div className="top-profile">
+          <Avatar />
+          <h1>{authstore.user.username} Profile</h1>
+        </div>
+      </header>
+      <div className="bk">
+        <div className="container">
+          <div className="profile-info">
+            <p className="labelT">
+              worker name: {info?.firstName} {info?.lastName}
+            </p>
+            <p className="labelT">worker age: {info?.age}</p>
+            <p className="labelT">Civil ID: {info?.civilId}</p>
+            <p className="labelT">Address: {info?.address}</p>
+            <hr className="divider" />
+            <div className="all-req">{requests}</div>
+          </div>
+        </div>
       </div>
-      <div>
-        <p>
-          worker name: {info?.firstName} {info?.lastName}
-        </p>
-        <p>worker age: {info?.age}</p>
-        <p>Civil ID: {info?.civilId}</p>
-        <p>Address: {info?.address}</p>
-      </div>
-      <div className="all-req">{requests}</div>
-    </header>
+    </>
   );
 };
 

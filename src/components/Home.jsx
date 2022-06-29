@@ -4,7 +4,7 @@ import logo from "../logo.svg";
 
 const Home = () => {
   return (
-    <header className="App-header">
+    <div className="bk">
       <div className="App">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="perfect-title">Perfect</h1>
@@ -20,7 +20,7 @@ const Home = () => {
           </Link>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 

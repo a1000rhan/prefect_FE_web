@@ -37,90 +37,88 @@ const SignUp = () => {
   };
 
   return (
-    <header hidden={true} className="App-header" id="signUp">
-      <img src={logo} className="App-logo2" alt="logo" />
-      <h1>Sign Up</h1>
-      <div className="form-container">
-        <Form onSubmit={handleSubmit} className="form">
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.PersonCircle /> &nbsp; Username
-            </Form.Label>
-
-            <Form.Control
-              name="username"
-              value={user.username}
-              type="text"
-              placeholder="Enter Username"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Key />
-              &nbsp; Password
-            </Form.Label>
-            <Form.Control
-              name="password"
-              value={user.password}
-              type="password"
-              placeholder="Enter Password"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Key />
-              &nbsp; Confirm Password
-            </Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confirm Password"
-              onChange={(value) => setConfirmPassword(value)}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Key />
-              &nbsp; Email
-            </Form.Label>
-            <Form.Control
-              name="email"
-              value={user.email}
-              type="text"
-              placeholder="Enter Email"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <FormControl>
-            <p className="form-label">Type of User</p>
-            <RadioGroup
-              name="type"
-              className="checkbox"
-              value={user.type}
-              onChange={handleChange}
-            >
-              <FormControlLabel
-                value="worker"
-                name="type"
-                className="form-label"
-                control={<Radio />}
-                label="Worker"
-              />
-              <FormControlLabel
-                value="admin"
-                name="type"
-                control={<Radio />}
-                label="Admin"
-              />
-            </RadioGroup>
-          </FormControl>
-        </Form>
+    <div className="bk">
+      <div className="App">
+        <img src={logo} className="App-logo2" alt="logo" />
+        <h1>Sign Up</h1>
       </div>
-      <button className="btn" onClick={handleSubmit}>
-        Sign Up
-      </button>
-    </header>
+      <div className="container">
+        <div className="form-container">
+          <Form onSubmit={handleSubmit} className="form">
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.PersonCircle /> &nbsp; Username
+              </Form.Label>
+
+              <Form.Control
+                name="username"
+                value={user.username}
+                type="text"
+                placeholder="Enter Username"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Key />
+                &nbsp; Password
+              </Form.Label>
+              <Form.Control
+                name="password"
+                value={user.password}
+                type="password"
+                placeholder="Enter Password"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Key />
+                &nbsp; Confirm Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm Password"
+                onChange={(value) => setConfirmPassword(value)}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Key />
+                &nbsp; Email
+              </Form.Label>
+              <Form.Control
+                name="email"
+                value={user.email}
+                type="text"
+                placeholder="Enter Email"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <h3>Type of User</h3>
+            <RadioGroup name="type" value={user.type} onChange={handleChange}>
+              <div className="checkbox">
+                <FormControlLabel
+                  value="worker"
+                  name="type"
+                  control={<Radio sx={{ color: "white" }} />}
+                  label="Worker"
+                />
+                <FormControlLabel
+                  value="admin"
+                  name="type"
+                  control={<Radio sx={{ color: "white" }} />}
+                  label="Admin"
+                />
+              </div>
+            </RadioGroup>
+          </Form>
+        </div>
+        <button className="btn" onClick={handleSubmit}>
+          Sign Up
+        </button>
+      </div>
+    </div>
   );
 };
 

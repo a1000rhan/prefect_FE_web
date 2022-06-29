@@ -1,12 +1,10 @@
 .App {
-  margin-top: 50px;
   text-align: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-
+  padding-top: 80px;
   width: 100%;
 }
 
@@ -54,8 +52,7 @@
 }
 
 .App-header {
-  background-image: linear-gradient(to top, #00034f, #004e9d);
-  height: 100%;
+  height: 20%;
   width: 100%;
 
   display: flex;
@@ -65,17 +62,22 @@
   justify-content: space-between;
 }
 
+.bk {
+  background-image: linear-gradient(to top, #00034f, #004e9d);
+  height: 100vmax;
+  width: 100%;
+  overflow: scroll;
+}
 @media screen and (max-width: 480px) {
   .App-header {
-    height: 100vh;
+    background-color: #00034f;
+    height: 10%;
     justify-content: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
-    overflow-x: hidden;
-
-    position: fixed;
+    position: sticky;
   }
 }
 @keyframes App-logo-spin {
@@ -98,7 +100,7 @@
   touch-action: auto;
   margin-bottom: 20px;
   padding: 10px;
-  width: 60%;
+  width: 80%;
   border: 1px solid gray;
   border-radius: 5px;
   cursor: pointer;
@@ -108,11 +110,19 @@
   color: aliceblue;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .form-container {
   width: 70%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 .form {
   display: flex;

@@ -12,16 +12,17 @@ const Requests = () => {
       <RequestItem request={req} key={req._id} />
     </div>
   ));
-  console.log(
-    "🚀 ~ file: Requests.jsx ~ line 14 ~ Requests ~ workerRequests",
-    workerRequests
-  );
 
   return (
-    <div className="App-header">
-      <h1>Requests</h1>
-      <div>
-        <div className="all-req">{workerRequests}</div>
+    <div>
+      <header className="App-header">
+        <h1>Requests</h1>
+      </header>
+
+      <div className="bk">
+        <div className="container">
+          <div className="all-req">{workerRequests}</div>
+        </div>
       </div>
     </div>
   );

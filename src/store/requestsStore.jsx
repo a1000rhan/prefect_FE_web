@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import api from "./api";
 import authstore from "./authStore";
+import profileStore from "./profileStore";
 
 class RequestStore {
   requests = [];
@@ -22,12 +23,26 @@ class RequestStore {
     }
   };
 
-  createNewRequests = async (newRequest, navigate) => {
+  createNewRequests = async (newRequest, theWorker, navigate) => {
     try {
       const response = await api.post("requests/createRequest", newRequest);
       this.requests.push(newRequest);
       navigate("/requests");
       this.getAllRequests();
+      const pushRequest = profileStore.workers.find(
+        (worker) => worker._id == theWorker
+      );
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 29 ~ RequestStore ~ createNewRequests= ~ response",
+        response.data._id
+      );
+      pushRequest.requests.push(response.data._id);
+      await api.put(`/profiles/${pushRequest._id}`, pushRequest);
+
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 35 ~ RequestStore ~ createNewRequests= ~ pushRequest",
+        pushRequest
+      );
       this.isLoading = false;
     } catch (error) {
       console.log(

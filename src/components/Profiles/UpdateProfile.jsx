@@ -22,71 +22,75 @@ const UpdateProfile = ({ profile, setProfile }) => {
   };
 
   return (
-    <div className="App-header">
-      <img src={logo} className="App-logo2" alt="logo" />
-      <h1>Update Profile</h1>
-      <hr className="divider" />
-      <div className="form-container">
-        <Form onSubmit={handleSubmit} className="form">
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.PersonCircle /> &nbsp; first Name
-            </Form.Label>
-
-            <Form.Control
-              name="firstName"
-              value={profile.firstName}
-              type="text"
-              placeholder="Enter your First Name"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Key />
-              &nbsp; Last Name
-            </Form.Label>
-            <Form.Control
-              name="lastName"
-              value={profile.lastName}
-              type="text"
-              placeholder="Enter your Last Name"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Telephone />
-              &nbsp; Phone Number
-            </Form.Label>
-            <Form.Control
-              name="phoneNumber"
-              value={profile.phoneNumber}
-              type="text"
-              placeholder="Enter your Phone Number"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="form-control">
-            <Form.Label className="form-label">
-              <Icon.Bag />
-              &nbsp; Position
-            </Form.Label>
-            <Form.Control
-              name="position"
-              value={profile.position}
-              type="text"
-              placeholder="Enter your Position"
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Form>
+    <div className="bk">
+      <div className="App">
+        <img src={logo} className="App-logo2" alt="logo" />
+        <h1>Update Profile</h1>
       </div>
       <hr className="divider" />
+      <div className="container">
+        <div className="form-container">
+          <Form onSubmit={handleSubmit} className="form">
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.PersonCircle /> &nbsp; first Name
+              </Form.Label>
 
-      <button className="btn" onClick={handleSubmit}>
-        Update Profile
-      </button>
+              <Form.Control
+                name="firstName"
+                value={profile.firstName}
+                type="text"
+                placeholder="Enter your First Name"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Key />
+                &nbsp; Last Name
+              </Form.Label>
+              <Form.Control
+                name="lastName"
+                value={profile.lastName}
+                type="text"
+                placeholder="Enter your Last Name"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Telephone />
+                &nbsp; Phone Number
+              </Form.Label>
+              <Form.Control
+                name="phoneNumber"
+                value={profile.phoneNumber}
+                type="text"
+                placeholder="Enter your Phone Number"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Bag />
+                &nbsp; Position
+              </Form.Label>
+              <Form.Control
+                name="position"
+                value={profile.position}
+                type="text"
+                placeholder="Enter your Position"
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Form>
+        </div>
+        <hr className="divider" />
+
+        <button className="btn" onClick={handleSubmit}>
+          Update Profile
+        </button>
+      </div>
     </div>
   );
 };

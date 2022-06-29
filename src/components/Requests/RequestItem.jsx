@@ -4,6 +4,7 @@ import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
 import requestStore from "../../store/requestsStore";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
@@ -11,6 +12,13 @@ const RequestItem = ({ request }) => {
 
   const onDone = (e) => {
     e.preventDefault();
+    request.status = "done";
+    requestStore.updateRequest(request);
+  };
+  const onCancel = (e) => {
+    e.preventDefault();
+    request.status = "canceled";
+    requestStore.updateRequest(request);
   };
   return (
     <Link to={`/request/${request.slug}`}>
@@ -20,13 +28,23 @@ const RequestItem = ({ request }) => {
         <p>Phone Number: {request?.customerPhone}</p>
         <p>
           status:
-          <span style={{ color: "green", fontWeight: "bold" }}>
-            {request?.status}
+          <span
+            style={{
+              color:
+                request.status == "pending"
+                  ? "blue"
+                  : request.status == "done"
+                  ? "green"
+                  : "red",
+              fontWeight: "bold",
+            }}
+          >
+            &nbsp; {request?.status}
           </span>
           {request?.status === "pending" && (
             <>
               <button onClick={onDone}>Done</button>
-              <button>Cancel</button>
+              <button onClick={onCancel}>Cancel</button>
             </>
           )}
         </p>
@@ -35,4 +53,4 @@ const RequestItem = ({ request }) => {
   );
 };
 
-export default RequestItem;
+export default observer(RequestItem);
