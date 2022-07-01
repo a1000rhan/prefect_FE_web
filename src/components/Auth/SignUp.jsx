@@ -40,7 +40,7 @@ const SignUp = () => {
     <div className="bk">
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
-        <h1>Sign Up</h1>
+        <h1 className="title">Sign Up</h1>
       </div>
       <div className="container">
         <div className="form-container">

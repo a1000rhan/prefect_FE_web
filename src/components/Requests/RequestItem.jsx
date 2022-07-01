@@ -1,14 +1,25 @@
 import { Card } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
 import requestStore from "../../store/requestsStore";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
+import * as Icon from "react-bootstrap-icons";
+import { MenuItem, Menu } from "@mui/material";
 
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
     <h1>loading</h1>;
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const onDone = (e) => {
     e.preventDefault();
@@ -20,12 +31,31 @@ const RequestItem = ({ request }) => {
     request.status = "canceled";
     requestStore.updateRequest(request);
   };
+
   return (
-    <Link to={`/request/${request.slug}`}>
-      <Card className="card">
-        <p>Customer Name: {request?.customerName}</p>
-        <p>Customer Address: {request?.customerAddress}</p>
-        <p>Phone Number: {request?.customerPhone}</p>
+    <Card className="card">
+      <div className="card-header">
+        <Link className="req-link" to={`/requests/${request.slug}`}>
+          <p className="reqItem-text">{request?.customerName}</p>
+        </Link>
+        <Icon.ThreeDots style={{ zIndex: "20" }} onClick={handleClick} />
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={handleClose}>Edit Request</MenuItem>
+          <MenuItem onClick={handleClose}>Delete Request</MenuItem>
+        </Menu>
+      </div>
+      <Link className="req-link" to={`/requests/${request.slug}`}>
+        <p className="reqItem-sub-text">
+          Phone Number: {request?.customerPhone}
+        </p>
         <p>
           status:
           <span
@@ -48,8 +78,8 @@ const RequestItem = ({ request }) => {
             </>
           )}
         </p>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
 

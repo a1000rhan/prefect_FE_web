@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
 
-const CreateRequest = ({ request, setRequest }) => {
+const UpdateRequest = ({ request, setRequest }) => {
   const [time, setTime] = useState({
     minutes: 0,
     hours: 1,
@@ -156,4 +156,4 @@ const CreateRequest = ({ request, setRequest }) => {
   );
 };
 
-export default CreateRequest;
+export default UpdateRequest;

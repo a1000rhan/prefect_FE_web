@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 
-const CreateRequestProblem = ({ request, setRequest }) => {
+const UpdateRequestProblem = ({ request, setRequest }) => {
   console.log(
     "🚀 ~ file: CreateRequestProblem.jsx ~ line 9 ~ CreateRequestProblem ~ request",
     request
@@ -131,4 +131,4 @@ const CreateRequestProblem = ({ request, setRequest }) => {
   );
 };
 
-export default observer(CreateRequestProblem);
+export default observer(UpdateRequestProblem);

@@ -16,7 +16,7 @@ const OneProfile = () => {
 
   const requests = info.requests?.map((req) => (
     <div className="reqs">
-      <RequestItem key={req._id} request={req} />
+      <RequestItem request={req} key={req._id} />
     </div>
   ));
 

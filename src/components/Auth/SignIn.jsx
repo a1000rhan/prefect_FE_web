@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, InputGroup } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../logo.svg";
@@ -13,6 +13,8 @@ const SignIn = () => {
     username: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,7 +34,7 @@ const SignIn = () => {
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
 
-        <h1>Sign In</h1>
+        <h1 className="perfect-title">Sign In</h1>
       </div>
 
       <hr className="divider" />
@@ -43,7 +45,6 @@ const SignIn = () => {
               <Form.Label className="form-label">
                 <Icon.PersonCircle /> &nbsp; Username
               </Form.Label>
-
               <Form.Control
                 name="username"
                 value={user.username}
@@ -52,19 +53,41 @@ const SignIn = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
-              <Form.Label className="form-label">
-                <Icon.Key />
-                &nbsp; Password
-              </Form.Label>
+
+            <Form.Label className="form-label">
+              <Icon.Key />
+              &nbsp; Password
+            </Form.Label>
+            <div
+              className="form-control"
+              style={{
+                display: "flex",
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
               <Form.Control
                 name="password"
+                style={{ height: "40px" }}
                 value={user.password}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 onChange={handleChange}
               />
-            </Form.Group>
+
+              <div style={{ marginLeft: "10px" }}>
+                {showPassword ? (
+                  <Icon.Eye onClick={() => setShowPassword(!showPassword)} />
+                ) : (
+                  <Icon.EyeSlash
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                )}
+              </div>
+            </div>
           </Form>
 
           <hr className="divider" />

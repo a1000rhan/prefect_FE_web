@@ -17,6 +17,8 @@ import NotFound from "./components/NotFound";
 import CreateRequest from "./components/Requests/CreateRequest";
 import RequestDetails from "./components/Requests/RequestDetails";
 import CreateRequestProblem from "./components/Requests/CreateRequestProblem";
+import UpdateRequest from "./components/Requests/UpdateRequest";
+import UpdateRequestProblem from "./components/Requests/UpdateRequestProblem";
 
 function App() {
   const [showNav, setShowNav] = useState("none");
@@ -31,7 +33,7 @@ function App() {
   });
   const [request, setRequest] = useState({
     customerName: "",
-    customerAddress: "",
+    customerAddress: {},
     customerPhone: "",
     time: "",
     date: "",
@@ -78,6 +80,26 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profiles" element={<Profiles />} />
+        <Route
+          path="/updateRequest"
+          element={
+            <UpdateRequest
+              request={request}
+              setRequest={setRequest}
+              key={request._id}
+            />
+          }
+        />
+        <Route
+          path="/updateRequest/problem"
+          element={
+            <UpdateRequestProblem
+              request={request}
+              setRequest={setRequest}
+              key={request._id}
+            />
+          }
+        />
         <Route
           path="/updateProfiles"
           element={<UpdateProfile profile={profile} setProfile={setProfile} />}
