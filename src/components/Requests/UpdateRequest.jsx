@@ -1,41 +1,48 @@
 import React, { useState } from "react";
 import TimeDate from "./TimeDate";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
+import requestStore from "../../store/requestsStore";
 
-const UpdateRequest = ({ request, setRequest }) => {
+const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
+  if (profileStore.loading || requestStore.loading) {
+    <h1>loading</h1>;
+  }
+  const { requestId } = useParams();
+  const request = requestStore.requests.find(
+    (request) => request._id === requestId
+  );
+  setUpdateRequest(request);
+
   const [time, setTime] = useState({
     minutes: 0,
     hours: 1,
   });
   const [date, setDate] = useState(new Date());
   const [address, setAddress] = useState({
-    house: "",
-    street: "",
-    city: "",
-    block: "",
-    apartment: "",
-    floor: "",
+    house: updateRequest?.customerAddress[0].house,
+    street: updateRequest?.customerAddress[0].street,
+    city: updateRequest?.customerAddress[0].city,
+    block: updateRequest?.customerAddress[0].block,
+    apartment: updateRequest?.customerAddress[0].apartment,
+    floor: updateRequest?.customerAddress[0].floor,
   });
   const navigate = useNavigate();
+  console.log(
+    "🚀 ~ file: UpdateRequest.jsx ~ line 9 ~ UpdateRequest ~ updateRequest",
+    updateRequest
+  );
 
   const handleChange = (event) => {
-    setRequest({ ...request, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = () => {
-    console.log(address);
-    setRequest({
-      ...request,
-      customerAddress: address,
-      time: time,
-      date: date,
+    setUpdateRequest({
+      ...updateRequest,
+      [event.target.name]: event.target.value,
     });
-    profileStore.fetchWorkersProfiles();
-    navigate("/requests/createRequest/2");
   };
-
+  const handleSubmit = () => {
+    console.log(updateRequest);
+  };
   return (
     <>
       <header className="App-header">
@@ -45,7 +52,7 @@ const UpdateRequest = ({ request, setRequest }) => {
           className="top-icon"
         />
 
-        <h1>Create Request</h1>
+        <h1>Update Request</h1>
       </header>
       <div className="bk">
         <div className="container">
@@ -54,7 +61,7 @@ const UpdateRequest = ({ request, setRequest }) => {
               <label className="labelT">Customer Name</label>
               <input
                 className="textF"
-                value={request.customerName}
+                value={updateRequest.customerName}
                 type="text"
                 name="customerName"
                 onChange={handleChange}
@@ -127,7 +134,7 @@ const UpdateRequest = ({ request, setRequest }) => {
               <label className="labelT">Customer Phone Number</label>
               <input
                 className="textF"
-                value={request.customerPhone}
+                value={updateRequest.customerPhone}
                 type="text"
                 name="customerPhone"
                 onChange={handleChange}

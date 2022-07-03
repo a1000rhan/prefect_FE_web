@@ -21,8 +21,8 @@ import authstore from "../store/authStore";
 const drawerWidth = 240;
 const navItemsAmin = ["Home", "All Profiles", "All Requests", "Sign Out"];
 const navItemsWorker = ["Home", "MyRequests", "Registration", "Sign out"];
-const pathsAdmin = ["/", "/profiles", "/requests", ""];
-const pathsWorker = ["/", "/one-profile", "/signin", ""];
+const pathsAdmin = ["/", "/profiles", "/requests", "/signin"];
+const pathsWorker = ["/", "/one-profile", "/signin", "/signin"];
 function Navbar(props) {
   const navigate = useNavigate();
   const loaction = useLocation();
@@ -37,9 +37,10 @@ function Navbar(props) {
     left: 0,
     right: 0,
     margin: "0 auto",
+
     display:
       authstore.user?.type === "admin"
-        ? (showBtn = "block")
+        ? (showBtn = "flex")
         : (showBtn = "none"),
   });
   let currentLocation = location.pathname;
@@ -49,9 +50,8 @@ function Navbar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  currentLocation === "/" ||
-  currentLocation === "/signin" ||
-  currentLocation === "/signup"
+
+  currentLocation === "/signin" || currentLocation === "/signup"
     ? (showNav = "none")
     : (showNav = "block");
 

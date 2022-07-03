@@ -67,10 +67,21 @@
 }
 .bk {
   background-image: linear-gradient(to top, #00034f, #004e9d);
-  height: 100vmax;
+  height: 100vh;
   width: 100%;
-  overflow: scroll;
+  overflow: hidden;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 5px;
+
+  overflow: hidden;
+}
+
 @media screen and (max-width: 480px) {
   .App-header {
     background-color: #00034f;
@@ -113,14 +124,6 @@
   color: aliceblue;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 10px;
-}
 .form-container {
   width: 70%;
   display: flex;

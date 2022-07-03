@@ -33,7 +33,9 @@ const CreateRequestProblem = ({ request, setRequest }) => {
   const handleChangeUnit = (event) => {
     setProblemDesc({ ...problemDesc, unit: event.target.value });
   };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const allData = { ...request, problemDesc: problemDesc };
 
     requestStore.createNewRequests(allData, theWorker, navigate);

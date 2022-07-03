@@ -19,6 +19,7 @@ import RequestDetails from "./components/Requests/RequestDetails";
 import CreateRequestProblem from "./components/Requests/CreateRequestProblem";
 import UpdateRequest from "./components/Requests/UpdateRequest";
 import UpdateRequestProblem from "./components/Requests/UpdateRequestProblem";
+import ProfileWorkerDetails from "./components/Profiles/ProfileWorkerDetails";
 
 function App() {
   const [showNav, setShowNav] = useState("none");
@@ -40,6 +41,7 @@ function App() {
     notes: "",
     problemDesc: {},
   });
+  const [updateRequest, setUpdateRequest] = useState({});
 
   const location = useLocation();
   console.log(
@@ -80,13 +82,14 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profiles" element={<Profiles />} />
+        <Route path="/profiles/:worker" element={<ProfileWorkerDetails />} />
         <Route
-          path="/updateRequest"
+          path="/updateRequest/:requestId"
           element={
             <UpdateRequest
-              request={request}
-              setRequest={setRequest}
-              key={request._id}
+              updateRequest={updateRequest}
+              setUpdateRequest={setUpdateRequest}
+              key={updateRequest._id}
             />
           }
         />
@@ -94,8 +97,8 @@ function App() {
           path="/updateRequest/problem"
           element={
             <UpdateRequestProblem
-              request={request}
-              setRequest={setRequest}
+              updateRequest={updateRequest}
+              setUpdateRequest={setUpdateRequest}
               key={request._id}
             />
           }

@@ -1,9 +1,9 @@
-import { Card } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import React, { useState } from "react";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
 import requestStore from "../../store/requestsStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
@@ -14,10 +14,19 @@ const RequestItem = ({ request }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleDelete = (e) => {
+    e.preventDefault();
+    requestStore.removeRequest(request, navigate);
+  };
+  const handleUpdate = () => {
+    navigate("/updateRequest");
     setAnchorEl(null);
   };
 
@@ -37,8 +46,17 @@ const RequestItem = ({ request }) => {
       <div className="card-header">
         <Link className="req-link" to={`/requests/${request.slug}`}>
           <p className="reqItem-text">{request?.customerName}</p>
+          <p className="reqItem-sub-text">
+            Phone Number: {request?.customerPhone}
+          </p>
         </Link>
-        <Icon.ThreeDots style={{ zIndex: "20" }} onClick={handleClick} />
+
+        <Icon.ThreeDots
+          style={{
+            display: authstore.user.type === "admin" ? "block" : "none",
+          }}
+          onClick={handleClick}
+        />
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -48,14 +66,14 @@ const RequestItem = ({ request }) => {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleClose}>Edit Request</MenuItem>
-          <MenuItem onClick={handleClose}>Delete Request</MenuItem>
+          <Link to={`/updateRequest/${request._id}`}>
+            <MenuItem>Edit Request</MenuItem>
+          </Link>
+          <MenuItem onClick={handleDelete}>Delete Request</MenuItem>
         </Menu>
       </div>
+
       <Link className="req-link" to={`/requests/${request.slug}`}>
-        <p className="reqItem-sub-text">
-          Phone Number: {request?.customerPhone}
-        </p>
         <p>
           status:
           <span
@@ -71,13 +89,17 @@ const RequestItem = ({ request }) => {
           >
             &nbsp; {request?.status}
           </span>
-          {request?.status === "pending" && (
-            <>
-              <button onClick={onDone}>Done</button>
-              <button onClick={onCancel}>Cancel</button>
-            </>
-          )}
         </p>
+        {request?.status === "pending" && (
+          <>
+            <button className="btn-status" onClick={onDone}>
+              Done
+            </button>
+            <button className="btn-status" onClick={onCancel}>
+              Cancel
+            </button>
+          </>
+        )}
       </Link>
     </Card>
   );

@@ -51,16 +51,47 @@ class RequestStore {
       );
     }
   };
-  updateRequest = async (request) => {
+  updateRequest = async (request, theWorker, navigate) => {
+    console.log(
+      "🚀 ~ file: requestsStore.jsx ~ line 55 ~ RequestStore ~ updateRequest= ~ request",
+      request
+    );
     try {
       const resp = await api.put(
         `requests/updateRequest/${request._id}`,
         request
       );
+      const pushRequest = profileStore.workers.find(
+        (worker) => worker._id == theWorker
+      );
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 29 ~ RequestStore ~ createNewRequests= ~ response",
+        response.data._id
+      );
+      pushRequest.requests.push(response.data._id);
+      await api.put(`/profiles/${pushRequest._id}`, pushRequest);
+
       this.isLoading = false;
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 38 ~ RequestStore ~ updateRequest= ~ error",
+        error
+      );
+    }
+  };
+
+  removeRequest = async (request, navigate) => {
+    try {
+      const response = await api.delete(`requests/${request._id}`);
+      const tempRequests = this.requests.filter(
+        (req) => req._id == request._id
+      );
+      this.requests = tempRequests;
+      this.loading = false;
+      navigate("/");
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 87 ~ RequestStore ~ removeRequest= ~ error",
         error
       );
     }

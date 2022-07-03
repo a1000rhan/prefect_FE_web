@@ -19,6 +19,10 @@ class ProfileStore {
       const MyProfile = this.profiles?.find(
         (profile) => profile.owner?._id === authstore.user?._id
       );
+      const MyWorkers = this.profiles?.filter(
+        (worker) => worker.owner.type === "worker"
+      );
+      this.workers = MyWorkers;
       this.oneProfile = MyProfile;
       this.loading = false;
     } catch (error) {

@@ -13,8 +13,8 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
   );
   profileStore.loading && <h1>loading</h1>;
   const [problemDesc, setProblemDesc] = useState({
-    operation: "",
-    unit: "",
+    operation: request.problemDesc.operation,
+    unit: request.problemDesc.unit,
   });
 
   const [theWorker, setWorker] = useState("");
@@ -36,16 +36,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
   const handleSubmit = () => {
     const allData = { ...request, problemDesc: problemDesc };
 
-    requestStore.createNewRequests(allData, theWorker, navigate);
-    setRequest({
-      customerName: "",
-      customerAddress: {},
-      customerPhone: "",
-      time: "",
-      date: "",
-      notes: "",
-      problemDesc: {},
-    });
+    requestStore.updateRequest(allData, theWorker, navigate);
   };
   return (
     <>
@@ -55,7 +46,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
           size={30}
           className="top-icon"
         />
-        <h1>Create Request</h1>
+        <h1>Update Request</h1>
       </header>
       <div className="bk">
         <div className="container">
@@ -65,12 +56,13 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
               <br />
               <RadioGroup
                 name="unit"
+                value={request.problemDesc.unit}
                 className="checkbox2"
                 onChange={handleChangeUnit}
               >
                 <FormControlLabel
-                  value="split"
                   name="unit"
+                  value="split"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
                   label="Split Unit"
@@ -86,6 +78,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
               </RadioGroup>
               <RadioGroup
                 name="operation"
+                value={request.problemDesc.operation}
                 className="checkbox3"
                 onChange={handleChangeOperation}
               >
@@ -123,7 +116,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
             </div>
           </form>
           <button className="btn" onClick={handleSubmit}>
-            Create Request
+            Update the Request
           </button>
         </div>
       </div>

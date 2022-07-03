@@ -7,3 +7,35 @@
 
   padding: 20px;
 }
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+
+  margin: 10px;
+}
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.profile-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.link-detail {
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+.card-detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+}

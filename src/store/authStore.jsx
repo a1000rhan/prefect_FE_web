@@ -98,9 +98,9 @@ class AuthStore {
     delete api.defaults.headers.common.Authorization;
     // AsyncStorage.removeItem("myToken");
     localStorage.removeItem("myToken");
+    navigate("/signin");
     this.user = null;
     this.loading = false;
-    navigate("/");
   };
 }
 const authstore = new AuthStore();

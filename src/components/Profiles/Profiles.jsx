@@ -7,15 +7,20 @@ const Profiles = () => {
   if (profileStore.loading) {
     <h1>loading</h1>;
   }
-  const theProfiles = profileStore.profiles.map((profile) => (
+
+  const theProfiles = profileStore.workers.map((profile) => (
     <ProfileItem key={profile._id} profile={profile} />
   ));
 
   return (
-    <div className="App-header">
-      <p>profiles</p>
-      {theProfiles}
-    </div>
+    <>
+      <header className="App-header">
+        <h1>profiles</h1>
+      </header>
+      <div className="bk">
+        <div className="profile-container">{theProfiles}</div>
+      </div>
+    </>
   );
 };
 
