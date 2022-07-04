@@ -15,6 +15,10 @@
 
   margin: 10px;
 }
+.profile-info {
+  width: 90%;
+  overflow-y: scroll;
+}
 .profile-container {
   display: flex;
   flex-direction: column;

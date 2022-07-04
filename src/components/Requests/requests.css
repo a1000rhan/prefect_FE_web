@@ -65,6 +65,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  overflow-y: scroll;
 }
 
 @media screen and (max-width: 480px) {
@@ -95,6 +96,7 @@
   color: #fff;
   font-weight: bold;
 }
+
 .addressB {
   display: flex;
   flex-wrap: wrap;
@@ -138,4 +140,9 @@
 
 .search-text {
   width: 96%;
+}
+
+.dropdown-menu {
+  text-decoration: none;
+  color: #000;
 }

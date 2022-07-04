@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
+import Swal from "sweetalert2";
+import moment from "moment";
 
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
@@ -23,7 +25,7 @@ const RequestItem = ({ request }) => {
   };
   const handleDelete = (e) => {
     e.preventDefault();
-    requestStore.removeRequest(request, navigate);
+    requestStore.removeRequest(request, navigate, Swal);
   };
 
   const onDone = (e) => {
@@ -37,67 +39,79 @@ const RequestItem = ({ request }) => {
     requestStore.updateRequest(request);
   };
 
+  const timeline =
+    request?.date === moment(Date()).format("YYYY-MM-DD") ? (
+      <p>Today</p>
+    ) : (
+      <p>Tomorrow</p>
+    );
   return (
-    <Card className="card">
-      <div className="card-header">
-        <Link className="req-link" to={`/requests/${request.slug}`}>
-          <p className="reqItem-text">{request?.customerName}</p>
-          <p className="reqItem-sub-text">
-            Phone Number: {request?.customerPhone}
-          </p>
-        </Link>
-
-        <Icon.ThreeDots
-          style={{
-            display: authstore.user.type === "admin" ? "block" : "none",
-          }}
-          onClick={handleClick}
-        />
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <Link to={`/updateRequest/${request._id}`}>
-            <MenuItem>Edit Request</MenuItem>
+    <div className="">
+      {timeline}
+      <Card className="card">
+        <div className="card-header">
+          <Link className="req-link" to={`/requests/${request.slug}`}>
+            <p className="reqItem-text">{request?.customerName}</p>
+            <p className="reqItem-sub-text">
+              Phone Number: {request?.customerPhone}
+            </p>
           </Link>
-          <MenuItem onClick={handleDelete}>Delete Request</MenuItem>
-        </Menu>
-      </div>
 
-      <Link className="req-link" to={`/requests/${request.slug}`}>
-        <p>
-          status:
-          <span
+          <Icon.ThreeDots
             style={{
-              color:
-                request.status == "pending"
-                  ? "blue"
-                  : request.status == "done"
-                  ? "green"
-                  : "red",
-              fontWeight: "bold",
+              display: authstore.user.type === "admin" ? "block" : "none",
+            }}
+            onClick={handleClick}
+          />
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
             }}
           >
-            &nbsp; {request?.status}
-          </span>
-        </p>
-        {request?.status === "pending" && (
-          <>
-            <button className="btn-status" onClick={onDone}>
-              Done
-            </button>
-            <button className="btn-status" onClick={onCancel}>
-              Cancel
-            </button>
-          </>
-        )}
-      </Link>
-    </Card>
+            <Link
+              className="dropdown-menu"
+              to={`/updateRequest/${request._id}`}
+            >
+              <MenuItem>Edit Request</MenuItem>
+            </Link>
+            <MenuItem onClick={handleDelete}>Delete Request</MenuItem>
+          </Menu>
+        </div>
+
+        <Link className="req-link" to={`/requests/${request.slug}`}>
+          <p>
+            status:
+            <span
+              style={{
+                color:
+                  request.status == "pending"
+                    ? "blue"
+                    : request.status == "done"
+                    ? "green"
+                    : "red",
+                fontWeight: "bold",
+              }}
+            >
+              &nbsp; {request?.status}
+            </span>
+          </p>
+          {request?.status === "pending" && (
+            <>
+              <button className="btn-status" onClick={onDone}>
+                Done
+              </button>
+              <button className="btn-status" onClick={onCancel}>
+                Cancel
+              </button>
+            </>
+          )}
+        </Link>
+      </Card>
+    </div>
   );
 };
 

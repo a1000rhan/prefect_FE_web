@@ -22,13 +22,13 @@ const OneProfile = () => {
 
   return (
     <>
-      <header className="App-header">
-        <div className="top-profile">
-          <Avatar />
-          <h1>{authstore.user.username} Profile</h1>
-        </div>
-      </header>
       <div className="bk">
+        <header className="App-header">
+          <div className="top-profile">
+            <Avatar />
+            <h1>{authstore.user.username} Profile</h1>
+          </div>
+        </header>
         <div className="container">
           <div className="profile-info">
             <p className="labelT">

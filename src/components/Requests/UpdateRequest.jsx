@@ -50,16 +50,16 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   };
   return (
     <>
-      <header className="App-header">
-        <Icon.ArrowLeft
-          onClick={() => navigate(-1)}
-          size={30}
-          className="top-icon"
-        />
-
-        <h1>Update Request</h1>
-      </header>
       <div className="bk">
+        <header className="App-header">
+          <Icon.ArrowLeft
+            onClick={() => navigate(-1)}
+            size={30}
+            className="top-icon"
+          />
+
+          <h1>Update Request</h1>
+        </header>
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">

@@ -26,19 +26,27 @@ const ProfileWorkerDetails = () => {
         <RequestItem request={req} key={req._id} />
       </div>
     ));
-
+    console.log(info);
     return (
       <>
-        <header className="App-header">
-          <Icon.ArrowLeft
-            onClick={() => navigate(-1)}
-            size={30}
-            className="top-icon"
-          />
-          <Avatar />
-          <h1>{info?.owner.username} Profile</h1>
-        </header>
         <div className="bk">
+          <header className="App-header2">
+            <Icon.ArrowLeft
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+            <Avatar
+              src={info?.image}
+              sx={{
+                width: 80,
+                height: 80,
+                objectFit: "fill",
+                border: "3px solid white",
+              }}
+            />
+            <h1>{info?.owner.username} Profile</h1>
+          </header>
           <div className="container">
             <div className="profile-info">
               <p className="labelT">

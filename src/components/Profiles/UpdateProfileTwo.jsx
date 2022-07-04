@@ -20,6 +20,16 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     profileStore.updateProfile(profile, Swal, navigate);
+    setProfile({
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      position: "",
+      civilId: "",
+      age: "",
+      address: "",
+      image: "",
+    });
   };
 
   return (
@@ -72,6 +82,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
+            <input type={file} />
           </Form>
         </div>
         <hr className="divider" />

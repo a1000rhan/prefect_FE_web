@@ -36,6 +36,7 @@ function App() {
     civilId: "",
     age: "",
     address: "",
+    image: "",
   });
   const [request, setRequest] = useState({
     customerName: "",

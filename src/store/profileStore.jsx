@@ -40,18 +40,15 @@ class ProfileStore {
   };
 
   updateProfile = async (profile, Swal, navigate) => {
-    console.log(
-      "🚀 ~ file: profileStore.jsx ~ line 43 ~ ProfileStore ~ updateProfile= ~ profile",
-      profile
-    );
     try {
-      await this.fetchProfiles();
+      const formData = new FormData();
+      for (const key in profile) formData.append(key, profile[key]);
 
       console.log(
         "🚀 ~ file: profileStore.jsx ~ line 46 ~ ProfileStore ~ updateProfile= ~ this.oneProfile",
         this.oneProfile
       );
-      const res = await api.put(`/profiles/${this.oneProfile._id}`, profile);
+      const res = await api.put(`/profiles/${this.oneProfile._id}`, formData);
       this.profiles = this.profiles.map((pro) =>
         pro._id === profile._id ? res.data : pro
       );
@@ -65,7 +62,7 @@ class ProfileStore {
         showConfirmButton: false,
         timer: 3000,
       });
-      this.fetchProfiles();
+      await this.fetchProfiles();
     } catch (error) {
       console.log(error);
       Swal.fire(

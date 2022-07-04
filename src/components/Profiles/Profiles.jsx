@@ -15,10 +15,10 @@ const Profiles = () => {
 
   return (
     <>
-      <header className="App-header">
-        <h1>profiles</h1>
-      </header>
       <div className="bk">
+        <header className="App-header">
+          <h1>profiles</h1>
+        </header>
         <div className="profile-container">{theProfiles}</div>
       </div>
     </>

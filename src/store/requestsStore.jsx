@@ -61,38 +61,45 @@ class RequestStore {
   };
   updateRequest = async (Updaterequest, theWorker, navigate, Swal) => {
     try {
-      const pushRequest = profileStore.workers.find(
-        (worker) => worker._id == theWorker
-      );
+      Swal.fire({
+        title: "Do you want to save the changes?",
 
-      const resp = await api.put(
-        `requests/updateRequest/${Updaterequest._id}`,
-        Updaterequest
-      );
+        showCancelButton: true,
+        confirmButtonText: "Save",
+      }).then(async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const pushRequest = profileStore.workers.find(
+            (worker) => worker._id == theWorker
+          );
 
-      pushRequest.requests.find(async (req) => {
-        if (req._id !== resp.data._id || req._id === "select") {
-          pushRequest.requests.push(resp.data._id);
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "Your Request has Successfully updated",
-            showConfirmButton: false,
-            timer: 3000,
+          const resp = await api.put(
+            `requests/updateRequest/${Updaterequest._id}`,
+            Updaterequest
+          );
+
+          pushRequest.requests.find(async (req) => {
+            if (req._id !== resp.data._id || req._id === "select") {
+              pushRequest.requests.push(resp.data._id);
+            } else {
+              return Swal.fire({
+                position: "top-center",
+                icon: "error",
+                title: "Sorry Something Went Wrong",
+                showConfirmButton: false,
+              });
+            }
           });
-        } else {
-          return Swal.fire({
-            position: "top-center",
-            icon: "error",
-            title: "Sorry Something Went Wrong",
-            showConfirmButton: false,
-          });
+          await api.put(`/profiles/${pushRequest._id}`, pushRequest);
+
+          navigate("/");
+          Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
         }
       });
-      await api.put(`/profiles/${pushRequest._id}`, pushRequest);
 
       this.isLoading = false;
-      navigate("/");
       this.getAllRequests();
     } catch (error) {
       console.log(
@@ -109,13 +116,25 @@ class RequestStore {
     }
   };
 
-  removeRequest = async (request, navigate) => {
+  removeRequest = async (request, navigate, Swal) => {
     try {
-      const response = await api.delete(`requests/${request._id}`);
-      this.requests = this.requests.filter((req) => req._id == request._id);
+      Swal.fire({
+        title: "Do you want to Delete the Request?",
 
-      this.loading = false;
+        showCancelButton: true,
+        confirmButtonText: "Confirm",
+      }).then(async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          await api.delete(`requests/${request._id}`);
+          this.requests = this.requests.filter((req) => req._id == request._id);
+
+          Swal.fire("Deleted!", "", "success");
+        }
+      });
+
       this.getAllRequests();
+      this.loading = false;
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 87 ~ RequestStore ~ removeRequest= ~ error",
