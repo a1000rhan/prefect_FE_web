@@ -1,6 +1,11 @@
 import "./App.css";
 import "./components/Profiles/profile.css";
 import "./components/Requests/requests.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
+import "react-date-picker/dist/DatePicker.css";
+import "react-time-picker/dist/TimePicker.css";
+
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home";
@@ -94,7 +99,7 @@ function App() {
           }
         />
         <Route
-          path="/updateRequest/problem"
+          path="/updateRequest/2"
           element={
             <UpdateRequestProblem
               updateRequest={updateRequest}

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
 import requestStore from "../../store/requestsStore";
+import moment from "moment";
 
 const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   if (profileStore.loading || requestStore.loading) {
@@ -14,12 +15,8 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     (request) => request._id === requestId
   );
   setUpdateRequest(request);
-
-  const [time, setTime] = useState({
-    minutes: 0,
-    hours: 1,
-  });
-  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(updateRequest.time);
+  const [date, setDate] = useState(moment(updateRequest.date).toDate());
   const [address, setAddress] = useState({
     house: updateRequest?.customerAddress[0].house,
     street: updateRequest?.customerAddress[0].street,
@@ -28,20 +25,28 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     apartment: updateRequest?.customerAddress[0].apartment,
     floor: updateRequest?.customerAddress[0].floor,
   });
+  const [data, setData] = useState({
+    customerName: updateRequest.customerName,
+    customerPhone: updateRequest.customerPhone,
+  });
   const navigate = useNavigate();
-  console.log(
-    "🚀 ~ file: UpdateRequest.jsx ~ line 9 ~ UpdateRequest ~ updateRequest",
-    updateRequest
-  );
 
   const handleChange = (event) => {
-    setUpdateRequest({
-      ...updateRequest,
+    setData({
+      ...data,
       [event.target.name]: event.target.value,
     });
   };
   const handleSubmit = () => {
-    console.log(updateRequest);
+    setUpdateRequest({
+      ...updateRequest,
+      customerName: data.customerName,
+      customerPhone: data.customerPhone,
+      time: time,
+      date: moment(date).format("YYYY-MM-DD"),
+      customerAddress: address,
+    });
+    navigate("/updateRequest/2");
   };
   return (
     <>
@@ -61,11 +66,10 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
               <label className="labelT">Customer Name</label>
               <input
                 className="textF"
-                value={updateRequest.customerName}
+                value={data.customerName}
                 type="text"
                 name="customerName"
                 onChange={handleChange}
-                autoFocus={true}
               />
               <label className="labelT">Customer Address</label>
               <div className="addressB">
@@ -134,7 +138,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
               <label className="labelT">Customer Phone Number</label>
               <input
                 className="textF"
-                value={updateRequest.customerPhone}
+                value={data.customerPhone}
                 type="text"
                 name="customerPhone"
                 onChange={handleChange}
@@ -154,7 +158,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
           </form>
           <div className="center">
             <button className="btn" onClick={handleSubmit}>
-              create Request
+              Continue Update Request
             </button>
           </div>
         </div>

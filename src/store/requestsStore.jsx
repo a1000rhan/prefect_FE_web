@@ -23,7 +23,7 @@ class RequestStore {
     }
   };
 
-  createNewRequests = async (newRequest, theWorker, navigate) => {
+  createNewRequests = async (newRequest, theWorker, navigate, Swal) => {
     try {
       const response = await api.post("requests/createRequest", newRequest);
       this.requests.push(newRequest);
@@ -32,63 +32,90 @@ class RequestStore {
       const pushRequest = profileStore.workers.find(
         (worker) => worker._id == theWorker
       );
-      console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 29 ~ RequestStore ~ createNewRequests= ~ response",
-        response.data._id
-      );
+
       pushRequest.requests.push(response.data._id);
       await api.put(`/profiles/${pushRequest._id}`, pushRequest);
 
-      console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 35 ~ RequestStore ~ createNewRequests= ~ pushRequest",
-        pushRequest
-      );
       this.isLoading = false;
+
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Your Request has Successfully created",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 27 ~ RequestStore ~ createNewRequests=async ~ error",
         error
       );
+      Swal.fire({
+        position: "top-center",
+        icon: "error",
+        title: "Sorry Something Went Wrong",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     }
   };
-  updateRequest = async (request, theWorker, navigate) => {
-    console.log(
-      "🚀 ~ file: requestsStore.jsx ~ line 55 ~ RequestStore ~ updateRequest= ~ request",
-      request
-    );
+  updateRequest = async (Updaterequest, theWorker, navigate, Swal) => {
     try {
-      const resp = await api.put(
-        `requests/updateRequest/${request._id}`,
-        request
-      );
       const pushRequest = profileStore.workers.find(
         (worker) => worker._id == theWorker
       );
-      console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 29 ~ RequestStore ~ createNewRequests= ~ response",
-        response.data._id
+
+      const resp = await api.put(
+        `requests/updateRequest/${Updaterequest._id}`,
+        Updaterequest
       );
-      pushRequest.requests.push(response.data._id);
+
+      pushRequest.requests.find(async (req) => {
+        if (req._id !== resp.data._id || req._id === "select") {
+          pushRequest.requests.push(resp.data._id);
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Your Request has Successfully updated",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        } else {
+          return Swal.fire({
+            position: "top-center",
+            icon: "error",
+            title: "Sorry Something Went Wrong",
+            showConfirmButton: false,
+          });
+        }
+      });
       await api.put(`/profiles/${pushRequest._id}`, pushRequest);
 
       this.isLoading = false;
+      navigate("/");
+      this.getAllRequests();
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 38 ~ RequestStore ~ updateRequest= ~ error",
         error
       );
+      Swal.fire({
+        position: "top-center",
+        icon: "error",
+        title: "Sorry Something Went Wrong",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     }
   };
 
   removeRequest = async (request, navigate) => {
     try {
       const response = await api.delete(`requests/${request._id}`);
-      const tempRequests = this.requests.filter(
-        (req) => req._id == request._id
-      );
-      this.requests = tempRequests;
+      this.requests = this.requests.filter((req) => req._id == request._id);
+
       this.loading = false;
-      navigate("/");
+      this.getAllRequests();
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 87 ~ RequestStore ~ removeRequest= ~ error",

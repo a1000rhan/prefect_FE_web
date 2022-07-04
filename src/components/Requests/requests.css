@@ -131,3 +131,11 @@
   display: flex;
   align-items: center;
 }
+
+.date-picker {
+  background-color: #fff;
+}
+
+.search-text {
+  width: 96%;
+}

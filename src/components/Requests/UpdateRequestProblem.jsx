@@ -5,18 +5,16 @@ import requestStore from "../../store/requestsStore";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
+import Swal from "sweetalert2";
 
-const UpdateRequestProblem = ({ request, setRequest }) => {
-  console.log(
-    "🚀 ~ file: CreateRequestProblem.jsx ~ line 9 ~ CreateRequestProblem ~ request",
-    request
-  );
+const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
   const [problemDesc, setProblemDesc] = useState({
-    operation: request.problemDesc.operation,
-    unit: request.problemDesc.unit,
+    operation: updateRequest.problemDesc[0].operation,
+    unit: updateRequest.problemDesc[0].unit,
   });
 
+  const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
   const [theWorker, setWorker] = useState("");
   const navigate = useNavigate();
 
@@ -25,18 +23,40 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
   ));
 
   const handleChange = (event) => {
-    setRequest({ ...request, [event.target.name]: event.target.value });
+    setUpdateRequest({
+      ...updateRequest,
+      [event.target.name]: event.target.value,
+    });
   };
   const handleChangeOperation = (event) => {
-    setProblemDesc({ ...problemDesc, operation: event.target.value });
+    setProblemDesc({
+      ...problemDesc,
+      operation: event.target.value,
+    });
   };
   const handleChangeUnit = (event) => {
-    setProblemDesc({ ...problemDesc, unit: event.target.value });
+    setProblemDesc({
+      ...problemDesc,
+      unit: event.target.value,
+    });
   };
-  const handleSubmit = () => {
-    const allData = { ...request, problemDesc: problemDesc };
 
-    requestStore.updateRequest(allData, theWorker, navigate);
+  const handleStatus = (event) => {
+    setUpdateStatus(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    const allData = {
+      ...updateRequest,
+      problemDesc: problemDesc,
+      status: updateStatus,
+    };
+
+    console.log(
+      "🚀 ~ file: UpdateRequestProblem.jsx ~ line 44 ~ handleSubmit ~ allData",
+      allData
+    );
+    requestStore.updateRequest(allData, theWorker, navigate, Swal);
   };
   return (
     <>
@@ -56,7 +76,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
               <br />
               <RadioGroup
                 name="unit"
-                value={request.problemDesc.unit}
+                value={problemDesc.unit}
                 className="checkbox2"
                 onChange={handleChangeUnit}
               >
@@ -78,7 +98,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
               </RadioGroup>
               <RadioGroup
                 name="operation"
-                value={request.problemDesc.operation}
+                value={problemDesc.operation}
                 className="checkbox3"
                 onChange={handleChangeOperation}
               >
@@ -92,7 +112,7 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
 
                 <FormControlLabel
                   value="Installing"
-                  name="problemDesc"
+                  name="operation"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
                   label="Installing"
@@ -104,15 +124,50 @@ const UpdateRequestProblem = ({ request, setRequest }) => {
               <textarea
                 className="textF"
                 name="notes"
-                value={request.notes}
+                value={updateRequest.notes}
                 onChange={handleChange}
               />
               <br />
               <label className="labelT">Worker</label>
               <select onChange={(e) => setWorker(e.target.value)}>
-                <option>select</option>
+                <option value="select">select</option>
                 {workersName}
               </select>
+              <br />
+              <br />
+
+              <label className="labelT">Status:</label>
+
+              <RadioGroup
+                name="status"
+                value={updateStatus}
+                onChange={handleStatus}
+                className="checkbox3"
+              >
+                <FormControlLabel
+                  value="cancel"
+                  name="cancel"
+                  sx={{ color: "white" }}
+                  control={<Radio sx={{ color: "white" }} />}
+                  label="Cancel"
+                />
+
+                <FormControlLabel
+                  value="done"
+                  name="done"
+                  sx={{ color: "white" }}
+                  control={<Radio sx={{ color: "white" }} />}
+                  label="Done"
+                />
+
+                <FormControlLabel
+                  value="pending"
+                  name="pending"
+                  sx={{ color: "white" }}
+                  control={<Radio sx={{ color: "white" }} />}
+                  label="Pending"
+                />
+              </RadioGroup>
             </div>
           </form>
           <button className="btn" onClick={handleSubmit}>

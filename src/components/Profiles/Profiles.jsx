@@ -2,9 +2,10 @@ import React from "react";
 import profileStore from "../../store/profileStore";
 import { observer } from "mobx-react";
 import ProfileItem from "./ProfileItem";
+import requestStore from "../../store/requestsStore";
 
 const Profiles = () => {
-  if (profileStore.loading) {
+  if (profileStore.loading || requestStore.loading) {
     <h1>loading</h1>;
   }
 

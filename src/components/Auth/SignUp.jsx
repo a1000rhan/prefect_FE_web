@@ -13,7 +13,7 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -40,7 +40,13 @@ const SignUp = () => {
     <div className="bk">
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
-        <h1 className="title">Sign Up</h1>
+        <h1 className="perfect-title">Sign Up</h1>
+        <p className="under-sign">
+          If you already have an account, please go to
+          <Link to="/signin" className="under-sign-link">
+            <span> Sign In</span>
+          </Link>
+        </p>
       </div>
       <div className="container">
         <div className="form-container">

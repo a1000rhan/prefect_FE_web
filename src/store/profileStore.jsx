@@ -65,6 +65,7 @@ class ProfileStore {
         showConfirmButton: false,
         timer: 3000,
       });
+      this.fetchProfiles();
     } catch (error) {
       console.log(error);
       Swal.fire(

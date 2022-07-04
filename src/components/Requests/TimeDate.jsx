@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import DatePicker from "sassy-datepicker";
-import { TimePicker } from "sassy-datepicker";
+// import DatePicker from "sassy-datepicker";
+// import { TimePicker } from "sassy-datepicker";
 import { Button, Modal, Box } from "@mui/material";
-import moment from "moment";
+// import { DatePicker } from "@julienvanbeveren/react-datetime-picker";
+import DatePicker from "react-date-picker/dist/entry.nostyle";
+import TimePicker from "react-time-picker/dist/entry.nostyle";
 
 const TimeDate = ({ setDate, date, setTime, time }) => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const style = {
     position: "absolute",
@@ -21,32 +21,24 @@ const TimeDate = ({ setDate, date, setTime, time }) => {
     p: 4,
   };
 
-  const dateChange = (d) => {
-    setDate(moment(d).format("YYYY-MM-DD"));
-    setOpen(false);
-  };
-  const timeChange = (t) => {
-    setTime(moment(t).format("HH:mm"));
-  };
-
   return (
-    <>
-      <Button onClick={handleOpen}>Select the Date</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={style}
-      >
-        <Box>
-          <TimePicker onChange={timeChange} selected={time} />
-
-          <DatePicker onChange={dateChange} selected={date} />
-          <Button onClick={handleClose}>close</Button>
-        </Box>
-      </Modal>
-    </>
+    <div>
+      <DatePicker
+        className="date-picker"
+        minDate={new Date()}
+        format="yyyy-MM-dd"
+        value={date}
+        defaultView={new Date()}
+        onChange={setDate}
+      />
+      <TimePicker
+        minTime={new Date()}
+        className="date-picker"
+        value={time}
+        onChange={setTime}
+        disableClock={true}
+      />
+    </div>
   );
 };
 

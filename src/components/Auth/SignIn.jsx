@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../../logo.svg";
 import authstore from "../../store/authStore";
 import { observer } from "mobx-react";
@@ -94,6 +94,12 @@ const SignIn = () => {
           <button className="btn" onClick={handleSubmit}>
             Sign In
           </button>
+          <p className="under-sign">
+            if you don't have an account, please go to
+            <Link to="/signup" className="under-sign-link">
+              <span> Sign Up</span>
+            </Link>
+          </p>
         </div>
       </div>
     </div>

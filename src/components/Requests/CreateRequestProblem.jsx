@@ -5,6 +5,7 @@ import requestStore from "../../store/requestsStore";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
+import Swal from "sweetalert2";
 
 const CreateRequestProblem = ({ request, setRequest }) => {
   console.log(
@@ -38,7 +39,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
 
     const allData = { ...request, problemDesc: problemDesc };
 
-    requestStore.createNewRequests(allData, theWorker, navigate);
+    requestStore.createNewRequests(allData, theWorker, navigate, Swal);
     setRequest({
       customerName: "",
       customerAddress: {},
@@ -119,7 +120,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
               <br />
               <label className="labelT">Worker</label>
               <select onChange={(e) => setWorker(e.target.value)}>
-                <option>select</option>
+                <option required>select</option>
                 {workersName}
               </select>
             </div>

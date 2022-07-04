@@ -3,12 +3,10 @@ import TimeDate from "./TimeDate";
 import { useNavigate } from "react-router-dom";
 import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
+import moment from "moment";
 
 const CreateRequest = ({ request, setRequest }) => {
-  const [time, setTime] = useState({
-    minutes: 0,
-    hours: 1,
-  });
+  const [time, setTime] = useState("10:00");
   const [date, setDate] = useState(new Date());
   const [address, setAddress] = useState({
     house: "",
@@ -30,7 +28,7 @@ const CreateRequest = ({ request, setRequest }) => {
       ...request,
       customerAddress: address,
       time: time,
-      date: date,
+      date: moment(date).format("YYYY-MM-DD"),
     });
     profileStore.fetchWorkersProfiles();
     navigate("/requests/createRequest/2");
@@ -58,7 +56,6 @@ const CreateRequest = ({ request, setRequest }) => {
                 type="text"
                 name="customerName"
                 onChange={handleChange}
-                autoFocus={true}
               />
               <label className="labelT">Customer Address</label>
               <div className="addressB">

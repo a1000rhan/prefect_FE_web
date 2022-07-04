@@ -33,15 +33,15 @@ const RequestDetails = () => {
 
   return (
     <div>
-      <header className="App-header">
-        <Icon.ArrowLeft
-          onClick={() => navigate(-1)}
-          size={30}
-          className="top-icon"
-        />
-        <h1>Request Details</h1>
-      </header>
       <div className="bk">
+        <header className="App-header">
+          <Icon.ArrowLeft
+            onClick={() => navigate(-1)}
+            size={30}
+            className="top-icon"
+          />
+          <h1>Request Details</h1>
+        </header>
         <div className="details-container">
           <div className="card">
             <div

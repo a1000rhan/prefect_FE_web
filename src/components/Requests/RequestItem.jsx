@@ -25,10 +25,6 @@ const RequestItem = ({ request }) => {
     e.preventDefault();
     requestStore.removeRequest(request, navigate);
   };
-  const handleUpdate = () => {
-    navigate("/updateRequest");
-    setAnchorEl(null);
-  };
 
   const onDone = (e) => {
     e.preventDefault();
