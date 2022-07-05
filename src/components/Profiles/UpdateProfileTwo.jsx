@@ -82,7 +82,13 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <input type={file} />
+            <Form.Group className="form-control">
+              <Form.Label className="form-label">
+                <Icon.Image />
+                &nbsp; Image
+              </Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
           </Form>
         </div>
         <hr className="divider" />

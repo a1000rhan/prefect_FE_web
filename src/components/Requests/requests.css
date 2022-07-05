@@ -41,7 +41,7 @@
 .card {
   width: 90%;
   padding: 10px;
-  background-color: #fff;
+  background-color: white;
   border-radius: 5px;
 }
 .card-header {
@@ -139,10 +139,44 @@
 }
 
 .search-text {
-  width: 96%;
+  width: 95%;
 }
 
 .dropdown-menu {
   text-decoration: none;
   color: #000;
+}
+
+.req-timeline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+}
+.timeline-dates {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+  margin: 20px;
+}
+
+.v-line {
+  width: 5px;
+  height: 240px;
+  border: none;
+  background-image: linear-gradient(to top, #7ab6f200, #a4d2f5, #7ab6f200);
+  margin: -100px;
+  position: sticky;
+  overflow: hidden;
+  z-index: 1;
+}
+.text-timeline {
+  color: #fff;
+  font-size: 0.8rem;
+  width: 90px;
+  font-weight: bold;
+  z-index: 200;
 }

@@ -23,7 +23,7 @@ const Home = () => {
   ));
   const info = profileStore.oneProfile;
 
-  const requests = info.requests?.map((req) => (
+  const requests = info?.requests?.map((req) => (
     <div className="reqs">
       <RequestItem request={req} key={req._id} />
     </div>

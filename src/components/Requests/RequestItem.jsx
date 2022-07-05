@@ -39,22 +39,20 @@ const RequestItem = ({ request }) => {
     requestStore.updateRequest(request);
   };
 
-  const timeline =
-    request?.date === moment(Date()).format("YYYY-MM-DD") ? (
-      <p>Today</p>
-    ) : (
-      <p>Tomorrow</p>
-    );
   return (
     <div className="">
-      {timeline}
-      <Card className="card">
+      {/* <div className="timeline-dates">
+        <hr className="v-line" />
+
+        <p className="text-timeline">{request.date}</p>
+
+        <Icon.CircleFill size={20} color="#a4d2f5" />
+      </div> */}
+      <div className="card">
         <div className="card-header">
           <Link className="req-link" to={`/requests/${request.slug}`}>
             <p className="reqItem-text">{request?.customerName}</p>
-            <p className="reqItem-sub-text">
-              Phone Number: {request?.customerPhone}
-            </p>
+            <p className="reqItem-sub-text">date: {request?.date}</p>
           </Link>
 
           <Icon.ThreeDots
@@ -110,7 +108,7 @@ const RequestItem = ({ request }) => {
             </>
           )}
         </Link>
-      </Card>
+      </div>
     </div>
   );
 };

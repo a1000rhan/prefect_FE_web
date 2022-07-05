@@ -25,6 +25,7 @@ import CreateRequestProblem from "./components/Requests/CreateRequestProblem";
 import UpdateRequest from "./components/Requests/UpdateRequest";
 import UpdateRequestProblem from "./components/Requests/UpdateRequestProblem";
 import ProfileWorkerDetails from "./components/Profiles/ProfileWorkerDetails";
+import PDFReceipt from "./components/Requests/PDFReceipt";
 
 function App() {
   const [showNav, setShowNav] = useState("none");
@@ -119,6 +120,7 @@ function App() {
             <UpdateProfileTwo profile={profile} setProfile={setProfile} />
           }
         />
+        <Route path="/receipt" element={<PDFReceipt />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
