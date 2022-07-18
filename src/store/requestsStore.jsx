@@ -97,10 +97,10 @@ class RequestStore {
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");
         }
+        this.getAllRequests();
       });
 
       this.isLoading = false;
-      this.getAllRequests();
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 38 ~ RequestStore ~ updateRequest= ~ error",

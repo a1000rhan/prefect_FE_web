@@ -51,7 +51,7 @@ const SignUp = () => {
       <div className="container">
         <div className="form-container">
           <Form onSubmit={handleSubmit} className="form">
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.PersonCircle /> &nbsp; Username
               </Form.Label>
@@ -64,7 +64,7 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
                 &nbsp; Password
@@ -77,7 +77,7 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
                 &nbsp; Confirm Password
@@ -88,7 +88,7 @@ const SignUp = () => {
                 onChange={(value) => setConfirmPassword(value)}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
                 &nbsp; Email
@@ -120,7 +120,7 @@ const SignUp = () => {
             </RadioGroup>
           </Form>
         </div>
-        <button className="btn" onClick={handleSubmit}>
+        <button className="btns" onClick={handleSubmit}>
           Sign Up
         </button>
       </div>

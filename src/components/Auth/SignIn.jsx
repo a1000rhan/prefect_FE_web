@@ -35,13 +35,13 @@ const SignIn = () => {
         <img src={logo} className="App-logo2" alt="logo" />
 
         <h1 className="perfect-title">Sign In</h1>
+        <hr className="divider" />
       </div>
 
-      <hr className="divider" />
       <div className="container">
         <div className="form-container">
           <Form onSubmit={handleSubmit} className="form">
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.PersonCircle /> &nbsp; Username
               </Form.Label>
@@ -59,7 +59,7 @@ const SignIn = () => {
               &nbsp; Password
             </Form.Label>
             <div
-              className="form-control"
+              className="form-controls"
               style={{
                 display: "flex",
                 width: "100%",
@@ -91,7 +91,7 @@ const SignIn = () => {
           </Form>
 
           <hr className="divider" />
-          <button className="btn" onClick={handleSubmit}>
+          <button className="btns" onClick={handleSubmit}>
             Sign In
           </button>
           <p className="under-sign">

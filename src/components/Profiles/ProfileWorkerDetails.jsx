@@ -26,7 +26,7 @@ const ProfileWorkerDetails = () => {
         <RequestItem request={req} key={req._id} />
       </div>
     ));
-    console.log(info);
+
     return (
       <>
         <div className="bk">
@@ -52,6 +52,7 @@ const ProfileWorkerDetails = () => {
               <p className="labelT">
                 worker name: {info?.firstName} {info?.lastName}
               </p>
+
               <p className="labelT">worker age: {info?.age}</p>
               <p className="labelT">Civil ID: {info?.civilId}</p>
               <p className="labelT">Address: {info?.address}</p>

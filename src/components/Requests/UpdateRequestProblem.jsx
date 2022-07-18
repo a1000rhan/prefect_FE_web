@@ -10,8 +10,8 @@ import Swal from "sweetalert2";
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
   const [problemDesc, setProblemDesc] = useState({
-    operation: updateRequest.problemDesc[0].operation,
-    unit: updateRequest.problemDesc[0].unit,
+    operation: updateRequest.problemDesc[0]?.operation,
+    unit: updateRequest.problemDesc[0]?.unit,
   });
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);

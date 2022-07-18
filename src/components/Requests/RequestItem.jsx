@@ -9,6 +9,7 @@ import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
 import Swal from "sweetalert2";
 import moment from "moment";
+import PDFReceipt from "./PDFReceipt";
 
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
@@ -30,24 +31,18 @@ const RequestItem = ({ request }) => {
 
   const onDone = (e) => {
     e.preventDefault();
-    request.status = "done";
-    requestStore.updateRequest(request);
+    // request.status = "done";
+    pdf.save("test1.pdf");
+    // requestStore.updateRequest(request, navigate, "", Swal);
   };
   const onCancel = (e) => {
     e.preventDefault();
     request.status = "canceled";
-    requestStore.updateRequest(request);
+    requestStore.updateRequest(request, navigate, "", Swal);
   };
 
   return (
     <div className="">
-      {/* <div className="timeline-dates">
-        <hr className="v-line" />
-
-        <p className="text-timeline">{request.date}</p>
-
-        <Icon.CircleFill size={20} color="#a4d2f5" />
-      </div> */}
       <div className="card">
         <div className="card-header">
           <Link className="req-link" to={`/requests/${request.slug}`}>

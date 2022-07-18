@@ -25,19 +25,24 @@ import CreateRequestProblem from "./components/Requests/CreateRequestProblem";
 import UpdateRequest from "./components/Requests/UpdateRequest";
 import UpdateRequestProblem from "./components/Requests/UpdateRequestProblem";
 import ProfileWorkerDetails from "./components/Profiles/ProfileWorkerDetails";
-import PDFReceipt from "./components/Requests/PDFReceipt";
+import profileStore from "./store/profileStore";
+import { observer } from "mobx-react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  if (profileStore.loading) {
+    <h1>loading</h1>;
+  }
   const [showNav, setShowNav] = useState("none");
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    position: "",
-    civilId: "",
-    age: "",
-    address: "",
-    image: "",
+    firstName: profileStore.oneProfile?.firstName,
+    lastName: profileStore.oneProfile?.lastName,
+    phoneNumber: profileStore.oneProfile?.phoneNumber,
+    position: profileStore.oneProfile?.position,
+    civilId: profileStore.oneProfile?.civilId,
+    age: profileStore.oneProfile?.age,
+    address: profileStore.oneProfile?.address,
+    image: profileStore.oneProfile?.image,
   });
   const [request, setRequest] = useState({
     customerName: "",
@@ -51,10 +56,6 @@ function App() {
   const [updateRequest, setUpdateRequest] = useState({});
 
   const location = useLocation();
-  console.log(
-    "🚀 ~ file: App.jsx ~ line 31 ~ App ~ currentLocation",
-    location.pathname
-  );
 
   return (
     <>
@@ -120,11 +121,10 @@ function App() {
             <UpdateProfileTwo profile={profile} setProfile={setProfile} />
           }
         />
-        <Route path="/receipt" element={<PDFReceipt />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
 }
 
-export default App;
+export default observer(App);

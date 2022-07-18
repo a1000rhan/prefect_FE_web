@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../logo.svg";
 import { observer } from "mobx-react";
 import authstore from "../../store/authStore";
+import profileStore from "../../store/profileStore";
 
 const UpdateProfile = ({ profile, setProfile }) => {
+  if (authstore.loading || profileStore.loading) {
+    <h1>loading</h1>;
+  }
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,9 +27,16 @@ const UpdateProfile = ({ profile, setProfile }) => {
 
   return (
     <div className="bk">
+      {(profileStore.loading || authstore.loading) && (
+        <div className="spinner">
+          <Spinner />
+        </div>
+      )}
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
-        <h1>Update Profile</h1>
+        <div className="update-profile-header">
+          <h1>Update Profile</h1>
+        </div>
       </div>
       <hr className="divider" />
       <div className="container">

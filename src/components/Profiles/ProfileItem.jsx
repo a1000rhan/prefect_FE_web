@@ -11,7 +11,14 @@ const ProfileItem = ({ profile }) => {
   return (
     <Link className="link-detail" to={`/profiles/${profile._id}`}>
       <Card className="card-detail">
-        <Avatar />
+        <Avatar
+          src={profile?.image}
+          sx={{
+            width: "60px",
+            height: "60px",
+            border: "1px solid #000",
+          }}
+        />
         <div className="profile-item">
           <p className="profile-label">
             {profile.firstName} {profile.lastName}

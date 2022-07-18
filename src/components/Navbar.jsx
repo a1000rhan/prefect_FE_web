@@ -17,12 +17,25 @@ import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material/styles";
 import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import authstore from "../store/authStore";
+import profileStore from "../store/profileStore";
 
 const drawerWidth = 240;
-const navItemsAmin = ["Home", "All Profiles", "All Requests", "Sign Out"];
-const navItemsWorker = ["Home", "MyRequests", "Registration", "Sign out"];
-const pathsAdmin = ["/", "/profiles", "/requests", "/signin"];
-const pathsWorker = ["/", "/one-profile", "/signin", "/signin"];
+const navItemsAmin = [
+  "Home",
+  "All Profiles",
+  "All Requests",
+  "Update Profile",
+  "Sign Out",
+];
+const navItemsWorker = ["Home", "Registration", "Update Profile", "Sign out"];
+const pathsAdmin = [
+  "/",
+  "/profiles",
+  "/requests",
+  "/updateProfiles",
+  "/signin",
+];
+const pathsWorker = ["/", "/signin", "/updateProfiles", "/signin"];
 function Navbar(props) {
   const navigate = useNavigate();
   const loaction = useLocation();
@@ -65,7 +78,11 @@ function Navbar(props) {
         {authstore.user?.type === "admin"
           ? navItemsAmin.map((item, index) => (
               <NavLink to={pathsAdmin[index]} className="nav-txt">
-                <ListItem key={item} disablePadding>
+                <ListItem
+                  key={item}
+                  disablePadding
+                  onClick={() => profileStore.fetchProfiles()}
+                >
                   <ListItemButton sx={{ textAlign: "start" }}>
                     <ListItemText primary={item} />
                   </ListItemButton>
@@ -103,7 +120,7 @@ function Navbar(props) {
         <AppBar
           position="fixed"
           color="primary"
-          sx={{ top: "auto", bottom: 0 }}
+          sx={{ top: "auto", bottom: "0" }}
         >
           <Toolbar>
             <IconButton

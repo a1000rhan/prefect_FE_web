@@ -17,26 +17,35 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const [previewImage, setPreviewImage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     profileStore.updateProfile(profile, Swal, navigate);
-    setProfile({
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      position: "",
-      civilId: "",
-      age: "",
-      address: "",
-      image: "",
-    });
   };
 
+  const handleImage = (event) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setPreviewImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    setProfile({ ...profile, image: event.target.files[0] });
+  };
   return (
     <div className="bk">
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
-        <h1>Update Profile</h1>
+        <div className="update-profile-header">
+          <Icon.ArrowLeft
+            onClick={() => navigate(-1)}
+            size={30}
+            className="top-icon"
+          />
+          <h1>Update Profile</h1>
+        </div>
       </div>
       <hr className="divider" />
 
@@ -82,12 +91,18 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-control2">
               <Form.Label className="form-label">
                 <Icon.Image />
                 &nbsp; Image
               </Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" onChange={handleImage} />
+              <img
+                className="img-thumbnail"
+                src={previewImage}
+                alt="profile"
+                accept="image/*"
+              />
             </Form.Group>
           </Form>
         </div>

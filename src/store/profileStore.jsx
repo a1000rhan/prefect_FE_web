@@ -52,7 +52,7 @@ class ProfileStore {
       this.profiles = this.profiles.map((pro) =>
         pro._id === profile._id ? res.data : pro
       );
-      navigate("/requests");
+      navigate("/");
       this.loading = false;
 
       Swal.fire({

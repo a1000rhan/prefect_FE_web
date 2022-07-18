@@ -4,6 +4,7 @@ import requestStore from "../../store/requestsStore";
 import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
 import authstore from "../../store/authStore";
+import Swal from "sweetalert2";
 
 const RequestDetails = () => {
   const { slug } = useParams();
@@ -23,12 +24,12 @@ const RequestDetails = () => {
   const onDone = (e) => {
     e.preventDefault();
     requestD.status = "done";
-    requestStore.updateRequest(requestD);
+    requestStore.updateRequest(request, navigate, "", Swal);
   };
   const onCancel = (e) => {
     e.preventDefault();
     requestD.status = "canceled";
-    requestStore.updateRequest(requestD);
+    requestStore.updateRequest(request, navigate, "", Swal);
   };
 
   return (
@@ -67,7 +68,10 @@ const RequestDetails = () => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <Link to={`/updateRequest/${requestD._id}`}>
+                <Link
+                  className="dropdown-menu"
+                  to={`/updateRequest/${requestD?._id}`}
+                >
                   <MenuItem>Edit Request</MenuItem>
                 </Link>
                 <MenuItem onClick={handleClose}>Delete Request</MenuItem>
@@ -118,9 +122,9 @@ const RequestDetails = () => {
               <p
                 style={{
                   color:
-                    requestD.status == "pending"
+                    requestD?.status == "pending"
                       ? "blue"
-                      : requestD.status == "done"
+                      : requestD?.status == "done"
                       ? "green"
                       : "red",
                   fontWeight: "bold",

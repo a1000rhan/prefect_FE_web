@@ -49,7 +49,7 @@ class AuthStore {
         : await profileStore.fetchProfiles();
 
       this.user.type === "admin"
-        ? navigate("/requests")
+        ? navigate("/profiles")
         : navigate("/one-profile");
 
       Swal.fire({
