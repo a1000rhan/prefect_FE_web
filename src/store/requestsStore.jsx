@@ -116,6 +116,29 @@ class RequestStore {
     }
   };
 
+  uploadPdf = async (pdf, request) => {
+    try {
+      const filePdf = pdf.output("blob");
+
+      const formData = new FormData();
+
+      formData.append("pdf", filePdf);
+      request.receipt = formData;
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 127 ~ RequestStore ~ uploadPdf= ~ request.receipt",
+        request.receipt
+      );
+      await api.put(`requests/receipt/${request._id}`, request);
+      // pdf.save("test.pdf");
+      this.isLoading = false;
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 125 ~ RequestStore ~ uploadPdf= ~ error",
+        error
+      );
+    }
+  };
+
   removeRequest = async (request, navigate, Swal) => {
     try {
       Swal.fire({

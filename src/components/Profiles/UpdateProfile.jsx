@@ -42,7 +42,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
       <div className="container">
         <div className="form-container">
           <Form onSubmit={handleSubmit} className="form">
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.PersonCircle /> &nbsp; first Name
               </Form.Label>
@@ -55,7 +55,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
                 &nbsp; Last Name
@@ -68,7 +68,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Telephone />
                 &nbsp; Phone Number
@@ -81,7 +81,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Bag />
                 &nbsp; Position
@@ -98,7 +98,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
         </div>
         <hr className="divider" />
 
-        <button className="btn" onClick={handleSubmit}>
+        <button className="btns" onClick={handleSubmit}>
           Update Profile
         </button>
       </div>

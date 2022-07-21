@@ -10,7 +10,10 @@ import { MenuItem, Menu } from "@mui/material";
 import Swal from "sweetalert2";
 import moment from "moment";
 import PDFReceipt from "./PDFReceipt";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
+import logo from "../../assets/logo.png";
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
     <h1>loading</h1>;
@@ -18,6 +21,38 @@ const RequestItem = ({ request }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+
+  //.....PDF .......//
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "px",
+    format: "A4",
+  });
+  const pdfFunction = () => {
+    pdf.addImage(logo, "PNG", 100, 10, 100, 100);
+    autoTable(pdf, { margin: { top: 100 } });
+    autoTable(pdf, {
+      head: [
+        {
+          customerName: "CutomerName",
+          customerPhone: "Customer Phone",
+        },
+      ],
+
+      body: [
+        {
+          customerName: request?.customerName,
+          customerPhone: request.customerPhone,
+        },
+      ],
+    });
+
+    requestStore.uploadPdf(pdf, request);
+    // pdf.save(`${request._id}.pdf`);
+  };
+
+  //.....PDF .......//
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,7 +67,7 @@ const RequestItem = ({ request }) => {
   const onDone = (e) => {
     e.preventDefault();
     // request.status = "done";
-    pdf.save("test1.pdf");
+    pdfFunction();
     // requestStore.updateRequest(request, navigate, "", Swal);
   };
   const onCancel = (e) => {
@@ -66,7 +101,7 @@ const RequestItem = ({ request }) => {
             }}
           >
             <Link
-              className="dropdown-menu"
+              className="dropdown-menu1"
               to={`/updateRequest/${request._id}`}
             >
               <MenuItem>Edit Request</MenuItem>

@@ -6,7 +6,7 @@ import "react-clock/dist/Clock.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-time-picker/dist/TimePicker.css";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home";
 import SignIn from "./components/Auth/SignIn";

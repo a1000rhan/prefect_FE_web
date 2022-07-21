@@ -125,7 +125,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
               </select>
             </div>
           </form>
-          <button className="btn" onClick={handleSubmit}>
+          <button className="btns" onClick={handleSubmit}>
             Create Request
           </button>
         </div>

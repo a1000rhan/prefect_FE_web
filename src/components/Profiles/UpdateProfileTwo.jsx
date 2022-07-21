@@ -19,10 +19,6 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
   };
 
   const [previewImage, setPreviewImage] = useState("");
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    profileStore.updateProfile(profile, Swal, navigate);
-  };
 
   const handleImage = (event) => {
     const reader = new FileReader();
@@ -34,6 +30,11 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
     reader.readAsDataURL(event.target.files[0]);
     setProfile({ ...profile, image: event.target.files[0] });
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    profileStore.updateProfile(profile, Swal, navigate);
+  };
+
   return (
     <div className="bk">
       <div className="App">
@@ -52,7 +53,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
       <div className="container">
         <div className="form-container">
           <Form onSubmit={handleSubmit} className="form">
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.PersonCircle /> &nbsp; Civil Id
               </Form.Label>
@@ -61,11 +62,12 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
                 name="civilId"
                 value={profile.civilId}
                 type="number"
+                max={13}
                 placeholder="Enter your First Name"
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
                 &nbsp; Age
@@ -78,7 +80,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group className="form-control">
+            <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
                 &nbsp; Address
@@ -107,7 +109,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
           </Form>
         </div>
         <hr className="divider" />
-        <button className="btn" onClick={handleSubmit}>
+        <button className="btns" onClick={handleSubmit}>
           Update Profile
         </button>
       </div>

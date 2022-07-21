@@ -143,7 +143,7 @@ const CreateRequest = ({ request, setRequest }) => {
             <br />
           </form>
           <div className="center">
-            <button className="btn" onClick={handleSubmit}>
+            <button className="btns" onClick={handleSubmit}>
               create Request
             </button>
           </div>

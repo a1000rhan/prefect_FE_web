@@ -48,9 +48,7 @@ class AuthStore {
         ? await requestStore.getAllRequests()
         : await profileStore.fetchProfiles();
 
-      this.user.type === "admin"
-        ? navigate("/profiles")
-        : navigate("/one-profile");
+      this.user.type === "admin" ? navigate("/profiles") : navigate("/");
 
       Swal.fire({
         position: "top-center",
@@ -80,6 +78,7 @@ class AuthStore {
 
       await this.setUser(resp.data.token);
       navigate("/updateProfiles");
+      profileStore.fetchProfiles();
       Swal.fire("Good job!", "You clicked the button!", "success");
     } catch (error) {
       console.log(

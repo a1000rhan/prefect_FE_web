@@ -157,7 +157,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
             <br />
           </form>
           <div className="center">
-            <button className="btn" onClick={handleSubmit}>
+            <button className="btns" onClick={handleSubmit}>
               Continue Update Request
             </button>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import profileStore from "../../store/profileStore";
 import RequestItem from "../Requests/RequestItem";
 import { observer } from "mobx-react";
@@ -17,7 +17,7 @@ const OneProfile = () => {
   const info = profileStore?.oneProfile;
 
   const requests = info?.requests
-    .filter((req) => req?.date == moment(new Date()).format("YYYY-MM-DD"))
+    // .filter((req) => req?.date == moment(new Date()).format("YYYY-MM-DD"))
     .map((req) => (
       <div className="reqs">
         <RequestItem request={req} key={req._id} />

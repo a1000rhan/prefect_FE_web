@@ -69,7 +69,7 @@ const RequestDetails = () => {
                 }}
               >
                 <Link
-                  className="dropdown-menu"
+                  className="dropdown-menu1"
                   to={`/updateRequest/${requestD?._id}`}
                 >
                   <MenuItem>Edit Request</MenuItem>

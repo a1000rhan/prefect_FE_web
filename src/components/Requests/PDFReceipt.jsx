@@ -9,7 +9,7 @@ const PDFReceipt = ({ request }) => {
   pdf.text(`${request.customerName}`, 10, 10);
 
   const handleDownload = (e) => {
-    pdf.save("test1.pdf");
+    // pdf.save(`${request._id}.pdf`);
   };
   return (
     <div>

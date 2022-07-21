@@ -170,7 +170,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               </RadioGroup>
             </div>
           </form>
-          <button className="btn" onClick={handleSubmit}>
+          <button className="btns" onClick={handleSubmit}>
             Update the Request
           </button>
         </div>
