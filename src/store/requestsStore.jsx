@@ -1,3 +1,4 @@
+import axios from "axios";
 import { makeAutoObservable } from "mobx";
 import api from "./api";
 import authstore from "./authStore";
@@ -59,7 +60,7 @@ class RequestStore {
       });
     }
   };
-  updateRequest = async (Updaterequest, theWorker, navigate, Swal) => {
+  updateRequest = async (updateRequest, theWorker, navigate, Swal) => {
     try {
       Swal.fire({
         title: "Do you want to save the changes?",
@@ -67,21 +68,23 @@ class RequestStore {
         showCancelButton: true,
         confirmButtonText: "Save",
       }).then(async (result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           const pushRequest = profileStore.workers.find(
             (worker) => worker._id == theWorker
           );
 
           const resp = await api.put(
-            `requests/updateRequest/${Updaterequest._id}`,
-            Updaterequest
+            `requests/updateRequest/${updateRequest._id}`,
+            updateRequest
           );
 
-          pushRequest.requests.find(async (req) => {
+          /*
+          pushRequest?.requests.find(async (req) => {
             if (req._id !== resp.data._id || req._id === "select") {
-              pushRequest.requests.push(resp.data._id);
-            } else {
+              pushRequest?.requests.push(resp.data._id);
+            }
+
+             else {
               return Swal.fire({
                 position: "top-center",
                 icon: "error",
@@ -90,6 +93,7 @@ class RequestStore {
               });
             }
           });
+          */
           await api.put(`/profiles/${pushRequest._id}`, pushRequest);
 
           navigate("/");
@@ -97,8 +101,10 @@ class RequestStore {
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");
         }
-        this.getAllRequests();
       });
+      console.log("1");
+      profileStore.fetchProfiles();
+      this.getAllRequests();
 
       this.isLoading = false;
     } catch (error) {
@@ -116,20 +122,45 @@ class RequestStore {
     }
   };
 
-  uploadPdf = async (pdf, request) => {
+  cancelRequest = async (request, navigate, Swal) => {
     try {
-      const filePdf = pdf.output("blob");
-
-      const formData = new FormData();
-
-      formData.append("pdf", filePdf);
-      request.receipt = formData;
+      await api.put(`requests/cancel/${request._id}`, request);
+      Swal.fire({
+        position: "top-center",
+        icon: "error",
+        title: "your request has been canceled",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } catch (error) {
       console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 127 ~ RequestStore ~ uploadPdf= ~ request.receipt",
-        request.receipt
+        "🚀 ~ file: requestsStore.jsx ~ line 128 ~ RequestStore ~ cancelRequest= ~ error",
+        error
       );
-      await api.put(`requests/receipt/${request._id}`, request);
-      // pdf.save("test.pdf");
+    }
+  };
+
+  uploadPdf = async (fileData, request, Swal) => {
+    try {
+      const formData = new FormData();
+      request.status = "done";
+      formData.append("receipt", fileData);
+
+      // for (const key in updateRequest) formData.append(key, updateRequest[key]);
+      await api.put(`requests/receipt/${request._id}`, formData);
+      const response = await api.put(`requests/done/${request._id}`, request);
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 153 ~ RequestStore ~ uploadPdf= ~ response",
+        response.data
+      );
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Your Request has Successfully Done",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      this.getAllRequests();
       this.isLoading = false;
     } catch (error) {
       console.log(
@@ -139,6 +170,15 @@ class RequestStore {
     }
   };
 
+  doneRequest = async (request, navigate, Swal) => {
+    try {
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: requestsStore.jsx ~ line 170 ~ RequestStore ~ doneRequest= ~ error",
+        error
+      );
+    }
+  };
   removeRequest = async (request, navigate, Swal) => {
     try {
       Swal.fire({

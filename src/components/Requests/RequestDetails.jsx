@@ -5,12 +5,16 @@ import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
 import authstore from "../../store/authStore";
 import Swal from "sweetalert2";
+import pdfReceipt from "../../store/pdfReceipt";
 
 const RequestDetails = () => {
   const { slug } = useParams();
   const requestD = requestStore.requests.find(
     (request) => request.slug === slug
   );
+  const [filePdf, setFilePdf] = useState(requestD?.receipt);
+  console.log(requestD?.receipt);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -24,7 +28,7 @@ const RequestDetails = () => {
   const onDone = (e) => {
     e.preventDefault();
     requestD.status = "done";
-    requestStore.updateRequest(request, navigate, "", Swal);
+    pdfReceipt.pdfFunction(requestD, setFilePdf);
   };
   const onCancel = (e) => {
     e.preventDefault();
@@ -133,7 +137,7 @@ const RequestDetails = () => {
                 {requestD?.status}
                 &emsp;
               </p>
-              {requestD?.status === "pending" && (
+              {requestD?.status === "pending" ? (
                 <>
                   <button className="btn-status" onClick={onDone}>
                     Done
@@ -142,8 +146,27 @@ const RequestDetails = () => {
                     Cancel
                   </button>
                 </>
+              ) : (
+                <></>
               )}
             </div>
+            {requestD?.status === "done" && (
+              <>
+                {requestStore.loading ? (
+                  <>
+                    <h1>loading</h1>
+                  </>
+                ) : (
+                  <>
+                    <p className="subtitle">Receipt:</p>
+                    <a href={requestD?.receipt} target="_blank">
+                      Download
+                    </a>
+                    <p>{requestD?.receipt}</p>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

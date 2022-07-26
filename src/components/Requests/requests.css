@@ -40,6 +40,7 @@
 }
 .card {
   width: 90%;
+
   padding: 10px;
   background-color: white;
   border-radius: 5px;
@@ -146,7 +147,12 @@
   text-decoration: none;
   color: #000;
 }
-
+.subtitle {
+  font-weight: bold;
+}
+.download-link {
+  z-index: 10000;
+}
 .req-timeline {
   display: flex;
   flex-direction: row;

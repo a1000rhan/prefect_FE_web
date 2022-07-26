@@ -8,50 +8,21 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
 import Swal from "sweetalert2";
-import moment from "moment";
-import PDFReceipt from "./PDFReceipt";
+
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 import logo from "../../assets/logo.png";
+import api from "../../store/api";
+import pdfReceipt from "../../store/pdfReceipt";
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
     <h1>loading</h1>;
 
+  const [filePdf, setFilePdf] = useState(request.receipt);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-
-  //.....PDF .......//
-  const pdf = new jsPDF({
-    orientation: "portrait",
-    unit: "px",
-    format: "A4",
-  });
-  const pdfFunction = () => {
-    pdf.addImage(logo, "PNG", 100, 10, 100, 100);
-    autoTable(pdf, { margin: { top: 100 } });
-    autoTable(pdf, {
-      head: [
-        {
-          customerName: "CutomerName",
-          customerPhone: "Customer Phone",
-        },
-      ],
-
-      body: [
-        {
-          customerName: request?.customerName,
-          customerPhone: request.customerPhone,
-        },
-      ],
-    });
-
-    requestStore.uploadPdf(pdf, request);
-    // pdf.save(`${request._id}.pdf`);
-  };
-
-  //.....PDF .......//
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,14 +37,13 @@ const RequestItem = ({ request }) => {
 
   const onDone = (e) => {
     e.preventDefault();
-    // request.status = "done";
-    pdfFunction();
-    // requestStore.updateRequest(request, navigate, "", Swal);
+    pdfReceipt.pdfFunction(request, setFilePdf);
   };
   const onCancel = (e) => {
     e.preventDefault();
     request.status = "canceled";
-    requestStore.updateRequest(request, navigate, "", Swal);
+    requestStore.cancelRequest(request);
+    // requestStore.updateRequest(request, navigate, "", Swal);
   };
 
   return (
@@ -111,7 +81,7 @@ const RequestItem = ({ request }) => {
         </div>
 
         <Link className="req-link" to={`/requests/${request.slug}`}>
-          <p>
+          <p className="subtitle">
             status:
             <span
               style={{
@@ -121,23 +91,38 @@ const RequestItem = ({ request }) => {
                     : request.status == "done"
                     ? "green"
                     : "red",
-                fontWeight: "bold",
               }}
             >
               &nbsp; {request?.status}
             </span>
           </p>
-          {request?.status === "pending" && (
-            <>
-              <button className="btn-status" onClick={onDone}>
-                Done
-              </button>
-              <button className="btn-status" onClick={onCancel}>
-                Cancel
-              </button>
-            </>
-          )}
         </Link>
+        {request?.status === "pending" ? (
+          <>
+            <button className="btn-status" onClick={onDone}>
+              Done
+            </button>
+            <button className="btn-status" onClick={onCancel}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <>
+            {requestStore.loading ? (
+              <>
+                <h1>loading</h1>
+              </>
+            ) : (
+              <>
+                <p className="subtitle">Receipt:</p>
+                <a href={filePdf} target="_blank">
+                  Download
+                </a>
+                <p>{filePdf}</p>
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

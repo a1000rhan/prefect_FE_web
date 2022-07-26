@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { styled } from "@mui/material/styles";
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import authstore from "../store/authStore";
 import profileStore from "../store/profileStore";
 
@@ -163,11 +163,11 @@ function Navbar(props) {
             {loaction.pathname === "/requests/createRequest" ? (
               <></>
             ) : (
-              <Link to="/requests/createRequest">
+              <NavLink to="/requests/createRequest">
                 <StyledFab color="primary" aria-label="add">
                   <AddIcon />
                 </StyledFab>
-              </Link>
+              </NavLink>
             )}
           </Toolbar>
         </AppBar>
