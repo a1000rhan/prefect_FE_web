@@ -20,7 +20,9 @@ const OneProfile = () => {
     // .filter((req) => req?.date == moment(new Date()).format("YYYY-MM-DD"))
     .map((req) => (
       <div className="reqs">
-        <RequestItem request={req} key={req._id} />
+        {req.status === "pending" && (
+          <RequestItem request={req} key={req._id} />
+        )}
       </div>
     ));
 
@@ -40,13 +42,15 @@ const OneProfile = () => {
               </div>
             </div>
             <div className="container">
-              <div className="profile-info">
-                <p className="labelT">
-                  worker name: {info?.firstName} {info?.lastName}
-                </p>
-                <p className="labelT">worker age: {info?.age}</p>
-                <p className="labelT">Civil ID: {info?.civilId}</p>
-                <p className="labelT">Address: {info?.address}</p>
+              <div className="profile-details-container">
+                <div className="profile-info">
+                  <p className="labelT">
+                    worker name: {info?.firstName} {info?.lastName}
+                  </p>
+                  <p className="labelT">worker age: {info?.age}</p>
+                  <p className="labelT">Civil ID: {info?.civilId}</p>
+                  <p className="labelT">Address: {info?.address}</p>
+                </div>
                 <hr className="divider" />
                 <div className="all-req">{requests}</div>
               </div>

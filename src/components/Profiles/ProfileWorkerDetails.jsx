@@ -30,36 +30,43 @@ const ProfileWorkerDetails = () => {
           </div>
         ) : (
           <>
-            <header className="App-header2">
-              <Icon.ArrowLeft
-                onClick={() => navigate(-1)}
-                size={30}
-                className="top-icon"
-              />
-              <Avatar
-                src={info?.image}
-                sx={{
-                  width: 80,
-                  height: 80,
-                  objectFit: "fill",
-                  border: "3px solid white",
-                }}
-              />
-              <h1>{info?.owner.username} Profile</h1>
-            </header>
-            <div className="container">
+            <header className="prof-header">
+              <div className="App-header2">
+                <Icon.ArrowLeft
+                  onClick={() => navigate(-1)}
+                  size={30}
+                  className="top-icon"
+                />
+                <Avatar
+                  src={info?.image}
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    objectFit: "fill",
+                    border: "3px solid white",
+                  }}
+                />
+                <h1>{info?.owner.username} Profile</h1>
+              </div>
+
               <div className="profile-info">
                 <p className="labelT">
-                  worker name: {info?.firstName} {info?.lastName}
+                  <Icon.Person color="white" />
+                  {info?.firstName} {info?.lastName}
                 </p>
 
-                <p className="labelT">worker age: {info?.age}</p>
-                <p className="labelT">Civil ID: {info?.civilId}</p>
-                <p className="labelT">Address: {info?.address}</p>
-                <hr className="divider" />
-                <div className="all-req">{requestD}</div>
+                <p className="labelT">
+                  <Icon.CardChecklist color="white" />
+                  {info?.civilId}
+                </p>
+                <p className="labelT">
+                  <Icon.GeoAlt />
+                  {info?.address}
+                </p>
               </div>
-            </div>
+            </header>
+
+            <div className="all-req">{requestD}</div>
           </>
         )}
       </div>

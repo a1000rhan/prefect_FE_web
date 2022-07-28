@@ -152,19 +152,11 @@ const RequestDetails = () => {
             </div>
             {requestD?.status === "done" && (
               <>
-                {requestStore.loading ? (
-                  <>
-                    <h1>loading</h1>
-                  </>
-                ) : (
-                  <>
-                    <p className="subtitle">Receipt:</p>
-                    <a href={requestD?.receipt} target="_blank">
-                      Download
-                    </a>
-                    <p>{requestD?.receipt}</p>
-                  </>
-                )}
+                <p className="subtitle">Receipt:</p>
+                <a href={requestD?.receipt} target="_blank">
+                  Download
+                </a>
+                <p>{requestD?.receipt}</p>
               </>
             )}
           </div>

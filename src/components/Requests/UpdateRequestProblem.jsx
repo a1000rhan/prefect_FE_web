@@ -129,10 +129,15 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               />
               <br />
               <label className="labelT">Worker</label>
-              <select onChange={(e) => setWorker(e.target.value)}>
+
+              <select
+                className="dropdown-worker"
+                onChange={(e) => setWorker(e.target.value)}
+              >
                 <option value="select">select</option>
                 {workersName}
               </select>
+
               <br />
               <br />
 

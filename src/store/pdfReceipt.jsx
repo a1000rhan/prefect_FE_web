@@ -2,6 +2,8 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 import React from "react";
+
+import logo from "../assets/logo.jpg";
 import requestStore from "./requestsStore";
 
 class PDFReceipt {
@@ -13,11 +15,39 @@ class PDFReceipt {
       unit: "px",
       format: "A4",
     });
-    // pdf.addImage(logo, "PNG", 100, 10, 100, 100);
-    pdf.text("Hello World", 100, 200);
+    pdf.addImage(logo, "JPG", 40, 10, 50, 50);
+    pdf.setFontSize(40);
+    pdf.text("Invoice", 100, 50);
+
+    pdf.setFontSize(12);
+    pdf.text("Customer Info:", 40, 80);
+    autoTable(pdf, { html: "#my-table", margin: { top: 80 } });
+    autoTable(pdf, {
+      head: [["Name", "Phone", "address"]],
+      body: [
+        [
+          `${request.customerName}`,
+          `${request.customerPhone}`,
+          `Blc${request?.customerAddress[0].block}, St${request?.customerAddress[0].street}, Ho:${request?.customerAddress[0].house} ${request?.customerAddress[0].city}`,
+        ],
+      ],
+    });
+    pdf.text("The Problem:", 40, 150);
+    autoTable(pdf, { html: "#my-table", margin: { top: 100 } });
+    autoTable(pdf, {
+      head: [["Type", "Description", "Note"]],
+      body: [
+        [
+          `${request?.problemDesc[0].unit}`,
+          `${request?.problemDesc[0].operation}`,
+          `${request.notes}`,
+        ],
+      ],
+    });
+    autoTable(pdf, { html: "#my-table", margin: { top: 140 } });
 
     // pdf.save("test.pdf");
-    const data = await pdf.output("blob");
+    const data = pdf.output("blob");
 
     const file = new File([data], "test.pdf", { type: data.type });
 

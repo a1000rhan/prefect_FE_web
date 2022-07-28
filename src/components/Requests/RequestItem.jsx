@@ -9,11 +9,6 @@ import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
 import Swal from "sweetalert2";
 
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-
-import logo from "../../assets/logo.png";
-import api from "../../store/api";
 import pdfReceipt from "../../store/pdfReceipt";
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)

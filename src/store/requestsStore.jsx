@@ -77,14 +77,12 @@ class RequestStore {
             `requests/updateRequest/${updateRequest._id}`,
             updateRequest
           );
-
-          /*
+          //something wrong here with condition
+          //TODO: fix this
           pushRequest?.requests.find(async (req) => {
             if (req._id !== resp.data._id || req._id === "select") {
               pushRequest?.requests.push(resp.data._id);
-            }
-
-             else {
+            } else {
               return Swal.fire({
                 position: "top-center",
                 icon: "error",
@@ -93,7 +91,7 @@ class RequestStore {
               });
             }
           });
-          */
+
           await api.put(`/profiles/${pushRequest._id}`, pushRequest);
 
           navigate("/");
@@ -146,13 +144,13 @@ class RequestStore {
       request.status = "done";
       formData.append("receipt", fileData);
 
-      // for (const key in updateRequest) formData.append(key, updateRequest[key]);
       await api.put(`requests/receipt/${request._id}`, formData);
       const response = await api.put(`requests/done/${request._id}`, request);
       console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 153 ~ RequestStore ~ uploadPdf= ~ response",
+        "🚀 ~ file: requestsStore.jsx ~ line 151 ~ RequestStore ~ uploadPdf= ~ response",
         response.data
       );
+
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -170,15 +168,6 @@ class RequestStore {
     }
   };
 
-  doneRequest = async (request, navigate, Swal) => {
-    try {
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 170 ~ RequestStore ~ doneRequest= ~ error",
-        error
-      );
-    }
-  };
   removeRequest = async (request, navigate, Swal) => {
     try {
       Swal.fire({

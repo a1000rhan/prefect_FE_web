@@ -36,6 +36,15 @@
   text-decoration: none;
   color: black;
 }
+.profile-details-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 10px;
+}
 .card-detail {
   width: 100%;
   display: flex;
