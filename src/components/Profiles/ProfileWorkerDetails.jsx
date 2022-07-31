@@ -51,16 +51,16 @@ const ProfileWorkerDetails = () => {
 
               <div className="profile-info">
                 <p className="labelT">
-                  <Icon.Person color="white" />
+                  <Icon.Person color="white" /> &nbsp;: &emsp;
                   {info?.firstName} {info?.lastName}
                 </p>
 
                 <p className="labelT">
-                  <Icon.CardChecklist color="white" />
+                  <Icon.CardChecklist color="white" /> &nbsp;: &emsp;
                   {info?.civilId}
                 </p>
                 <p className="labelT">
-                  <Icon.GeoAlt />
+                  <Icon.GeoAlt /> &nbsp;: &emsp;
                   {info?.address}
                 </p>
               </div>

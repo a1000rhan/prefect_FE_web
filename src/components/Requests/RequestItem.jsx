@@ -40,9 +40,13 @@ const RequestItem = ({ request }) => {
     requestStore.cancelRequest(request);
     // requestStore.updateRequest(request, navigate, "", Swal);
   };
+  const handleDownload = (e) => {
+    e.preventDefault();
+    <a href={filePdf} target="_blank"></a>;
+  };
 
   return (
-    <div className="">
+    <div className="reqs">
       <div className="card">
         <div className="card-header">
           <Link className="req-link" to={`/requests/${request.slug}`}>
@@ -74,8 +78,7 @@ const RequestItem = ({ request }) => {
             <MenuItem onClick={handleDelete}>Delete Request</MenuItem>
           </Menu>
         </div>
-
-        <Link className="req-link" to={`/requests/${request.slug}`}>
+        <div className="ro">
           <p className="subtitle">
             status:
             <span
@@ -91,33 +94,35 @@ const RequestItem = ({ request }) => {
               &nbsp; {request?.status}
             </span>
           </p>
-        </Link>
-        {request?.status === "pending" ? (
-          <>
-            <button className="btn-status" onClick={onDone}>
-              Done
-            </button>
-            <button className="btn-status" onClick={onCancel}>
-              Cancel
-            </button>
-          </>
-        ) : (
-          <>
-            {requestStore.loading ? (
+          <div className="ic-end">
+            {request?.status === "pending" ? (
               <>
-                <h1>loading</h1>
+                <Icon.CheckCircle
+                  style={{ marginLeft: 10 }}
+                  size={30}
+                  color="green"
+                  onClick={onDone}
+                />
+                <Icon.XCircle
+                  style={{ marginLeft: 10 }}
+                  size={30}
+                  color="red"
+                  onClick={onCancel}
+                />
               </>
             ) : (
               <>
-                <p className="subtitle">Receipt:</p>
-                <a href={filePdf} target="_blank">
-                  Download
-                </a>
-                <p>{filePdf}</p>
+                {request?.status === "done" ? (
+                  <>
+                    <Icon.Download onClick={handleDownload} size={30} />
+                  </>
+                ) : (
+                  <></>
+                )}
               </>
             )}
-          </>
-        )}
+          </div>
+        </div>
       </div>
     </div>
   );

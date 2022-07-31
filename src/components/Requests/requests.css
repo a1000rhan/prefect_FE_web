@@ -188,3 +188,16 @@
   font-weight: bold;
   z-index: 200;
 }
+.ro {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+}
+.ic-end {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+}

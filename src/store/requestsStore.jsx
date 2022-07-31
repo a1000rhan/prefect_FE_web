@@ -77,11 +77,14 @@ class RequestStore {
             `requests/updateRequest/${updateRequest._id}`,
             updateRequest
           );
+          this.getAllRequests();
           //something wrong here with condition
           //TODO: fix this
+
           pushRequest?.requests.find(async (req) => {
-            if (req._id !== resp.data._id || req._id === "select") {
-              pushRequest?.requests.push(resp.data._id);
+            if (req._id !== updateRequest._id) {
+              pushRequest?.requests.push(updateRequest._id);
+              await api.put(`/profiles/${pushRequest._id}`, pushRequest);
             } else {
               return Swal.fire({
                 position: "top-center",
@@ -92,15 +95,13 @@ class RequestStore {
             }
           });
 
-          await api.put(`/profiles/${pushRequest._id}`, pushRequest);
-
-          navigate("/");
           Swal.fire("Saved!", "", "success");
+          navigate("/");
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");
         }
       });
-      console.log("1");
+
       profileStore.fetchProfiles();
       this.getAllRequests();
 

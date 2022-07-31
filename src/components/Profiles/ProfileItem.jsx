@@ -9,8 +9,8 @@ const ProfileItem = ({ profile }) => {
   profileStore.loading && <h1>Loading</h1>;
   authstore.loading && <h1>loading</h1>;
   return (
-    <Link className="link-detail" to={`/profiles/${profile._id}`}>
-      <Card className="card-detail">
+    <Card className="card-detail">
+      <Link className="link-detail" to={`/profiles/${profile._id}`}>
         <Avatar
           src={profile?.image}
           sx={{
@@ -27,8 +27,8 @@ const ProfileItem = ({ profile }) => {
             <span>Age: {profile.age}</span>
           </p>
         </div>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
 

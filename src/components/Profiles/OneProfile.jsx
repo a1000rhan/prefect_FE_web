@@ -7,6 +7,7 @@ import { Avatar } from "@mui/material";
 import { Spinner } from "react-bootstrap";
 import moment from "moment";
 import requestStore from "../../store/requestsStore";
+import * as Icon from "react-bootstrap-icons";
 
 const OneProfile = () => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
@@ -29,32 +30,53 @@ const OneProfile = () => {
   return (
     <>
       <div className="bk">
-        {profileStore.loading || authstore.loading ? (
-          <div className="spinner">
+        {profileStore.loading || authstore.loading || requestStore.loading ? (
+          <div>
             <Spinner color="black" />
           </div>
         ) : (
           <>
-            <div className="App-header">
-              <div className="top-profile">
-                <Avatar src={info?.image} />
-                <h1>{authstore.user.username} Profile</h1>
+            <header className="prof-header">
+              <div className="App-header2">
+                {/* <Icon.ArrowLeft
+                  onClick={() => navigate(-1)}
+                  size={30}
+                  className="top-icon"
+                /> */}
+                <Avatar
+                  src={info?.image}
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    margin: 3,
+                    objectFit: "fill",
+                    border: "3px solid white",
+                  }}
+                />
+                {/* <h1>{info?.owner.username} Profile</h1> */}
               </div>
-            </div>
-            <div className="container">
-              <div className="profile-details-container">
-                <div className="profile-info">
-                  <p className="labelT">
-                    worker name: {info?.firstName} {info?.lastName}
-                  </p>
-                  <p className="labelT">worker age: {info?.age}</p>
-                  <p className="labelT">Civil ID: {info?.civilId}</p>
-                  <p className="labelT">Address: {info?.address}</p>
-                </div>
-                <hr className="divider" />
-                <div className="all-req">{requests}</div>
+
+              <div className="profile-info">
+                <p className="labelT">
+                  <Icon.Person color="white" />
+                  &nbsp;: &emsp;
+                  {info?.firstName} {info?.lastName}
+                </p>
+
+                <p className="labelT">
+                  <Icon.CardChecklist color="white" />
+                  &nbsp;: &emsp;
+                  {info?.civilId}
+                </p>
+                <p className="labelT">
+                  <Icon.GeoAlt />
+                  &nbsp;: &emsp;
+                  {info?.address}
+                </p>
               </div>
-            </div>
+            </header>
+
+            <div className="all-req">{requests}</div>
           </>
         )}
       </div>
