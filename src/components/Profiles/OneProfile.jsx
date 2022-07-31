@@ -48,7 +48,7 @@ const OneProfile = () => {
                   sx={{
                     width: 80,
                     height: 80,
-                    margin: 3,
+                    marginTop: 2,
                     objectFit: "fill",
                     border: "3px solid white",
                   }}

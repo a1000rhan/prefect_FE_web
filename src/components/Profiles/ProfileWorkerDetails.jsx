@@ -42,6 +42,7 @@ const ProfileWorkerDetails = () => {
                   sx={{
                     width: 80,
                     height: 80,
+                    marginTop: 2,
                     objectFit: "fill",
                     border: "3px solid white",
                   }}

@@ -139,12 +139,18 @@ const RequestDetails = () => {
               </p>
               {requestD?.status === "pending" ? (
                 <>
-                  <button className="btn-status" onClick={onDone}>
-                    Done
-                  </button>
-                  <button className="btn-status" onClick={onCancel}>
-                    Cancel
-                  </button>
+                  <Icon.CheckCircle
+                    style={{ marginLeft: 10 }}
+                    size={30}
+                    color="green"
+                    onClick={onDone}
+                  />
+                  <Icon.XCircle
+                    style={{ marginLeft: 10 }}
+                    size={30}
+                    color="red"
+                    onClick={onCancel}
+                  />
                 </>
               ) : (
                 <></>
@@ -152,11 +158,12 @@ const RequestDetails = () => {
             </div>
             {requestD?.status === "done" && (
               <>
-                <p className="subtitle">Receipt:</p>
-                <a href={requestD?.receipt} target="_blank">
-                  Download
-                </a>
-                <p>{requestD?.receipt}</p>
+                <p className="subtitle">
+                  Receipt:&emsp;
+                  <a href={requestD?.receipt} target="_blank">
+                    Download Invoice PDF
+                  </a>
+                </p>
               </>
             )}
           </div>
