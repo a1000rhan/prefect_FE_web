@@ -28,6 +28,7 @@ import ProfileWorkerDetails from "./components/Profiles/ProfileWorkerDetails";
 import profileStore from "./store/profileStore";
 import { observer } from "mobx-react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 function App() {
   if (profileStore.loading) {

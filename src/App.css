@@ -54,7 +54,16 @@
 .App-header {
   height: 80px;
   width: 100%;
-  background-color: #00034f;
+
+  background: linear-gradient(
+    135deg,
+    rgba(12, 74, 110, 1) 0%,
+    rgba(12, 74, 110, 1) 70%,
+    rgba(0, 117, 184, 1) 71%,
+    rgba(0, 117, 184, 1) 85%,
+    rgba(226, 244, 255, 1) 86%,
+    rgba(12, 74, 110, 1) 100%
+  );
   border-radius: 0 0px 20px 20px;
   display: flex;
   flex-direction: row;
@@ -72,7 +81,26 @@
   height: 100px;
 }
 .bk {
-  background-image: linear-gradient(to top, #c2ccff, #e5e5e5);
+  background: rgb(184, 232, 255);
+  background: -moz-radial-gradient(
+    circle,
+    rgba(184, 232, 255, 1) 0%,
+    rgba(21, 141, 199, 1) 50%,
+    rgba(0, 84, 124, 1) 100%
+  );
+  background: -webkit-radial-gradient(
+    circle,
+    rgba(184, 232, 255, 1) 0%,
+    rgba(21, 141, 199, 1) 50%,
+    rgba(0, 84, 124, 1) 100%
+  );
+  background: radial-gradient(
+    circle,
+    rgba(184, 232, 255, 1) 0%,
+    rgba(21, 141, 199, 1) 50%,
+    rgba(0, 84, 124, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b8e8ff",endColorstr="#00547c",GradientType=1);
   height: 100vh;
   width: 100%;
   overflow: scroll;
@@ -87,7 +115,15 @@
   margin-bottom: 100px;
 }
 .prof-header {
-  background-color: #00034f;
+  background: linear-gradient(
+    135deg,
+    rgba(12, 74, 110, 1) 0%,
+    rgba(12, 74, 110, 1) 70%,
+    rgba(0, 117, 184, 1) 71%,
+    rgba(0, 117, 184, 1) 85%,
+    rgba(226, 244, 255, 1) 86%,
+    rgba(12, 74, 110, 1) 100%
+  );
   border-radius: 0 0 20px 20px;
   box-shadow: 1px 17px 37px 0px rgba(0, 0, 0, 0.26);
   -webkit-box-shadow: 1px 17px 37px 0px rgba(0, 0, 0, 0.26);
@@ -104,7 +140,6 @@
 }
 @media screen and (max-width: 480px) {
   .App-header {
-    background-color: #00034f;
     height: 80px;
     justify-content: center;
     display: flex;
@@ -208,4 +243,18 @@
   z-index: 100;
   align-items: center;
   justify-content: center;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 100ms ease-in;
 }

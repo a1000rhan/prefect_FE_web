@@ -114,7 +114,9 @@ const RequestItem = ({ request }) => {
               <>
                 {request?.status === "done" ? (
                   <>
-                    <Icon.Download onClick={handleDownload} size={30} />
+                    <a href={filePdf} target="_blank">
+                      Invoice
+                    </a>
                   </>
                 ) : (
                   <></>

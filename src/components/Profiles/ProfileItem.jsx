@@ -24,7 +24,7 @@ const ProfileItem = ({ profile }) => {
             {profile.firstName} {profile.lastName}
           </p>
           <p>
-            <span>Age: {profile.age}</span>
+            <span>{profile.position}</span>
           </p>
         </div>
       </Link>

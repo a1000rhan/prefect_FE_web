@@ -82,16 +82,8 @@ class RequestStore {
           //TODO: fix this
 
           pushRequest?.requests.find(async (req) => {
-            if (req._id !== updateRequest._id) {
-              pushRequest?.requests.push(updateRequest._id);
-              await api.put(`/profiles/${pushRequest._id}`, pushRequest);
+            if (req._id === updateRequest._id) {
             } else {
-              return Swal.fire({
-                position: "top-center",
-                icon: "error",
-                title: "Sorry Something Went Wrong",
-                showConfirmButton: false,
-              });
             }
           });
 
@@ -139,27 +131,35 @@ class RequestStore {
     }
   };
 
-  uploadPdf = async (fileData, request, Swal) => {
+  uploadPdf = async (fileData, request, pdf, Swal) => {
     try {
       const formData = new FormData();
-      request.status = "done";
-      formData.append("receipt", fileData);
-
-      await api.put(`requests/receipt/${request._id}`, formData);
-      const response = await api.put(`requests/done/${request._id}`, request);
-      console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 151 ~ RequestStore ~ uploadPdf= ~ response",
-        response.data
-      );
-
       Swal.fire({
-        position: "top-center",
-        icon: "success",
-        title: "Your Request has Successfully Done",
-        showConfirmButton: false,
-        timer: 3000,
+        title: "Are you done from this request",
+
+        showCancelButton: true,
+        confirmButtonText: "Done",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          request.status = "done";
+          formData.append("receipt", fileData);
+
+          await api.put(`requests/receipt/${request._id}`, formData);
+          const response = await api.put(
+            `requests/done/${request._id}`,
+            request
+          );
+          pdf.save("test.pdf");
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Your Request has Successfully Done",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.getAllRequests();
+        }
       });
-      this.getAllRequests();
       this.isLoading = false;
     } catch (error) {
       console.log(

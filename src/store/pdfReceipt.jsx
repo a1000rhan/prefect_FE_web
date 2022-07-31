@@ -50,9 +50,9 @@ class PDFReceipt {
     const data = pdf.output("blob");
 
     const file = new File([data], "test.pdf", { type: data.type });
-    pdf.save("test.pdf");
+
     setFilePdf(request?.receipt);
-    requestStore.uploadPdf(file, request, Swal);
+    requestStore.uploadPdf(file, request, pdf, Swal);
   };
   //.....PDF .......//
 }

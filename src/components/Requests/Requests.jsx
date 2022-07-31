@@ -21,9 +21,7 @@ const Requests = () => {
           .toString()
           .toLowerCase()
           .includes(query.toLowerCase()) ||
-        req.customerName.toLowerCase().includes(query.toLowerCase()) ||
-        (req.date >= moment(rangeDate[0]).format("YYYY-MM-DD") &&
-          req.date <= moment(rangeDate[1]).format("YYYY-MM-DD"))
+        req.customerName.toLowerCase().includes(query.toLowerCase())
     )
     .map((req) => (
       <div className="reqs">

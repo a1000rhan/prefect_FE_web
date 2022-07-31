@@ -7,6 +7,10 @@ import requestStore from "../../store/requestsStore";
 import moment from "moment";
 
 const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
+  console.log(
+    "🚀 ~ file: UpdateRequest.jsx ~ line 10 ~ UpdateRequest ~ updateRequest",
+    updateRequest
+  );
   if (profileStore.loading || requestStore.loading) {
     <h1>loading</h1>;
   }
@@ -25,6 +29,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     apartment: updateRequest?.customerAddress[0].apartment,
     floor: updateRequest?.customerAddress[0].floor,
   });
+
   const [data, setData] = useState({
     customerName: updateRequest.customerName,
     customerPhone: updateRequest.customerPhone,

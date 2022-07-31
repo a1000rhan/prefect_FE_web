@@ -33,6 +33,8 @@
   font-weight: bold;
 }
 .link-detail {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: black;
 }

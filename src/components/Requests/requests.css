@@ -65,6 +65,7 @@
   align-items: center;
   width: 100%;
   overflow-y: scroll;
+  margin-bottom: 120px;
 }
 
 @media screen and (max-width: 480px) {
