@@ -180,11 +180,13 @@ function Navbar(props) {
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
+            className="drawer"
             sx={{
               display: { xs: "block", sm: "none" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,
+                backgroundColor: "#f0f7ff",
               },
             }}
           >

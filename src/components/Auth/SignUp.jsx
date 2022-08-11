@@ -5,6 +5,7 @@ import logo from "../../logo.svg";
 import authstore from "../../store/authStore";
 import { observer } from "mobx-react";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 import {
   FormControl,
@@ -16,6 +17,7 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
+  const { t, i18n } = useTranslation();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -39,12 +41,19 @@ const SignUp = () => {
   return (
     <div className="bk">
       <div className="App">
+        <Icon.Translate
+          size={30}
+          color="white"
+          onClick={() => {
+            i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+          }}
+        />
         <img src={logo} className="App-logo2" alt="logo" />
-        <h1 className="perfect-title">Sign Up</h1>
+        <h1 className="perfect-title">{t("signup")}</h1>
         <p className="under-sign">
-          If you already have an account, please go to
+          {t("urSignin")}
           <Link to="/signin" className="under-sign-link">
-            <span> Sign In</span>
+            <span> {t("signin")}</span>
           </Link>
         </p>
       </div>
@@ -53,34 +62,34 @@ const SignUp = () => {
           <Form onSubmit={handleSubmit} className="form">
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
-                <Icon.PersonCircle /> &nbsp; Username
+                <Icon.PersonCircle /> &nbsp; {t("username")}
               </Form.Label>
 
               <Form.Control
                 name="username"
                 value={user.username}
                 type="text"
-                placeholder="Enter Username"
+                placeholder={t("pUsername")}
                 onChange={handleChange}
               />
             </Form.Group>
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
-                &nbsp; Password
+                &nbsp; {t("password")}
               </Form.Label>
               <Form.Control
                 name="password"
                 value={user.password}
                 type="password"
-                placeholder="Enter Password"
+                placeholder={t("pPassword")}
                 onChange={handleChange}
               />
             </Form.Group>
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
-                &nbsp; Confirm Password
+                &nbsp; {t("confirmPassword")}
               </Form.Label>
               <Form.Control
                 type="password"
@@ -91,7 +100,7 @@ const SignUp = () => {
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
-                &nbsp; Email
+                &nbsp; {t("email")}
               </Form.Label>
               <Form.Control
                 name="email"
@@ -101,27 +110,27 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <h3>Type of User</h3>
+            <h3>{t("type")}</h3>
             <RadioGroup name="type" value={user.type} onChange={handleChange}>
               <div className="checkbox">
                 <FormControlLabel
                   value="worker"
                   name="type"
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Worker"
+                  label={t("worker")}
                 />
                 <FormControlLabel
                   value="admin"
                   name="type"
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Admin"
+                  label={t("admin")}
                 />
               </div>
             </RadioGroup>
           </Form>
         </div>
         <button className="btns" onClick={handleSubmit}>
-          Sign Up
+          {t("signup")}
         </button>
       </div>
     </div>

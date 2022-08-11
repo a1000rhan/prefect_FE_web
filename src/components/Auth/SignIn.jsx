@@ -6,8 +6,11 @@ import logo from "../../logo.svg";
 import authstore from "../../store/authStore";
 import { observer } from "mobx-react";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const SignIn = () => {
+  const { t, i18n } = useTranslation();
+
   authstore.loading && <h1>loading</h1>;
   const [user, setUser] = useState({
     username: "",
@@ -32,9 +35,15 @@ const SignIn = () => {
   return (
     <div className="bk">
       <div className="App">
+        <Icon.Translate
+          size={30}
+          color="white"
+          onClick={() => {
+            i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+          }}
+        />
         <img src={logo} className="App-logo2" alt="logo" />
-
-        <h1 className="perfect-title">Sign In</h1>
+        <h1 className="perfect-title">{t("signin")}</h1>
         <hr className="divider" />
       </div>
 
@@ -43,20 +52,20 @@ const SignIn = () => {
           <Form onSubmit={handleSubmit} className="form">
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
-                <Icon.PersonCircle /> &nbsp; Username
+                <Icon.PersonCircle /> &nbsp; {t("username")}
               </Form.Label>
               <Form.Control
                 name="username"
                 value={user.username}
                 type="text"
-                placeholder="Enter Username"
+                placeholder={t("pUsername")}
                 onChange={handleChange}
               />
             </Form.Group>
 
             <Form.Label className="form-label">
               <Icon.Key />
-              &nbsp; Password
+              &nbsp; {t("password")}
             </Form.Label>
             <div
               className="form-controls"
@@ -74,7 +83,7 @@ const SignIn = () => {
                 style={{ height: "40px" }}
                 value={user.password}
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter Password"
+                placeholder={t("pPassword")}
                 onChange={handleChange}
               />
 
@@ -92,12 +101,12 @@ const SignIn = () => {
 
           <hr className="divider" />
           <button className="btns" onClick={handleSubmit}>
-            Sign In
+            {t("signin")}
           </button>
           <p className="under-sign">
-            if you don't have an account, please go to
+            {t("notSignup")}
             <Link to="/signup" className="under-sign-link">
-              <span> Sign Up</span>
+              <span> {t("signup")}</span>
             </Link>
           </p>
         </div>

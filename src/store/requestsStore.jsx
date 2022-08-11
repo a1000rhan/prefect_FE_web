@@ -134,6 +134,8 @@ class RequestStore {
   uploadPdf = async (fileData, request, pdf, Swal) => {
     try {
       const formData = new FormData();
+      const note = prompt("Enter your Notes");
+
       Swal.fire({
         title: "Are you done from this request",
 
@@ -149,6 +151,8 @@ class RequestStore {
             `requests/done/${request._id}`,
             request
           );
+          pdf.text(40, 220, "Notes:   " + note);
+
           pdf.save("test.pdf");
           Swal.fire({
             position: "top-center",

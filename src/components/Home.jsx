@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../logo.svg";
 import authstore from "../store/authStore";
@@ -10,6 +10,8 @@ import { Spinner } from "react-bootstrap";
 import { Avatar } from "@mui/material";
 import OneProfile from "./Profiles/OneProfile";
 import Profiles from "./Profiles/Profiles";
+import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const workerRequests = requestStore?.requests.map((req) => (
@@ -17,6 +19,13 @@ const Home = () => {
       <RequestItem request={req} key={req._id} />
     </div>
   ));
+  const { i18n, t } = useTranslation();
+  useEffect(() => {
+    if (localStorage.getItem("i18nextLng")?.length > 2) {
+      i18next.changeLanguage("en");
+    }
+  }, []);
+
   const info = profileStore.oneProfile;
 
   const requests = info?.requests?.map((req) => (

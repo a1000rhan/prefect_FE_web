@@ -56,7 +56,11 @@ const RequestDetails = () => {
                 alignItems: "center",
               }}
             >
-              <h1>{requestD?.customerName}</h1>
+              <h1>
+                <Icon.PersonCircle />
+                &emsp;
+                {requestD?.customerName}
+              </h1>
               <Icon.ThreeDots
                 style={{
                   display: authstore.user.type === "admin" ? "block" : "none",
@@ -82,7 +86,10 @@ const RequestDetails = () => {
               </Menu>
             </div>
             <div className="address-details">
-              <h4>Address:&emsp;</h4>
+              <h4>
+                <Icon.GeoAltFill />
+                &emsp;
+              </h4>
               <p>
                 &nbsp;House:&nbsp;
                 {requestD?.customerAddress[0].house}, &nbsp;Street:&nbsp;
@@ -97,19 +104,33 @@ const RequestDetails = () => {
             </div>
             <hr className="divider" />
             <div className="detail-phone">
-              <h4>Phone Number:&emsp; </h4>
-              <p>{requestD?.customerPhone}</p>
+              <h4>
+                <Icon.TelephoneFill />
+                &emsp;{" "}
+              </h4>
+              <a href="">{requestD?.customerPhone}</a>
             </div>
             <hr className="divider" />
             <div className="detail-phone">
-              <h4>Date:&nbsp;</h4>
+              <h4>
+                {" "}
+                <Icon.Calendar2Date />
+                &nbsp;
+              </h4>
               <p>{requestD?.date}</p>
-              <h4>&emsp;Time:&nbsp;</h4>
+              <h4>
+                &emsp; <Icon.Clock />
+                :&nbsp;
+              </h4>
               <p>{requestD?.time}</p>
             </div>
             <hr className="divider" />
             <div className="detail-phone">
-              <h4>Description:&emsp;</h4>
+              <h4>
+                {" "}
+                <Icon.CardList />
+                &emsp;
+              </h4>
               <p>
                 Unit: {requestD?.problemDesc[0].unit}&emsp; operation:{" "}
                 {requestD?.problemDesc[0].operation}&emsp;
@@ -117,7 +138,11 @@ const RequestDetails = () => {
             </div>
 
             <div className="detail-phone">
-              <h4>Notes:&emsp;</h4>
+              <h4>
+                {" "}
+                <Icon.JournalText />
+                :&emsp;
+              </h4>
               <p> {requestD?.notes}</p>
             </div>
             <hr className="divider" />

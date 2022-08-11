@@ -6,7 +6,7 @@ import "react-clock/dist/Clock.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-time-picker/dist/TimePicker.css";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home";
 import SignIn from "./components/Auth/SignIn";
@@ -61,69 +61,72 @@ function App() {
   return (
     <>
       <Navbar location={location} key={profile._id} />
+      <Suspense fallback="loading..">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/one-profile" element={<OneProfile />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/one-profile" element={<OneProfile />} />
-
-        <Route path="/requests" element={<Requests />} />
-        <Route path="/requests/:slug" element={<RequestDetails />} />
-        <Route
-          path="/requests/createRequest"
-          element={
-            <CreateRequest
-              key={request._id}
-              request={request}
-              setRequest={setRequest}
-            />
-          }
-        />
-        <Route
-          path="/requests/createRequest/2"
-          element={
-            <CreateRequestProblem
-              key={request._id}
-              request={request}
-              setRequest={setRequest}
-            />
-          }
-        />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/profiles" element={<Profiles />} />
-        <Route path="/profiles/:worker" element={<ProfileWorkerDetails />} />
-        <Route
-          path="/updateRequest/:requestId"
-          element={
-            <UpdateRequest
-              updateRequest={updateRequest}
-              setUpdateRequest={setUpdateRequest}
-              key={updateRequest._id}
-            />
-          }
-        />
-        <Route
-          path="/updateRequest/2"
-          element={
-            <UpdateRequestProblem
-              updateRequest={updateRequest}
-              setUpdateRequest={setUpdateRequest}
-              key={request._id}
-            />
-          }
-        />
-        <Route
-          path="/updateProfiles"
-          element={<UpdateProfile profile={profile} setProfile={setProfile} />}
-        />
-        <Route
-          path="/updateProfiles2"
-          element={
-            <UpdateProfileTwo profile={profile} setProfile={setProfile} />
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="/requests" element={<Requests />} />
+          <Route path="/requests/:slug" element={<RequestDetails />} />
+          <Route
+            path="/requests/createRequest"
+            element={
+              <CreateRequest
+                key={request._id}
+                request={request}
+                setRequest={setRequest}
+              />
+            }
+          />
+          <Route
+            path="/requests/createRequest/2"
+            element={
+              <CreateRequestProblem
+                key={request._id}
+                request={request}
+                setRequest={setRequest}
+              />
+            }
+          />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profiles" element={<Profiles />} />
+          <Route path="/profiles/:worker" element={<ProfileWorkerDetails />} />
+          <Route
+            path="/updateRequest/:requestId"
+            element={
+              <UpdateRequest
+                updateRequest={updateRequest}
+                setUpdateRequest={setUpdateRequest}
+                key={updateRequest._id}
+              />
+            }
+          />
+          <Route
+            path="/updateRequest/2"
+            element={
+              <UpdateRequestProblem
+                updateRequest={updateRequest}
+                setUpdateRequest={setUpdateRequest}
+                key={request._id}
+              />
+            }
+          />
+          <Route
+            path="/updateProfiles"
+            element={
+              <UpdateProfile profile={profile} setProfile={setProfile} />
+            }
+          />
+          <Route
+            path="/updateProfiles2"
+            element={
+              <UpdateProfileTwo profile={profile} setProfile={setProfile} />
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

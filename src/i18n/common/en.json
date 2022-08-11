@@ -1,0 +1,14 @@
+{
+    "submit": "Submit",
+    "signup": "Sign Up",
+    "signin": "Sign In",
+    "username": "Username",
+    "pUsername": "Please enter your username",
+    "password": "Password",
+    "pPassword": "Please enter your password",
+    "confirmpassword": "Confirm Password",
+    "email": "Email",
+    "type": "Type of User",
+    "worker": "Worker",
+    "admin": "Admin"
+}

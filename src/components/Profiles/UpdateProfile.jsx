@@ -24,7 +24,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
     // profileStore.updateProfile(profile);
     navigate("/updateProfiles2");
   };
-
+  //TODO: Auto fill update profile
   return (
     <div className="bk">
       {(profileStore.loading || authstore.loading) && (

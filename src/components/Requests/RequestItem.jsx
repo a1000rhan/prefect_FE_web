@@ -1,5 +1,5 @@
 import { Button, Card } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
 import requestStore from "../../store/requestsStore";
@@ -10,9 +10,14 @@ import { MenuItem, Menu } from "@mui/material";
 import Swal from "sweetalert2";
 
 import pdfReceipt from "../../store/pdfReceipt";
+import Signature from "../Additonal/Signature";
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
     <h1>loading</h1>;
+
+  let sigPad = useRef(null);
+  const [show, setShow] = useState(false);
+  const [sign, setSign] = useState("");
 
   const [filePdf, setFilePdf] = useState(request.receipt);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -32,13 +37,14 @@ const RequestItem = ({ request }) => {
 
   const onDone = (e) => {
     e.preventDefault();
+    setShow(true);
     pdfReceipt.pdfFunction(request, setFilePdf);
   };
   const onCancel = (e) => {
     e.preventDefault();
     request.status = "canceled";
     requestStore.cancelRequest(request);
-    // requestStore.updateRequest(request, navigate, "", Swal);
+    requestStore.updateRequest(request, navigate, "", Swal);
   };
   const handleDownload = (e) => {
     e.preventDefault();
@@ -97,12 +103,19 @@ const RequestItem = ({ request }) => {
           <div className="ic-end">
             {request?.status === "pending" ? (
               <>
+                <Signature
+                  setSign={setSign}
+                  sigPad={sigPad}
+                  show={show}
+                  setShow={setShow}
+                />
                 <Icon.CheckCircle
                   style={{ marginLeft: 10 }}
                   size={30}
                   color="green"
                   onClick={onDone}
                 />
+
                 <Icon.XCircle
                   style={{ marginLeft: 10 }}
                   size={30}

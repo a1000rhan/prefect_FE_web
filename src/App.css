@@ -58,11 +58,11 @@
   background: linear-gradient(
     135deg,
     rgba(12, 74, 110, 1) 0%,
-    rgba(12, 74, 110, 1) 70%,
-    rgba(0, 117, 184, 1) 71%,
-    rgba(0, 117, 184, 1) 85%,
-    rgba(226, 244, 255, 1) 86%,
-    rgba(12, 74, 110, 1) 100%
+    rgba(12, 74, 110, 1) 72%,
+    rgba(0, 117, 184, 1) 72%,
+    rgba(89, 195, 255, 1) 85%,
+    rgba(226, 244, 255, 1) 85%,
+    rgba(55, 145, 198, 1) 100%
   );
   border-radius: 0 0px 20px 20px;
   display: flex;
@@ -71,6 +71,9 @@
   align-items: center;
   color: white;
   text-align: center;
+  box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
+  -webkit-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
 }
 .top-icon {
   margin-right: 20px;
@@ -81,25 +84,25 @@
   height: 100px;
 }
 .bk {
-  background: rgb(184, 232, 255);
   background: -moz-radial-gradient(
     circle,
-    rgba(184, 232, 255, 1) 0%,
-    rgba(21, 141, 199, 1) 50%,
-    rgba(0, 84, 124, 1) 100%
+    rgba(184, 233, 255, 0.611) 0%,
+    rgba(21, 141, 199, 0.5) 50%,
+    rgba(0, 84, 124, 0.5) 100%
   );
   background: -webkit-radial-gradient(
     circle,
-    rgba(184, 232, 255, 1) 0%,
-    rgba(21, 141, 199, 1) 50%,
-    rgba(0, 84, 124, 1) 100%
+    rgba(184, 232, 255, 0.5) 0%,
+    rgba(21, 141, 199, 0.5) 50%,
+    rgba(0, 84, 124, 0.5) 100%
   );
   background: radial-gradient(
     circle,
-    rgba(184, 232, 255, 1) 0%,
-    rgba(21, 141, 199, 1) 50%,
-    rgba(0, 84, 124, 1) 100%
+    rgba(184, 232, 255, 0.5) 0%,
+    rgba(21, 141, 199, 0.5) 50%,
+    rgba(0, 84, 124, 0.5) 100%
   );
+  /* background-color: #ebebeb; */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b8e8ff",endColorstr="#00547c",GradientType=1);
   height: 100vh;
   width: 100%;
@@ -118,16 +121,16 @@
   background: linear-gradient(
     135deg,
     rgba(12, 74, 110, 1) 0%,
-    rgba(12, 74, 110, 1) 70%,
-    rgba(0, 117, 184, 1) 71%,
-    rgba(0, 117, 184, 1) 85%,
-    rgba(226, 244, 255, 1) 86%,
-    rgba(12, 74, 110, 1) 100%
+    rgba(12, 74, 110, 1) 62%,
+    rgba(0, 117, 184, 1) 62%,
+    rgba(89, 195, 255, 1) 82%,
+    rgba(226, 244, 255, 1) 82%,
+    rgba(55, 145, 198, 1) 100%
   );
   border-radius: 0 0 20px 20px;
-  box-shadow: 1px 17px 37px 0px rgba(0, 0, 0, 0.26);
-  -webkit-box-shadow: 1px 17px 37px 0px rgba(0, 0, 0, 0.26);
-  -moz-box-shadow: 1px 17px 37px 0px rgba(0, 0, 0, 0.26);
+  box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
+  -webkit-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
 }
 
 .App-header2 {
@@ -257,4 +260,15 @@
 .fade-exit-active {
   opacity: 0;
   transition: opacity 100ms ease-in;
+}
+
+.drawing-container {
+  width: 90%;
+  height: 200px;
+}
+.drawing-canvas {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 2px solid #000;
 }
