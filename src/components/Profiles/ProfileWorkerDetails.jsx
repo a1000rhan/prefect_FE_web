@@ -8,9 +8,11 @@ import { Avatar } from "@mui/material";
 import { Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 
 const ProfileWorkerDetails = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const { worker } = useParams();
   const info = profileStore.profiles.find((profile) => profile._id === worker);
@@ -32,11 +34,20 @@ const ProfileWorkerDetails = () => {
           <>
             <header className="prof-header">
               <div className="App-header2">
-                <Icon.ArrowLeft
-                  onClick={() => navigate(-1)}
-                  size={30}
-                  className="top-icon"
-                />
+                {i18n.language === "ar" ? (
+                  <Icon.ArrowRight
+                    onClick={() => navigate(-1)}
+                    size={30}
+                    className="top-icon"
+                  />
+                ) : (
+                  <Icon.ArrowLeft
+                    onClick={() => navigate(-1)}
+                    size={30}
+                    className="top-icon"
+                  />
+                )}
+
                 <Avatar
                   src={info?.image}
                   sx={{
@@ -47,7 +58,9 @@ const ProfileWorkerDetails = () => {
                     border: "3px solid white",
                   }}
                 />
-                <h1>{info?.owner.username} Profile</h1>
+                <h1>
+                  {info?.owner.username} {t("profile")}
+                </h1>
               </div>
 
               <div className="profile-info">

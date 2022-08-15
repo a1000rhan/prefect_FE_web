@@ -18,25 +18,34 @@ import { styled } from "@mui/material/styles";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import authstore from "../store/authStore";
 import profileStore from "../store/profileStore";
+import * as Icon from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
-const navItemsAmin = [
-  "Home",
-  "All Profiles",
-  "All Requests",
-  "Update Profile",
-  "Sign Out",
-];
-const navItemsWorker = ["Home", "Registration", "Update Profile", "Sign out"];
-const pathsAdmin = [
-  "/",
-  "/profiles",
-  "/requests",
-  "/updateProfiles",
-  "/signin",
-];
-const pathsWorker = ["/", "/signin", "/updateProfiles", "/signin"];
+
 function Navbar(props) {
+  const { t, i18n } = useTranslation();
+  const navItemsAmin = [
+    t("home"),
+    t("allProfiles"),
+    t("allRequests"),
+    t("updateProfile"),
+    t("signout"),
+  ];
+  const navItemsWorker = [
+    t("home"),
+    "Registration",
+    t("updateProfile"),
+    t("signout"),
+  ];
+  const pathsAdmin = [
+    "/",
+    "/profiles",
+    "/requests",
+    "/updateProfiles",
+    "/signin",
+  ];
+  const pathsWorker = ["/", "/signup", "/updateProfiles", "/signin"];
   const navigate = useNavigate();
   const loaction = useLocation();
   const { window, location } = props;
@@ -71,7 +80,23 @@ function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Perfect
+        Perfect &emsp;
+        <Icon.Translate
+          size={30}
+          onClick={() => {
+            if (i18n.language === "ar") {
+              i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+              document
+                .getElementsByTagName("html")[0]
+                .setAttribute("dir", "ltr");
+            } else {
+              i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+              document
+                .getElementsByTagName("html")[0]
+                .setAttribute("dir", "rtl");
+            }
+          }}
+        />
       </Typography>
       <Divider />
       <List>
@@ -185,6 +210,7 @@ function Navbar(props) {
               display: { xs: "block", sm: "none" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
+                right: "0",
                 width: drawerWidth,
                 backgroundColor: "#f0f7ff",
               },

@@ -5,12 +5,9 @@ import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
 import requestStore from "../../store/requestsStore";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
-  console.log(
-    "🚀 ~ file: UpdateRequest.jsx ~ line 10 ~ UpdateRequest ~ updateRequest",
-    updateRequest
-  );
   if (profileStore.loading || requestStore.loading) {
     <h1>loading</h1>;
   }
@@ -18,6 +15,8 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   const request = requestStore.requests.find(
     (request) => request._id === requestId
   );
+  const { t, i18n } = useTranslation();
+
   setUpdateRequest(request);
   const [time, setTime] = useState(updateRequest.time);
   const [date, setDate] = useState(moment(updateRequest.date).toDate());
@@ -57,18 +56,26 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     <>
       <div className="bk">
         <header className="App-header">
-          <Icon.ArrowLeft
-            onClick={() => navigate(-1)}
-            size={30}
-            className="top-icon"
-          />
+          {i18n.language === "ar" ? (
+            <Icon.ArrowRight
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          ) : (
+            <Icon.ArrowLeft
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          )}
 
-          <h1>Update Request</h1>
+          <h1>{t("updateRequest")}</h1>
         </header>
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">Customer Name</label>
+              <label className="labelT">{t("customerName")}</label>
               <input
                 className="textF"
                 value={data.customerName}
@@ -76,9 +83,9 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                 name="customerName"
                 onChange={handleChange}
               />
-              <label className="labelT">Customer Address</label>
+              <label className="labelT">{t("customerAddress")}</label>
               <div className="addressB">
-                <p className="addressL">house:</p>
+                <p className="addressL">{t("house")}:</p>
                 <input
                   className="addressF"
                   value={address.house}
@@ -88,7 +95,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                     setAddress({ ...address, house: e.target.value })
                   }
                 />
-                <p className="addressL">Street:</p>
+                <p className="addressL">{t("street")}:</p>
                 <input
                   value={address.street}
                   type="text"
@@ -98,7 +105,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                   }
                   className="addressF"
                 />
-                <p className="addressL">Block:</p>
+                <p className="addressL">{t("block")}:</p>
                 <input
                   value={address.block}
                   type="text"
@@ -108,7 +115,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                   }
                   className="addressF"
                 />
-                <p className="addressL">City:</p>
+                <p className="addressL">{t("city")}:</p>
 
                 <select style={{ display: "none" }}>
                   <option value="---- اختر المنطقة ----">
@@ -380,7 +387,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                   style={{ width: "100px", margin: "5px" }}
                 />
                 <div></div>
-                <p className="addressL">Apt:</p>
+                <p className="addressL">{t("apt")}:</p>
                 <input
                   value={address.apartment}
                   type="text"
@@ -390,7 +397,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                   }
                   className="addressF"
                 />
-                <p className="addressL">floor:</p>
+                <p className="addressL">{t("floor")}:</p>
                 <input
                   className="addressF"
                   value={address.floor}
@@ -401,7 +408,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                   }
                 />
               </div>
-              <label className="labelT">Customer Phone Number</label>
+              <label className="labelT">{t("customerPhone")}</label>
               <input
                 className="textF"
                 value={data.customerPhone}
@@ -412,7 +419,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
             </div>
             <br />
             <div>
-              <label className="labelT">The date</label>
+              <label className="labelT">{t("date")}</label>
               <TimeDate
                 setTime={setTime}
                 time={time}
@@ -424,7 +431,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
           </form>
           <div className="center">
             <button className="btns" onClick={handleSubmit}>
-              Continue Update Request
+              {t("continueUpdateRequest")}
             </button>
           </div>
         </div>

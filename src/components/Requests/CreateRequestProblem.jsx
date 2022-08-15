@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const CreateRequestProblem = ({ request, setRequest }) => {
-  console.log(
-    "🚀 ~ file: CreateRequestProblem.jsx ~ line 9 ~ CreateRequestProblem ~ request",
-    request
-  );
+  const { t, i18n } = useTranslation();
+
   profileStore.loading && <h1>loading</h1>;
   const [problemDesc, setProblemDesc] = useState({
     operation: "",
@@ -54,17 +53,26 @@ const CreateRequestProblem = ({ request, setRequest }) => {
     <>
       <div className="bk">
         <header className="App-header">
-          <Icon.ArrowLeft
-            onClick={() => navigate(-1)}
-            size={30}
-            className="top-icon"
-          />
-          <h1>Create Request</h1>
+          {i18n.language === "ar" ? (
+            <Icon.ArrowRight
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          ) : (
+            <Icon.ArrowLeft
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          )}
+
+          <h1>{t("createRequest")}</h1>
         </header>
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">The Problem</label>
+              <label className="labelT">{t("problem")}</label>
               <br />
               <RadioGroup
                 name="unit"
@@ -76,7 +84,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
                   name="unit"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Split Unit"
+                  label={t("split")}
                 />
 
                 <FormControlLabel
@@ -84,7 +92,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
                   name="problem2"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Central Unit"
+                  label={t("central")}
                 />
               </RadioGroup>
               <RadioGroup
@@ -97,7 +105,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
                   name="operation"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Maintenance"
+                  label={t("maintenance")}
                 />
 
                 <FormControlLabel
@@ -105,12 +113,12 @@ const CreateRequestProblem = ({ request, setRequest }) => {
                   name="problemDesc"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Installing"
+                  label={t("installing")}
                 />
               </RadioGroup>
 
               <br />
-              <label className="labelT">Problem Description</label>
+              <label className="labelT">{t("problemDescription")}</label>
               <textarea
                 className="textF"
                 name="notes"
@@ -126,7 +134,7 @@ const CreateRequestProblem = ({ request, setRequest }) => {
             </div>
           </form>
           <button className="btns" onClick={handleSubmit}>
-            Create Request
+            {t("createRequest")}
           </button>
         </div>
       </div>

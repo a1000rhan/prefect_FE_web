@@ -8,12 +8,14 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import { MenuItem, Menu } from "@mui/material";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 import pdfReceipt from "../../store/pdfReceipt";
 import Signature from "../Additonal/Signature";
 const RequestItem = ({ request }) => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
     <h1>loading</h1>;
+  const { t, i18n } = useTranslation();
 
   let sigPad = useRef(null);
   const [show, setShow] = useState(false);
@@ -79,14 +81,14 @@ const RequestItem = ({ request }) => {
               className="dropdown-menu1"
               to={`/updateRequest/${request._id}`}
             >
-              <MenuItem>Edit Request</MenuItem>
+              <MenuItem>{t("editRequest")}</MenuItem>
             </Link>
-            <MenuItem onClick={handleDelete}>Delete Request</MenuItem>
+            <MenuItem onClick={handleDelete}>{t("deleteRequest")}</MenuItem>
           </Menu>
         </div>
         <div className="ro">
           <p className="subtitle">
-            status:
+            {t("status")}:
             <span
               style={{
                 color:
@@ -128,7 +130,7 @@ const RequestItem = ({ request }) => {
                 {request?.status === "done" ? (
                   <>
                     <a href={filePdf} target="_blank">
-                      Invoice
+                      {t("invoice")}
                     </a>
                   </>
                 ) : (

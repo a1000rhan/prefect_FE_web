@@ -7,6 +7,7 @@ import logo from "../../logo.svg";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const UpdateProfileTwo = ({ profile, setProfile }) => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
   };
 
   const [previewImage, setPreviewImage] = useState("");
+  const { t, i18n } = useTranslation();
 
   const handleImage = (event) => {
     const reader = new FileReader();
@@ -55,7 +57,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
           <Form onSubmit={handleSubmit} className="form">
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
-                <Icon.PersonCircle /> &nbsp; Civil Id
+                <Icon.PersonCircle /> &nbsp; {t("civilId")}
               </Form.Label>
 
               <Form.Control
@@ -70,7 +72,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
-                &nbsp; Age
+                &nbsp; {t("age")}
               </Form.Label>
               <Form.Control
                 name="age"
@@ -83,7 +85,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
-                &nbsp; Address
+                &nbsp; {t("address")}
               </Form.Label>
               <Form.Control
                 name="address"
@@ -96,7 +98,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
             <Form.Group className="form-control2">
               <Form.Label className="form-label">
                 <Icon.Image />
-                &nbsp; Image
+                &nbsp; {t("image")}
               </Form.Label>
               <Form.Control type="file" onChange={handleImage} />
               <img

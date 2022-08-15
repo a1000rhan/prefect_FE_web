@@ -6,12 +6,14 @@ import logo from "../../logo.svg";
 import { observer } from "mobx-react";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
+import { useTranslation } from "react-i18next";
 
 const UpdateProfile = ({ profile, setProfile }) => {
   if (authstore.loading || profileStore.loading) {
     <h1>loading</h1>;
   }
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const handleChange = (e) => {
     setProfile({
@@ -35,7 +37,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
       <div className="App">
         <img src={logo} className="App-logo2" alt="logo" />
         <div className="update-profile-header">
-          <h1>Update Profile</h1>
+          <h1>{t("updateProfile")}</h1>
         </div>
       </div>
       <hr className="divider" />
@@ -44,7 +46,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
           <Form onSubmit={handleSubmit} className="form">
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
-                <Icon.PersonCircle /> &nbsp; first Name
+                <Icon.PersonCircle /> &nbsp; {t("firstName")}
               </Form.Label>
 
               <Form.Control
@@ -58,7 +60,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Key />
-                &nbsp; Last Name
+                &nbsp; {t("lastName")}
               </Form.Label>
               <Form.Control
                 name="lastName"
@@ -71,7 +73,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Telephone />
-                &nbsp; Phone Number
+                &nbsp; {t("phoneNumber")}
               </Form.Label>
               <Form.Control
                 name="phoneNumber"
@@ -84,7 +86,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
             <Form.Group className="form-controls">
               <Form.Label className="form-label">
                 <Icon.Bag />
-                &nbsp; Position
+                &nbsp; {t("position")}
               </Form.Label>
               <Form.Control
                 name="position"
@@ -99,7 +101,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
         <hr className="divider" />
 
         <button className="btns" onClick={handleSubmit}>
-          Update Profile
+          {t("updateProfile")}
         </button>
       </div>
     </div>

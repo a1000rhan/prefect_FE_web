@@ -6,6 +6,7 @@ import { MenuItem, Menu } from "@mui/material";
 import authstore from "../../store/authStore";
 import Swal from "sweetalert2";
 import pdfReceipt from "../../store/pdfReceipt";
+import { useTranslation } from "react-i18next";
 
 const RequestDetails = () => {
   const { slug } = useParams();
@@ -15,6 +16,7 @@ const RequestDetails = () => {
   const [filePdf, setFilePdf] = useState(requestD?.receipt);
   console.log(requestD?.receipt);
 
+  const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -40,12 +42,21 @@ const RequestDetails = () => {
     <div>
       <div className="bk">
         <header className="App-header">
-          <Icon.ArrowLeft
-            onClick={() => navigate(-1)}
-            size={30}
-            className="top-icon"
-          />
-          <h1>Request Details</h1>
+          {i18n.language === "ar" ? (
+            <Icon.ArrowRight
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          ) : (
+            <Icon.ArrowLeft
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          )}
+
+          <h1>{t("requestDetails")}</h1>
         </header>
         <div className="details-container">
           <div className="card">
@@ -80,9 +91,9 @@ const RequestDetails = () => {
                   className="dropdown-menu1"
                   to={`/updateRequest/${requestD?._id}`}
                 >
-                  <MenuItem>Edit Request</MenuItem>
+                  <MenuItem>{t("editRequest")}</MenuItem>
                 </Link>
-                <MenuItem onClick={handleClose}>Delete Request</MenuItem>
+                <MenuItem onClick={handleClose}>{t("deleteRequest")}</MenuItem>
               </Menu>
             </div>
             <div className="address-details">
@@ -91,14 +102,15 @@ const RequestDetails = () => {
                 &emsp;
               </h4>
               <p>
-                &nbsp;House:&nbsp;
-                {requestD?.customerAddress[0].house}, &nbsp;Street:&nbsp;
-                {requestD?.customerAddress[0].street}, &nbsp;Block:&nbsp;
+                &nbsp;{t("house")}:&nbsp;
+                {requestD?.customerAddress[0].house}, &nbsp;{t("street")}:&nbsp;
+                {requestD?.customerAddress[0].street}, &nbsp;{t("block")}:&nbsp;
                 {requestD?.customerAddress[0].block},
                 <br />
-                &nbsp;Apartment:&nbsp;
-                {requestD?.customerAddress[0].apartment}, &nbsp;Floor:&nbsp;
-                {requestD?.customerAddress[0].floor}, &nbsp;City:&nbsp;
+                &nbsp;{t("apt")}:&nbsp;
+                {requestD?.customerAddress[0].apartment}, &nbsp;{t("floor")}
+                :&nbsp;
+                {requestD?.customerAddress[0].floor}, &nbsp;{t("city")}:&nbsp;
                 {requestD?.customerAddress[0].city}
               </p>
             </div>
@@ -132,8 +144,8 @@ const RequestDetails = () => {
                 &emsp;
               </h4>
               <p>
-                Unit: {requestD?.problemDesc[0].unit}&emsp; operation:{" "}
-                {requestD?.problemDesc[0].operation}&emsp;
+                {t("unit")}: {requestD?.problemDesc[0].unit}&emsp;{" "}
+                {t("operation")}: {requestD?.problemDesc[0].operation}&emsp;
               </p>
             </div>
 
@@ -147,7 +159,7 @@ const RequestDetails = () => {
             </div>
             <hr className="divider" />
             <div className="detail-phone">
-              <h4>Status:&emsp;</h4>
+              <h4>{t("status")}:&emsp;</h4>
               <p
                 style={{
                   color:
@@ -184,9 +196,9 @@ const RequestDetails = () => {
             {requestD?.status === "done" && (
               <>
                 <p className="subtitle">
-                  Receipt:&emsp;
+                  {t("receipt")}:&emsp;
                   <a href={requestD?.receipt} target="_blank">
-                    Download Invoice PDF
+                    {t("downloadInvoicePDF")}
                   </a>
                 </p>
               </>

@@ -220,3 +220,8 @@
   width: 100%;
   background-position: center;
 }
+.container1 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

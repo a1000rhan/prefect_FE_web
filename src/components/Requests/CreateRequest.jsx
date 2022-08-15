@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const CreateRequest = ({ request, setRequest }) => {
   const [time, setTime] = useState("10:00");
@@ -16,6 +17,8 @@ const CreateRequest = ({ request, setRequest }) => {
     apartment: "",
     floor: "",
   });
+  const { t, i18n } = useTranslation();
+
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -38,18 +41,26 @@ const CreateRequest = ({ request, setRequest }) => {
     <>
       <div className="bk">
         <header className="App-header">
-          <Icon.ArrowLeft
-            onClick={() => navigate(-1)}
-            size={30}
-            className="top-icon"
-          />
+          {i18n.language === "ar" ? (
+            <Icon.ArrowRight
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          ) : (
+            <Icon.ArrowLeft
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          )}
 
-          <h1>Create Request</h1>
+          <h1>{t("createRequest")}</h1>
         </header>
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">Customer Name</label>
+              <label className="labelT">{t("customerName")}</label>
               <input
                 className="textF"
                 value={request.customerName}
@@ -57,9 +68,9 @@ const CreateRequest = ({ request, setRequest }) => {
                 name="customerName"
                 onChange={handleChange}
               />
-              <label className="labelT">Customer Address</label>
+              <label className="labelT">{t("customerAddress")}</label>
               <div className="addressB">
-                <p className="addressL">house:</p>
+                <p className="addressL">{t("house")}:</p>
                 <input
                   className="addressF"
                   value={address.house}
@@ -69,7 +80,7 @@ const CreateRequest = ({ request, setRequest }) => {
                     setAddress({ ...address, house: e.target.value })
                   }
                 />
-                <p className="addressL">Street:</p>
+                <p className="addressL">{t("street")}:</p>
                 <input
                   value={address.street}
                   type="text"
@@ -79,7 +90,7 @@ const CreateRequest = ({ request, setRequest }) => {
                   }
                   className="addressF"
                 />
-                <p className="addressL">Block:</p>
+                <p className="addressL">{t("block")}:</p>
                 <input
                   value={address.block}
                   type="text"
@@ -89,7 +100,7 @@ const CreateRequest = ({ request, setRequest }) => {
                   }
                   className="addressF"
                 />
-                <p className="addressL">City:</p>
+                <p className="addressL">{t("city")}:</p>
                 <input
                   value={address.city}
                   type="text"
@@ -100,7 +111,7 @@ const CreateRequest = ({ request, setRequest }) => {
                   style={{ width: "100px", margin: "5px" }}
                 />
                 <div></div>
-                <p className="addressL">Apt:</p>
+                <p className="addressL">{t("apt")}:</p>
                 <input
                   value={address.apartment}
                   type="text"
@@ -110,7 +121,7 @@ const CreateRequest = ({ request, setRequest }) => {
                   }
                   className="addressF"
                 />
-                <p className="addressL">floor:</p>
+                <p className="addressL">{t("floor")}:</p>
                 <input
                   className="addressF"
                   value={address.floor}
@@ -121,7 +132,7 @@ const CreateRequest = ({ request, setRequest }) => {
                   }
                 />
               </div>
-              <label className="labelT">Customer Phone Number</label>
+              <label className="labelT">{t("customerPhone")}</label>
               <input
                 className="textF"
                 value={request.customerPhone}
@@ -132,7 +143,7 @@ const CreateRequest = ({ request, setRequest }) => {
             </div>
             <br />
             <div>
-              <label className="labelT">The date</label>
+              <label className="labelT">{t("date")}</label>
               <TimeDate
                 setTime={setTime}
                 time={time}
@@ -144,7 +155,7 @@ const CreateRequest = ({ request, setRequest }) => {
           </form>
           <div className="center">
             <button className="btns" onClick={handleSubmit}>
-              create Request
+              {t("createRequest")}
             </button>
           </div>
         </div>

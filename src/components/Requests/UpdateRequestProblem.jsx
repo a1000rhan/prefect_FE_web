@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
@@ -17,6 +18,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
   const [theWorker, setWorker] = useState("");
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const workersName = profileStore.workers.map((worker) => (
     <option value={worker._id}>{worker.firstName}</option>
@@ -62,17 +64,25 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     <>
       <div className="bk">
         <header className="App-header">
-          <Icon.ArrowLeft
-            onClick={() => navigate(-1)}
-            size={30}
-            className="top-icon"
-          />
-          <h1>Update Request</h1>
+          {i18n.language === "ar" ? (
+            <Icon.ArrowRight
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          ) : (
+            <Icon.ArrowLeft
+              onClick={() => navigate(-1)}
+              size={30}
+              className="top-icon"
+            />
+          )}
+          <h1>{t("updateRequest")}</h1>
         </header>
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">The Problem</label>
+              <label className="labelT">{t("problem")}</label>
               <br />
               <RadioGroup
                 name="unit"
@@ -85,7 +95,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   value="split"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Split Unit"
+                  label={t("split")}
                 />
 
                 <FormControlLabel
@@ -93,7 +103,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="problem2"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Central Unit"
+                  label={t("central")}
                 />
               </RadioGroup>
               <RadioGroup
@@ -107,7 +117,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="operation"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Maintenance"
+                  label={t("maintenance")}
                 />
 
                 <FormControlLabel
@@ -115,12 +125,12 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="operation"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Installing"
+                  label={t("installing")}
                 />
               </RadioGroup>
 
               <br />
-              <label className="labelT">Problem Description</label>
+              <label className="labelT">{t("problemDescription")}</label>
               <textarea
                 className="textF"
                 name="notes"
@@ -141,7 +151,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               <br />
               <br />
 
-              <label className="labelT">Status:</label>
+              <label className="labelT">{t("status")}:</label>
 
               <RadioGroup
                 name="status"
@@ -154,7 +164,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="cancel"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Cancel"
+                  label={t("cancel")}
                 />
 
                 <FormControlLabel
@@ -162,7 +172,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="done"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Done"
+                  label={t("done")}
                 />
 
                 <FormControlLabel
@@ -170,7 +180,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="pending"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label="Pending"
+                  label={t("pending")}
                 />
               </RadioGroup>
             </div>
