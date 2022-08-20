@@ -76,7 +76,7 @@ const OneProfile = () => {
               </div>
             </header>
 
-            <div className="all-req">{requests}</div>
+            <div className="all-req2">{requests}</div>
           </>
         )}
       </div>

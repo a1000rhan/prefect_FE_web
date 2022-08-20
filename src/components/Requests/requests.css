@@ -37,12 +37,24 @@
   display: flex;
 }
 .card {
-  width: 90%;
+  width: 25%;
   padding: 15px;
+  margin: 10px;
   background-color: white;
   box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
   -webkit-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
   -moz-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+}
+.card-req {
+  width: 300px;
+  padding: 15px;
+  height: 200px;
+
+  background-color: white;
+  transition: 0.3s ease-in-out;
+}
+.card-req:hover {
+  height: 210px;
 }
 .card-header {
   display: flex;
@@ -53,37 +65,33 @@
 }
 .reqs {
   flex: flex;
-  width: 100%;
-  justify-content: stretch;
+  margin: 10px;
   align-items: flex-start;
   flex-flow: row wrap;
-  margin: 10px;
 }
 .all-req {
   overflow-y: scroll;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   width: 100%;
   overflow-y: scroll;
   margin-bottom: 120px;
+  margin: 20px;
 }
-
-@media screen and (max-width: 480px) {
-  .reqs {
-    flex: flex;
-    justify-content: center;
-    align-items: center;
-    scroll-behavior: smooth;
-    touch-action: auto;
-    width: 100%;
-  }
-  .all-req {
-    display: block;
-    overflow-x: hidden;
-  }
+.all-req2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-
+.all-req-ad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
 .req-link {
   text-decoration: none;
   color: #000;
@@ -224,4 +232,51 @@
   display: flex;
   justify-content: center;
   width: 100%;
+}
+.map-box {
+  width: 80%;
+  height: 200px;
+}
+
+@media screen and (max-width: 480px) {
+  .reqs {
+    flex: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+    touch-action: auto;
+    width: 100%;
+    margin: 0px;
+  }
+
+  .all-req {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: 10px;
+  }
+  .all-req2 {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .card {
+    width: 90%;
+    padding: 15px;
+
+    background-color: white;
+    box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+    -webkit-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+    -moz-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+  }
+  .card-req {
+    width: 90%;
+    padding: 15px;
+    margin: 10px;
+
+    background-color: white;
+    box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+    -webkit-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+    -moz-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
+  }
 }

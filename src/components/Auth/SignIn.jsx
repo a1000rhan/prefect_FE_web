@@ -37,9 +37,18 @@ const SignIn = () => {
       <div className="App">
         <Icon.Translate
           size={30}
-          color="white"
           onClick={() => {
-            i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+            if (i18n.language === "ar") {
+              i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+              document
+                .getElementsByTagName("html")[0]
+                .setAttribute("dir", "ltr");
+            } else {
+              i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+              document
+                .getElementsByTagName("html")[0]
+                .setAttribute("dir", "rtl");
+            }
           }}
         />
         <img src={logo} className="App-logo2" alt="logo" />

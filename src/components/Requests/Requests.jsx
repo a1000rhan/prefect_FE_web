@@ -62,7 +62,7 @@ const Requests = () => {
           />
         </div>
         <div className="container">
-          <div className="all-req">{workerRequests}</div>
+          <div className="all-req-ad">{workerRequests}</div>
         </div>
       </div>
     </div>

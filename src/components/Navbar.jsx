@@ -189,7 +189,7 @@ function Navbar(props) {
               <></>
             ) : (
               <NavLink to="/requests/createRequest">
-                <StyledFab color="primary" aria-label="add">
+                <StyledFab className="addBtn" color="primary" aria-label="add">
                   <AddIcon />
                 </StyledFab>
               </NavLink>

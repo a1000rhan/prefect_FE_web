@@ -35,13 +35,13 @@ const Home = () => {
   ));
   return (
     <div className="bk">
-      {profileStore.loading || authstore.loading || requestStore.loading ? (
-        <div className="spinner">
-          <Spinner animation="border" variant="dark" />
-        </div>
-      ) : (
-        <>
-          {authstore?.user ? (
+      <>
+        {authstore?.user ? (
+          profileStore.loading || authstore.loading || requestStore.loading ? (
+            <div className="spinner">
+              <Spinner animation="border" variant="dark" />
+            </div>
+          ) : (
             <>
               {authstore?.user.type === "worker" ? (
                 <>
@@ -51,27 +51,25 @@ const Home = () => {
                 <Profiles />
               )}
             </>
-          ) : (
-            <div className="App">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="perfect-title">Perfect</h1>
-              <p className="perfect-subtitle">
-                Air Condition Company in Kuwait
-              </p>
-              <div>
-                <Link to="/signin">
-                  <button className="btn" onClick={() => {}}>
-                    Sign In
-                  </button>
-                </Link>
-                <Link to="signup">
-                  <button className="btn">Sign Up</button>
-                </Link>
-              </div>
+          )
+        ) : (
+          <div className="App">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="perfect-title">Perfect</h1>
+            <p className="perfect-subtitle">Air Condition Company in Kuwait</p>
+            <div>
+              <Link to="/signin">
+                <button className="btns" onClick={() => {}}>
+                  Sign In
+                </button>
+              </Link>
+              <Link to="signup">
+                <button className="btns">Sign Up</button>
+              </Link>
             </div>
-          )}
-        </>
-      )}
+          </div>
+        )}
+      </>
     </div>
   );
 };

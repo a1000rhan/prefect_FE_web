@@ -55,7 +55,7 @@ const RequestItem = ({ request }) => {
 
   return (
     <div className="reqs">
-      <div className="card">
+      <div className="card-req">
         <div className="card-header">
           <Link className="req-link" to={`/requests/${request.slug}`}>
             <p className="reqItem-text">{request?.customerName}</p>

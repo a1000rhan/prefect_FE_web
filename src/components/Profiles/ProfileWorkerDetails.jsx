@@ -54,6 +54,7 @@ const ProfileWorkerDetails = () => {
                     width: 80,
                     height: 80,
                     marginTop: 2,
+                    marginRight: 10,
                     objectFit: "fill",
                     border: "3px solid white",
                   }}
