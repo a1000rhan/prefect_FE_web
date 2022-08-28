@@ -1,7 +1,10 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, configure } from "mobx";
 import api from "./api";
 import authstore from "./authStore";
 
+configure({
+  enforceActions: "never",
+});
 class ProfileStore {
   profiles = [];
   workers = [];

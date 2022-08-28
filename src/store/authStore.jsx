@@ -1,9 +1,12 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, configure } from "mobx";
 import decode from "jwt-decode";
 import profileStore from "./profileStore";
 
 import api from "./api";
 import requestStore from "./requestsStore";
+configure({
+  enforceActions: "never",
+});
 class AuthStore {
   user = null;
   loading = true;

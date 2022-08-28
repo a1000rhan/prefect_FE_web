@@ -1,8 +1,11 @@
 import axios from "axios";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, configure } from "mobx";
 import api from "./api";
 import authstore from "./authStore";
 import profileStore from "./profileStore";
+configure({
+  enforceActions: "never",
+});
 
 class RequestStore {
   requests = [];
