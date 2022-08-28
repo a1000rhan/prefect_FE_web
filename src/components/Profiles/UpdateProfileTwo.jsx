@@ -87,6 +87,7 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
                 <Icon.Key />
                 &nbsp; {t("address")}
               </Form.Label>
+
               <Form.Control
                 name="address"
                 value={profile.address}

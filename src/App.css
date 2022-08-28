@@ -158,8 +158,12 @@
 }
 
 .divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 60%;
   opacity: 0.3;
+  text-align: center;
 }
 
 .btns {
