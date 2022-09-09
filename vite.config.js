@@ -6,7 +6,7 @@ import { splitVendorChunkPlugin } from "vite";
 export default defineConfig({
   base: "/",
   server: {
-    port: 8080,
+    port: 7811,
   },
 
   plugins: [react(), splitVendorChunkPlugin()],
