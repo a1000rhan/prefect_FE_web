@@ -7,8 +7,8 @@ export default defineConfig({
   base: "/",
 
   server: {
-    proxy: "http://localhost:7811",
-    port: 7811,
+    proxy: "http://localhost:8080",
+    port: 8080,
   },
 
   plugins: [react(), splitVendorChunkPlugin()],
