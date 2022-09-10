@@ -7,11 +7,6 @@ export default defineConfig({
   base: "/",
 
   server: {
-    proxy: "http://localhost:8080",
-    cors: true,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
     port: 8080,
   },
 
