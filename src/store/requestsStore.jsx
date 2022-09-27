@@ -166,6 +166,7 @@ class RequestStore {
             timer: 3000,
           });
           this.getAllRequests();
+          window.location.reload();
         }
       });
       this.isLoading = false;
