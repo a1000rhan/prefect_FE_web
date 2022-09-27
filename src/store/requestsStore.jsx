@@ -64,10 +64,6 @@ class RequestStore {
     }
   };
   updateRequest = async (updateRequest, theWorker, navigate, Swal) => {
-    console.log(
-      "🚀 ~ file: requestsStore.jsx ~ line 67 ~ RequestStore ~ updateRequest= ~ updateRequest",
-      updateRequest
-    );
     try {
       Swal.fire({
         title: "Do you want to save the changes?",
