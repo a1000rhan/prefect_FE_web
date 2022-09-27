@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import profileStore from "../../store/profileStore";
 import { observer } from "mobx-react";
 import ProfileItem from "./ProfileItem";
@@ -9,6 +9,10 @@ const Profiles = () => {
   if (profileStore.loading || requestStore.loading) {
     <h1>loading</h1>;
   }
+  useEffect(() => {
+    requestStore.fetchRequests();
+    profileStore.fetchProfiles();
+  }, []);
 
   const { t, i18n } = useTranslation();
   const theProfiles = profileStore.workers.map((profile) => (
