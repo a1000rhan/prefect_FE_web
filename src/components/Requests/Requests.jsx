@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import authstore from "../../store/authStore";
 import requestStore from "../../store/requestsStore";
 import RequestItem from "./RequestItem";
@@ -7,8 +7,14 @@ import SearchBar from "../Additonal/SearchBar";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import profileStore from "../../store/profileStore";
 
 const Requests = () => {
+  useEffect(() => {
+    requestStore.fetchRequests();
+    profileStore.fetchProfiles();
+  }, []);
+
   const currentDate = new Date();
   const { t, i18n } = useTranslation();
 
@@ -18,6 +24,7 @@ const Requests = () => {
     new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000),
     new Date(currentDate.getTime() + 10 * 24 * 60 * 60 * 1000),
   ]);
+
   const workerRequests = requestStore?.requests
     .filter(
       (req) =>
