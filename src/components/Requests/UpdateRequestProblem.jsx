@@ -54,10 +54,6 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
       status: updateStatus,
     };
 
-    console.log(
-      "🚀 ~ file: UpdateRequestProblem.jsx ~ line 44 ~ handleSubmit ~ allData",
-      allData
-    );
     requestStore.updateRequest(allData, theWorker, navigate, Swal);
   };
   return (
