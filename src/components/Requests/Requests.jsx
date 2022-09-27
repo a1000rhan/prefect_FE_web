@@ -10,11 +10,6 @@ import { useTranslation } from "react-i18next";
 import profileStore from "../../store/profileStore";
 
 const Requests = () => {
-  useEffect(() => {
-    requestStore.fetchRequests();
-    profileStore.fetchProfiles();
-  }, []);
-
   const currentDate = new Date();
   const { t, i18n } = useTranslation();
 

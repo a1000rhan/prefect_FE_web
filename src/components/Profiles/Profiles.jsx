@@ -9,10 +9,6 @@ const Profiles = () => {
   if (profileStore.loading || requestStore.loading) {
     <h1>loading</h1>;
   }
-  useEffect(() => {
-    requestStore.fetchRequests();
-    profileStore.fetchProfiles();
-  }, []);
 
   const { t, i18n } = useTranslation();
   const theProfiles = profileStore.workers.map((profile) => (
