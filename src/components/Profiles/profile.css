@@ -29,6 +29,7 @@
   margin: 20px;
   align-items: center;
   margin-bottom: 10px;
+  overflow: scroll;
 }
 .profile-label {
   font-size: 1.2rem;
@@ -84,7 +85,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
-    overflow: hidden;
+    overflow-y: hidden;
     margin: 0;
 
     margin-bottom: 10px;
