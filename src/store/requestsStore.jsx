@@ -72,8 +72,8 @@ class RequestStore {
         confirmButtonText: "Save",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const pushRequest = profileStore.workers.find(
-            (worker) => worker._id == theWorker
+          const theChoosenWorker = profileStore.workers.find(
+            (worker) => worker._id === theWorker
           );
 
           const resp = await api.put(
@@ -81,17 +81,27 @@ class RequestStore {
             updateRequest
           );
 
-          this.getAllRequests();
-          //something wrong here with condition
-          //TODO: fix this
-
-          pushRequest?.requests.find(async (req) => {
-            if (req._id === updateRequest._id) {
-            } else {
-            }
+          const foundRequest = theChoosenWorker.requests.some((req) => {
+            return req._id === resp.data._id;
           });
 
-          Swal.fire("Saved!", "", "success");
+          if (foundRequest) {
+            Swal.fire({
+              position: "top-center",
+              icon: "error",
+              title: "the request already exist",
+              showConfirmButton: false,
+            });
+          } else {
+            theChoosenWorker.requests.push(resp.data._id);
+            await api.put(
+              `/profiles/${theChoosenWorker._id}`,
+              theChoosenWorker
+            );
+            Swal.fire("Saved!", "", "success");
+            profileStore.fetchProfiles();
+          }
+
           navigate("/");
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");

@@ -145,7 +145,7 @@ function Navbar(props) {
         <AppBar
           position="fixed"
           color="primary"
-          sx={{ top: "auto", bottom: "0" }}
+          sx={{ top: "auto", bottom: "0", height: "60px" }}
         >
           <Toolbar>
             <IconButton

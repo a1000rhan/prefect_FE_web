@@ -159,7 +159,7 @@ const RequestDetails = () => {
             </div>
             <hr className="divider" />
             <div className="detail-phone">
-              <h4>{t("status")}:&emsp;</h4>
+              <h5>{t("status")}:&emsp;</h5>
               <p
                 style={{
                   color:

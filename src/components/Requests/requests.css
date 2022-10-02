@@ -37,9 +37,9 @@
   display: flex;
 }
 .card {
-  width: 25%;
+  width: 70%;
   padding: 15px;
-  margin: 10px;
+  margin-bottom: 100px;
   background-color: white;
   box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
   -webkit-box-shadow: 10px 8px 27px 9px rgba(69, 69, 69, 0.33);
@@ -131,7 +131,7 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
-  margin-top: 15%;
+  margin-top: 2%;
 }
 .address-details {
   display: flex;

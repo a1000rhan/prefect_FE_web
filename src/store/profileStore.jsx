@@ -47,15 +47,8 @@ class ProfileStore {
       const formData = new FormData();
       for (const key in profile) formData.append(key, profile[key]);
 
-      console.log(
-        "🚀 ~ file: profileStore.jsx ~ line 51 ~ ProfileStore ~ updateProfile= ~ this.oneProfile",
-        this.oneProfile
-      );
       const res = await api.put(`/profiles/${this.oneProfile._id}`, formData);
-      console.log(
-        "🚀 ~ file: profileStore.jsx ~ line 56 ~ ProfileStore ~ updateProfile= ~ res",
-        res.data
-      );
+
       this.profiles = this.profiles.map((pro) =>
         pro._id === profile._id ? res.data : pro
       );

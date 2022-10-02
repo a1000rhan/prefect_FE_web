@@ -28,7 +28,7 @@
   width: 100%;
   margin: 20px;
   align-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 10px;
 }
 .profile-label {
   font-size: 1.2rem;
@@ -52,7 +52,7 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  margin-top: 15px;
+  margin-top: 3px;
 }
 .img-thumbnail {
   width: 100px;
@@ -86,7 +86,8 @@
     align-items: center;
     overflow: hidden;
     margin: 0;
-    margin-bottom: 80px;
+
+    margin-bottom: 10px;
   }
   .profile-info {
     display: block;
@@ -98,5 +99,6 @@
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
+    margin-bottom: 2px;
   }
 }
