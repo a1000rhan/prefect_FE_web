@@ -81,7 +81,7 @@ class RequestStore {
             updateRequest
           );
 
-          const foundRequest = theChoosenWorker.requests.some((req) => {
+          const foundRequest = theChoosenWorker?.requests.some((req) => {
             return req._id === resp.data._id;
           });
 
@@ -93,15 +93,16 @@ class RequestStore {
               showConfirmButton: false,
             });
           } else {
-            theChoosenWorker.requests.push(resp.data._id);
-            await api.put(
-              `/profiles/${theChoosenWorker._id}`,
-              theChoosenWorker
-            );
-            Swal.fire("Saved!", "", "success");
-            profileStore.fetchProfiles();
+            if (theChoosenWorker != null) {
+              theChoosenWorker?.requests.push(resp.data._id);
+              await api.put(
+                `/profiles/${theChoosenWorker._id}`,
+                theChoosenWorker
+              );
+              Swal.fire("Saved!", "", "success");
+            }
           }
-
+          profileStore.fetchProfiles();
           navigate("/");
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");
@@ -200,7 +201,6 @@ class RequestStore {
         if (result.isConfirmed) {
           await api.delete(`requests/${request._id}`);
           this.requests = this.requests.filter((req) => req._id == request._id);
-
           Swal.fire("Deleted!", "", "success");
         }
       });

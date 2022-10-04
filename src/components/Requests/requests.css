@@ -87,11 +87,7 @@
   justify-content: center;
   width: 100%;
 }
-.all-req-ad {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
+
 .req-link {
   text-decoration: none;
   color: #000;
@@ -149,6 +145,8 @@
 
 .search-text {
   width: 95%;
+
+  z-index: 1;
 }
 
 .dropdown-menu1 {
@@ -254,6 +252,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     margin: 10px;
+    margin-bottom: 90px;
   }
   .all-req2 {
     display: block;

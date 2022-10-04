@@ -11,8 +11,8 @@ import { useTranslation } from "react-i18next";
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
   const [problemDesc, setProblemDesc] = useState({
-    operation: updateRequest.problemDesc[0]?.operation,
-    unit: updateRequest.problemDesc[0]?.unit,
+    operation: updateRequest?.problemDesc[0]?.operation,
+    unit: updateRequest?.problemDesc[0]?.unit,
   });
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
@@ -20,7 +20,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
-  const workersName = profileStore.workers.map((worker) => (
+  const workersName = profileStore?.workers.map((worker) => (
     <option value={worker._id}>{worker.firstName}</option>
   ));
 

@@ -53,8 +53,8 @@
 
 .App-header {
   height: 80px;
+  z-index: 100;
   width: 100%;
-
   background: linear-gradient(
     135deg,
     rgba(12, 74, 110, 1) 0%,
@@ -71,6 +71,9 @@
   align-items: center;
   color: white;
   text-align: center;
+  position: sticky;
+  top: 0;
+  position: -webkit-sticky;
   box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
   -webkit-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
   -moz-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
@@ -107,7 +110,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b8e8ff",endColorstr="#00547c",GradientType=1);
   height: 100vh;
   width: 100%;
-  overflow-y: scroll;
+
   overflow-x: hidden;
 }
 .container {
@@ -120,6 +123,8 @@
   margin-bottom: 100px;
 }
 .prof-header {
+  position: sticky;
+  position: -webkit-sticky; /* Safari */
   background: linear-gradient(
     135deg,
     rgba(12, 74, 110, 1) 0%,
@@ -129,6 +134,7 @@
     rgba(226, 244, 255, 1) 82%,
     rgba(55, 145, 198, 1) 100%
   );
+
   border-radius: 0 0 20px 20px;
   box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
   -webkit-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.32);
@@ -272,12 +278,14 @@
 @media screen and (max-width: 480px) {
   .App-header {
     height: 80px;
+
     justify-content: center;
     display: flex;
     flex-direction: row;
     align-items: center;
     color: white;
     position: sticky;
+    position: -webkit-sticky; /* Safari */
   }
   .App-header2 {
     justify-content: space-around;
@@ -288,6 +296,7 @@
     position: sticky;
   }
   .prof-header {
+    top: 0;
     background: linear-gradient(
       135deg,
       rgba(12, 74, 110, 1) 0%,
