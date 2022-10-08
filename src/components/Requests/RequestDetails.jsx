@@ -7,6 +7,7 @@ import authstore from "../../store/authStore";
 import Swal from "sweetalert2";
 import pdfReceipt from "../../store/pdfReceipt";
 import { useTranslation } from "react-i18next";
+import profileStore from "../../store/profileStore";
 
 const RequestDetails = () => {
   const { slug } = useParams();
@@ -37,6 +38,20 @@ const RequestDetails = () => {
     requestD.status = "canceled";
     requestStore.updateRequest(request, navigate, "", Swal);
   };
+  const theWorkerRequests = profileStore.workers.filter((worker) => {
+    const req = worker.requests;
+    return req.find((req) => req._id === requestD._id);
+  });
+  console.log(
+    "🚀 ~ file: RequestDetails.jsx ~ line 44 ~ RequestDetails ~ theWorkerRequests",
+    theWorkerRequests
+  );
+  console.log(requestD._id);
+  const showWorekers = theWorkerRequests.map((workerName) => (
+    <>
+      {workerName.firstName} {workerName.lastName} -
+    </>
+  ));
 
   return (
     <div>
@@ -144,8 +159,9 @@ const RequestDetails = () => {
                 &emsp;
               </h4>
               <p>
-                {t("unit")}: {requestD?.problemDesc[0].unit}&emsp;{" "}
-                {t("operation")}: {requestD?.problemDesc[0].operation}&emsp;
+                {t("unit")}: {t(requestD?.problemDesc[0].unit)}&emsp;{" "}
+                {t("operation")}: {t(requestD?.problemDesc[0].operation)}
+                &emsp;
               </p>
             </div>
 
@@ -156,6 +172,15 @@ const RequestDetails = () => {
                 :&emsp;
               </h4>
               <p> {requestD?.notes}</p>
+            </div>
+            <div className="ro">
+              <h4>
+                {" "}
+                <Icon.PersonWorkspace />
+                :&emsp;
+              </h4>
+
+              {showWorekers}
             </div>
             <hr className="divider" />
             <div className="detail-phone">

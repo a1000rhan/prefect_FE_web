@@ -15,6 +15,7 @@ class PDFReceipt {
       unit: "px",
       format: "A4",
     });
+    pdf.setFont("Amiri");
     pdf.addImage(logo, "JPG", 40, 10, 50, 50);
     pdf.setFontSize(40);
     pdf.text("Invoice", 100, 50);

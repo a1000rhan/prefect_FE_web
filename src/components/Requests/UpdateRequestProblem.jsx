@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import profileStore from "../../store/profileStore";
 import requestStore from "../../store/requestsStore";
@@ -17,12 +17,24 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
   const [theWorker, setWorker] = useState("");
+  const [checked, setChecked] = useState([]);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+
+  // Return classes based on whether item is checked
+  const isChecked = (item) =>
+    checked.includes(item) ? "checked-item" : "not-checked-item";
 
   const workersName = profileStore?.workers.map((worker) => (
     <option value={worker._id}>{worker.firstName}</option>
   ));
+
+  // const checkWorkers = profileStore?.workers.map((worker, index) => (
+  //   <div key={index}>
+  //     <input value={worker?._id} type="checkbox" onChange={handleCheck} />
+  //     <span className={isChecked(item)}>{worker?.firstName}</span>
+  //   </div>
+  // ));
 
   const handleChange = (event) => {
     setUpdateRequest({
@@ -41,6 +53,15 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
       ...problemDesc,
       unit: event.target.value,
     });
+  };
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
   };
 
   const handleStatus = (event) => {
@@ -136,6 +157,13 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               <br />
               <label className="labelT">Worker</label>
 
+              {/* {profileStore.workers.map((item, index) => (
+                <div key={index}>
+                  <input value={item._id} type="checkbox" />
+
+                  <span className={isChecked(item)}>{item.firstName}</span>
+                </div>
+              ))} */}
               <select
                 className="dropdown-worker"
                 onChange={(e) => setWorker(e.target.value)}
