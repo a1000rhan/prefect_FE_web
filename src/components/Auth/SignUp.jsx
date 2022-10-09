@@ -18,13 +18,14 @@ import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const { t, i18n } = useTranslation();
+
   const [user, setUser] = useState({
     username: "",
     password: "",
     email: "",
     type: "",
   });
-  const [confirmPassword, setConfirmPassword] = useState(user.password);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,10 +33,22 @@ const SignUp = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
+
+    console.log(
+      "🚀 ~ file: SignUp.jsx ~ line 38 ~ handleChange ~ confirmPassword",
+      confirmPassword
+    );
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    authstore.signUp(user, Swal, navigate);
+    if (user.password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+      });
+    } else {
+      authstore.signUp(user, Swal, navigate);
+    }
   };
 
   return (
@@ -102,8 +115,10 @@ const SignUp = () => {
               </Form.Label>
               <Form.Control
                 type="password"
+                name="confirmPassword"
                 placeholder="Confirm Password"
-                onChange={(value) => setConfirmPassword(value)}
+                value={confirmPassword}
+                onChange={(value) => setConfirmPassword(value.target.value)}
               />
             </Form.Group>
             <Form.Group className="form-controls">

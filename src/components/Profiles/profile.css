@@ -25,11 +25,13 @@
 .profile-container {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   width: 100%;
-  margin: 20px;
+  justify-content: center;
   align-items: center;
   margin-bottom: 10px;
   overflow: scroll;
+  margin-top: 10px;
 }
 .profile-label {
   font-size: 1.2rem;
@@ -52,8 +54,6 @@
 .card-detail {
   width: 100%;
   display: flex;
-  justify-content: space-around;
-  margin-top: 3px;
 }
 .img-thumbnail {
   width: 100px;
@@ -87,19 +87,15 @@
     align-items: center;
     overflow-y: hidden;
     margin: 0;
-
     margin-bottom: 10px;
+    margin-top: 10px;
   }
   .profile-info {
     display: block;
     width: 90%;
-    margin-bottom: 15px;
+    margin-bottom: 1px;
   }
   .card-detail {
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 15px;
-    margin-bottom: 2px;
   }
 }

@@ -29,13 +29,6 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     <option value={worker._id}>{worker.firstName}</option>
   ));
 
-  // const checkWorkers = profileStore?.workers.map((worker, index) => (
-  //   <div key={index}>
-  //     <input value={worker?._id} type="checkbox" onChange={handleCheck} />
-  //     <span className={isChecked(item)}>{worker?.firstName}</span>
-  //   </div>
-  // ));
-
   const handleChange = (event) => {
     setUpdateRequest({
       ...updateRequest,
@@ -63,6 +56,12 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     }
     setChecked(updatedList);
   };
+  // const checkWorkers = profileStore?.workers.map((worker, index) => (
+  //   <div key={index}>
+  //     <input value={worker?._id} type="checkbox" onChange={handleCheck} />
+  //     <span className={isChecked(item)}>{worker?.firstName}</span>
+  //   </div>
+  // ));
 
   const handleStatus = (event) => {
     setUpdateStatus(event.target.value);
@@ -157,13 +156,13 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               <br />
               <label className="labelT">Worker</label>
 
-              {/* {profileStore.workers.map((item, index) => (
+              {profileStore.workers.map((item, index) => (
                 <div key={index}>
                   <input value={item._id} type="checkbox" />
 
-                  <span className={isChecked(item)}>{item.firstName}</span>
+                  <span>{item.firstName}</span>
                 </div>
-              ))} */}
+              ))}
               <select
                 className="dropdown-worker"
                 onChange={(e) => setWorker(e.target.value)}
