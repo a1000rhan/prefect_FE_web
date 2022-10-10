@@ -20,7 +20,7 @@ const Requests = () => {
     new Date(currentDate.getTime() + 10 * 24 * 60 * 60 * 1000),
   ]);
 
-  const workerRequests = requestStore?.requests
+  const workerRequestsPending = requestStore?.requests
     .filter(
       (req) =>
         req.customerPhone
@@ -34,7 +34,28 @@ const Requests = () => {
     })
     .map((req) => (
       <div className="reqs">
-        <RequestItem request={req} key={req._id} />
+        {req.status === "pending" && (
+          <RequestItem request={req} key={req._id} />
+        )}
+      </div>
+    ));
+  const workerRequestsDone = requestStore?.requests
+    .filter(
+      (req) =>
+        req.customerPhone
+          .toString()
+          .toLowerCase()
+          .includes(query.toLowerCase()) ||
+        req.customerName.toLowerCase().includes(query.toLowerCase())
+    )
+    .filter((req) => {
+      return moment(req.date).isBetween(rangeDate[0], rangeDate[1]);
+    })
+    .map((req) => (
+      <div className="reqs">
+        {req.status !== "pending" && (
+          <RequestItem request={req} key={req._id} />
+        )}
       </div>
     ));
 
@@ -63,7 +84,8 @@ const Requests = () => {
           />
         </div>
         <div className="container">
-          <div className="all-req">{workerRequests}</div>
+          <div className="all-req">{workerRequestsPending}</div>
+          <div className="all-req">{workerRequestsDone}</div>
         </div>
       </div>
     </div>

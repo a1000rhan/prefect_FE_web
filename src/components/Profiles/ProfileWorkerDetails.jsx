@@ -17,9 +17,14 @@ const ProfileWorkerDetails = () => {
   const { worker } = useParams();
   const info = profileStore.profiles.find((profile) => profile._id === worker);
 
-  const requestD = info?.requests.map((req) => (
+  const requestPending = info?.requests.map((req) => (
     <div className="reqs">
-      <RequestItem request={req} key={req._id} />
+      {req.status === "pending" && <RequestItem request={req} key={req._id} />}
+    </div>
+  ));
+  const requestothers = info?.requests.map((req) => (
+    <div className="reqs">
+      {req.status !== "pending" && <RequestItem request={req} key={req._id} />}
     </div>
   ));
 
@@ -81,7 +86,8 @@ const ProfileWorkerDetails = () => {
               </div>
             </header>
 
-            <div className="all-req">{requestD}</div>
+            <div className="all-req">{requestPending}</div>
+            <div className="all-req">{requestothers}</div>
           </>
         )}
       </div>

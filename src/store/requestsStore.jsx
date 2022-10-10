@@ -10,6 +10,9 @@ configure({
 class RequestStore {
   requests = [];
   isLoading = true;
+  numberRdone = 0;
+  numberRpending = 0;
+  numberRcanceled = 0;
   constructor() {
     makeAutoObservable(this, {});
   }
@@ -17,6 +20,9 @@ class RequestStore {
   getAllRequests = async () => {
     try {
       const response = await api.get("requests/");
+      this.numberRdone = await api.get("requests/nDone");
+      this.numberRpending = await api.get("requests/nPending");
+      this.numberRcanceled = await api.get("requests/nCanceled");
       this.requests = response.data;
       this.isLoading = false;
     } catch (error) {
@@ -168,7 +174,7 @@ class RequestStore {
           );
           pdf.text(40, 220, "Notes:   " + note);
 
-          pdf.save("test.pdf");
+          pdf.save(request._id + ".pdf");
           Swal.fire({
             position: "top-center",
             icon: "success",
