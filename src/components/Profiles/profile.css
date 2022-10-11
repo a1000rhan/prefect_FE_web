@@ -29,7 +29,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 130px;
   overflow: scroll;
   margin-top: 10px;
 }
@@ -78,6 +78,13 @@
   color: white;
   position: sticky;
 }
+.charts {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  overflow-x: scroll;
+}
 
 @media screen and (max-width: 480px) {
   .profile-container {
@@ -87,7 +94,7 @@
     align-items: center;
     overflow-y: hidden;
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 130px;
     margin-top: 10px;
   }
   .profile-info {

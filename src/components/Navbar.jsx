@@ -104,7 +104,7 @@ function Navbar(props) {
           ? navItemsAmin.map((item, index) => (
               <NavLink to={pathsAdmin[index]} className="nav-txt">
                 <ListItem
-                  key={item}
+                  key={index}
                   disablePadding
                   onClick={() => profileStore.fetchProfiles()}
                 >
@@ -116,7 +116,7 @@ function Navbar(props) {
             ))
           : navItemsWorker.map((item, index) => (
               <NavLink to={pathsWorker[index]} className="nav-txt">
-                <ListItem key={item} disablePadding>
+                <ListItem key={index} disablePadding>
                   <ListItemButton
                     sx={{
                       textAlign: "start",

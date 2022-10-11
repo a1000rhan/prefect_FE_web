@@ -60,7 +60,7 @@ function App() {
 
   return (
     <>
-      <Navbar location={location} key={profile._id} />
+      <Navbar location={location} key={authstore.user._id} />
       <Suspense fallback="loading..">
         <Routes>
           <Route path="/" element={<Home />} />

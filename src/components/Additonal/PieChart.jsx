@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const PieChart = ({ number }) => {
+const PieChart = ({ number, name }) => {
   const [state, setState] = useState({
     optionsRadial: {
       plotOptions: {
@@ -72,7 +72,7 @@ const PieChart = ({ number }) => {
       stroke: {
         lineCap: "round",
       },
-      labels: ["Number"],
+      labels: [name],
     },
     seriesRadial: [number],
   });
@@ -84,7 +84,7 @@ const PieChart = ({ number }) => {
             options={state.optionsRadial}
             series={state.seriesRadial}
             type="radialBar"
-            width="280"
+            width="180"
           />
         </div>
       </div>
