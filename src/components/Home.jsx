@@ -44,9 +44,7 @@ const Home = () => {
           ) : (
             <>
               {authstore?.user.type === "worker" ? (
-                <>
-                  <OneProfile />
-                </>
+                <OneProfile />
               ) : (
                 <Profiles />
               )}

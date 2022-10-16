@@ -17,7 +17,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   );
   const { t, i18n } = useTranslation();
 
-  setUpdateRequest(request);
+  setUpdateRequest(request ?? "");
   const [time, setTime] = useState(updateRequest.time);
   const [date, setDate] = useState(moment(updateRequest.date).toDate());
   const [address, setAddress] = useState({

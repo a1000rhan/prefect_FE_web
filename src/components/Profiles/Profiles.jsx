@@ -6,17 +6,42 @@ import requestStore from "../../store/requestsStore";
 import { useTranslation } from "react-i18next";
 import PieChart from "../Additonal/PieChart";
 import { Spinner } from "react-bootstrap";
+import authstore from "../../store/authStore";
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const Profiles = () => {
   if (profileStore.loading || requestStore.loading) {
     <div>
       <Spinner animation="border" role="status" />
     </div>;
   }
+  const [pendingState, setPendingState] = useState(<></>);
+  const [doneState, setDoneState] = useState(<></>);
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function makeRequest() {
+      console.log("before");
+
+      const pending = requestStore.requests.filter(
+        (req) => req.status === "pending"
+      );
+      const done = requestStore.requests.filter((req) => req.status === "done");
+      await delay(1000);
+      console.log("after");
+      setPendingState(pie(pending, "pending"));
+      setDoneState(pie(done, "done"));
+      setIsLoading = false;
+    }
+
+    makeRequest();
+  }, []);
+
   //TODO the numbers Are not fetching from the database
-  const nPending = () => {
-    return <PieChart number={5} name="Pending" />;
+  const pie = (number, name) => {
+    return <PieChart number={number.length} name={name} />;
   };
+
   const nDone = () => {
     return <PieChart number={10} name="Done" />;
   };
@@ -35,13 +60,21 @@ const Profiles = () => {
         <>
           <div className="bk">
             <header className="App-header">
-              <h1>{t("profile")}</h1>
+              <div>
+                <h1>{t("profile")}</h1>
+                <h6>Welcome {authstore?.user.username}</h6>
+              </div>
             </header>
 
             <div className="charts">
               <Suspense fallback={<Spinner />}>
-                {nPending()}
-                {nDone()}
+                {isLoading ? (
+                  <div>
+                    <Spinner />
+                  </div>
+                ) : null}
+                {pendingState}
+                {doneState}
                 <PieChart number={10} name="Cancel" />
               </Suspense>
             </div>

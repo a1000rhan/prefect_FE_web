@@ -15,7 +15,6 @@ const RequestDetails = () => {
     (request) => request.slug === slug
   );
   const [filePdf, setFilePdf] = useState(requestD?.receipt);
-  console.log(requestD?.receipt);
 
   const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -42,15 +41,13 @@ const RequestDetails = () => {
     const req = worker.requests;
     return req.find((req) => req._id === requestD._id);
   });
-  console.log(
-    "🚀 ~ file: RequestDetails.jsx ~ line 44 ~ RequestDetails ~ theWorkerRequests",
-    theWorkerRequests
-  );
-  console.log(requestD._id);
-  const showWorekers = theWorkerRequests.map((workerName) => (
-    <>
-      {workerName.firstName} {workerName.lastName} -
-    </>
+
+  const showWorekers = theWorkerRequests.map((workerName, index) => (
+    <div key={index}>
+      <p>
+        {workerName.firstName} {workerName.lastName} -
+      </p>
+    </div>
   ));
 
   return (

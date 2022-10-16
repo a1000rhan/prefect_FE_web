@@ -7,7 +7,7 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-time-picker/dist/TimePicker.css";
 
 import React, { useState, Suspense } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Router } from "react-router-dom";
 import Home from "./components/Home";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
@@ -28,7 +28,10 @@ import ProfileWorkerDetails from "./components/Profiles/ProfileWorkerDetails";
 import profileStore from "./store/profileStore";
 import { observer } from "mobx-react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import PullToRefresh from "react-simple-pull-to-refresh";
+
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import requestStore from "./store/requestsStore";
 
 function App() {
   if (profileStore.loading) {
@@ -58,74 +61,89 @@ function App() {
 
   const location = useLocation();
 
+  const onRefresh = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        profileStore.fetchProfiles();
+        requestStore.getAllRequests();
+        resolve();
+      }, 1000);
+    });
+  };
+
   return (
     <>
-      <Navbar location={location} key={authstore.user._id} />
+      <Navbar location={location} key={1} />
       <Suspense fallback="loading..">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/one-profile" element={<OneProfile />} />
+        <PullToRefresh onRefresh={onRefresh}>
+          <Routes>
+            <Route index element={<Home />}></Route>
+            <Route path="/one-profile" element={<OneProfile />} />
 
-          <Route path="/requests" element={<Requests />} />
-          <Route path="/requests/:slug" element={<RequestDetails />} />
-          <Route
-            path="/requests/createRequest"
-            element={
-              <CreateRequest
-                key={request._id}
-                request={request}
-                setRequest={setRequest}
-              />
-            }
-          />
-          <Route
-            path="/requests/createRequest/2"
-            element={
-              <CreateRequestProblem
-                key={request._id}
-                request={request}
-                setRequest={setRequest}
-              />
-            }
-          />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/profiles" element={<Profiles />} />
-          <Route path="/profiles/:worker" element={<ProfileWorkerDetails />} />
-          <Route
-            path="/updateRequest/:requestId"
-            element={
-              <UpdateRequest
-                updateRequest={updateRequest}
-                setUpdateRequest={setUpdateRequest}
-                key={updateRequest._id}
-              />
-            }
-          />
-          <Route
-            path="/updateRequest/2"
-            element={
-              <UpdateRequestProblem
-                updateRequest={updateRequest}
-                setUpdateRequest={setUpdateRequest}
-                key={request._id}
-              />
-            }
-          />
-          <Route
-            path="/updateProfiles"
-            element={
-              <UpdateProfile profile={profile} setProfile={setProfile} />
-            }
-          />
-          <Route
-            path="/updateProfiles2"
-            element={
-              <UpdateProfileTwo profile={profile} setProfile={setProfile} />
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route path="/requests" element={<Requests />} />
+            <Route path="/requests/:slug" element={<RequestDetails />} />
+            <Route
+              path="/requests/createRequest"
+              element={
+                <CreateRequest
+                  key={request._id}
+                  request={request}
+                  setRequest={setRequest}
+                />
+              }
+            />
+            <Route
+              path="/requests/createRequest/2"
+              element={
+                <CreateRequestProblem
+                  key={request._id}
+                  request={request}
+                  setRequest={setRequest}
+                />
+              }
+            />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/profiles" element={<Profiles />} />
+            <Route
+              path="/profiles/:worker"
+              element={<ProfileWorkerDetails />}
+            />
+            <Route
+              path="/updateRequest/:requestId"
+              element={
+                <UpdateRequest
+                  updateRequest={updateRequest}
+                  setUpdateRequest={setUpdateRequest}
+                  key={updateRequest._id}
+                />
+              }
+            />
+            <Route
+              path="/updateRequest/2"
+              element={
+                <UpdateRequestProblem
+                  updateRequest={updateRequest}
+                  setUpdateRequest={setUpdateRequest}
+                  key={request._id}
+                />
+              }
+            />
+            <Route
+              path="/updateProfiles"
+              element={
+                <UpdateProfile profile={profile} setProfile={setProfile} />
+              }
+            />
+            <Route
+              path="/updateProfiles2"
+              element={
+                <UpdateProfileTwo profile={profile} setProfile={setProfile} />
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PullToRefresh>
       </Suspense>
     </>
   );

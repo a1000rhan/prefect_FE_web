@@ -102,7 +102,11 @@ function Navbar(props) {
       <List>
         {authstore.user?.type === "admin"
           ? navItemsAmin.map((item, index) => (
-              <NavLink to={pathsAdmin[index]} className="nav-txt">
+              <NavLink
+                to={pathsAdmin[index]}
+                color="#ff44fd"
+                className="nav-txt"
+              >
                 <ListItem
                   key={index}
                   disablePadding
@@ -115,7 +119,11 @@ function Navbar(props) {
               </NavLink>
             ))
           : navItemsWorker.map((item, index) => (
-              <NavLink to={pathsWorker[index]} className="nav-txt">
+              <NavLink
+                to={pathsWorker[index]}
+                color="#ff44fd"
+                className="nav-txt"
+              >
                 <ListItem key={index} disablePadding>
                   <ListItemButton
                     sx={{

@@ -7,6 +7,7 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+import { set } from "mobx";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
@@ -17,18 +18,18 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
   const [theWorker, setWorker] = useState("");
-  const [checked, setChecked] = useState([]);
+  const [checked, setChecked] = useState("checked");
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   // Return classes based on whether item is checked
-  const isChecked = (item) =>
-    checked.includes(item) ? "checked-item" : "not-checked-item";
-
-  const workersName = profileStore?.workers.map((worker) => (
-    <option value={worker._id}>{worker.firstName}</option>
+  const workersName = profileStore?.workers.map((worker, index) => (
+    <option key={index} value={worker._id}>
+      {worker.firstName}
+    </option>
   ));
 
+  //checkbox input in reactjs?
   const handleChange = (event) => {
     setUpdateRequest({
       ...updateRequest,
@@ -47,25 +48,14 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
       unit: event.target.value,
     });
   };
-  const handleCheck = (event) => {
-    var updatedList = [...checked];
-    if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
-    } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
-    }
-    setChecked(updatedList);
-  };
-  // const checkWorkers = profileStore?.workers.map((worker, index) => (
-  //   <div key={index}>
-  //     <input value={worker?._id} type="checkbox" onChange={handleCheck} />
-  //     <span className={isChecked(item)}>{worker?.firstName}</span>
-  //   </div>
-  // ));
 
   const handleStatus = (event) => {
     setUpdateStatus(event.target.value);
   };
+
+  const isCheck = profileStore.workers.filter(
+    (worker) => worker._id === updateRequest.worker
+  );
 
   const handleSubmit = () => {
     const allData = {
@@ -73,7 +63,6 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
       problemDesc: problemDesc,
       status: updateStatus,
     };
-
     requestStore.updateRequest(allData, theWorker, navigate, Swal);
   };
   return (
@@ -155,14 +144,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               />
               <br />
               <label className="labelT">Worker</label>
-
-              {profileStore.workers.map((item, index) => (
-                <div key={index}>
-                  <input value={item._id} type="checkbox" />
-
-                  <span>{item.firstName}</span>
-                </div>
-              ))}
+              <input type="checkbox" checked={true} />
               <select
                 className="dropdown-worker"
                 onChange={(e) => setWorker(e.target.value)}

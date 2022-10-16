@@ -37,6 +37,9 @@ class PDFReceipt {
     pdf.text("The Problem:", 40, 150);
     autoTable(pdf, { html: "#my-table", margin: { top: 100 } });
     pdf.setFont("Amiri");
+    const note = prompt("Enter your Notes");
+    pdf.text(40, 220, "Notes:   " + note);
+
     autoTable(pdf, {
       head: [["Type", "Description", "Note"]],
       body: [
@@ -44,6 +47,7 @@ class PDFReceipt {
           `${request?.problemDesc[0].unit}`,
           `${request?.problemDesc[0].operation}`,
           `${request.notes}`,
+          `${note}`,
         ],
       ],
     });
@@ -55,6 +59,7 @@ class PDFReceipt {
     const file = new File([data], `${request._id}.pdf`, { type: data.type });
 
     setFilePdf(request?.receipt);
+
     requestStore.uploadPdf(file, request, pdf, Swal);
   };
   //.....PDF .......//

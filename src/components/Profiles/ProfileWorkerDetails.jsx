@@ -17,14 +17,14 @@ const ProfileWorkerDetails = () => {
   const { worker } = useParams();
   const info = profileStore.profiles.find((profile) => profile._id === worker);
 
-  const requestPending = info?.requests.map((req) => (
+  const requestPending = info?.requests.map((req, index) => (
     <div className="reqs">
-      {req.status === "pending" && <RequestItem request={req} key={req._id} />}
+      {req.status === "pending" && <RequestItem request={req} key={index} />}
     </div>
   ));
-  const requestothers = info?.requests.map((req) => (
+  const requestothers = info?.requests.map((req, index) => (
     <div className="reqs">
-      {req.status !== "pending" && <RequestItem request={req} key={req._id} />}
+      {req.status !== "pending" && <RequestItem request={req} key={index} />}
     </div>
   ));
 
@@ -59,14 +59,14 @@ const ProfileWorkerDetails = () => {
                     width: 80,
                     height: 80,
                     marginTop: 2,
-                    marginRight: 10,
+                    marginRight: 5,
                     objectFit: "fill",
                     border: "3px solid white",
                   }}
                 />
-                <h1>
+                <h8>
                   {info?.owner.username} {t("profile")}
-                </h1>
+                </h8>
               </div>
 
               <div className="profile-info">
@@ -75,14 +75,14 @@ const ProfileWorkerDetails = () => {
                   {info?.firstName} {info?.lastName}
                 </p>
 
-                <p className="labelT">
+                {/* <p className="labelT">
                   <Icon.CardChecklist color="white" /> &nbsp;: &emsp;
                   {info?.civilId}
-                </p>
-                <p className="labelT">
+                </p> */}
+                {/* <p className="labelT">
                   <Icon.GeoAlt /> &nbsp;: &emsp;
                   {info?.address}
-                </p>
+                </p> */}
               </div>
             </header>
 

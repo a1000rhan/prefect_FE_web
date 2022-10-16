@@ -63,7 +63,7 @@ const OneProfile = () => {
                   {info?.firstName} {info?.lastName}
                 </p>
 
-                <p className="labelT">
+                {/* <p className="labelT">
                   <Icon.CardChecklist color="white" />
                   &nbsp;: &emsp;
                   {info?.civilId}
@@ -72,7 +72,7 @@ const OneProfile = () => {
                   <Icon.GeoAlt />
                   &nbsp;: &emsp;
                   {info?.address}
-                </p>
+                </p> */}
               </div>
             </header>
 
