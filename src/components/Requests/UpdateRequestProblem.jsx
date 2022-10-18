@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
-import { set } from "mobx";
+import Chip from "@mui/material/Chip";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
@@ -17,16 +17,49 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   });
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
-  const [theWorker, setWorker] = useState("");
-  const [checked, setChecked] = useState("checked");
+  const [theWorker, setWorker] = useState(
+    profileStore.workers.map((worker) =>
+      worker.requests.some((req) => req._id == updateRequest._id)
+    )
+  );
+  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+
+  const isCheck = profileStore.workers.map((worker) =>
+    worker.requests.some((req) => req._id == updateRequest._id)
+  );
 
   // Return classes based on whether item is checked
   const workersName = profileStore?.workers.map((worker, index) => (
     <option key={index} value={worker._id}>
       {worker.firstName}
     </option>
+  ));
+  const handleCheck = (e, index) => {
+    setChecked(e.target.checked ? !checked : checked);
+    console.log(
+      "🚀 ~ file: UpdateRequestProblem.jsx ~ line 35 ~ handleCheck ~ index",
+      index,
+      checked,
+      e.target.checked,
+      isCheck[index]
+    );
+  };
+  const handleClick = (index) => {
+    setChecked(!checked[index]);
+    console.log(checked);
+    isCheck[index] = checked;
+  };
+  const workersNameBox = profileStore?.workers.map((worker, index) => (
+    <div>
+      <Chip
+        label={worker.firstName + " " + worker.lastName}
+        key={index}
+        onClick={() => handleClick(index)}
+        color={checked[index] ? "primary" : "secondary"}
+      />
+    </div>
   ));
 
   //checkbox input in reactjs?
@@ -52,10 +85,6 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   const handleStatus = (event) => {
     setUpdateStatus(event.target.value);
   };
-
-  const isCheck = profileStore.workers.filter(
-    (worker) => worker._id === updateRequest.worker
-  );
 
   const handleSubmit = () => {
     const allData = {
@@ -144,7 +173,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               />
               <br />
               <label className="labelT">Worker</label>
-              <input type="checkbox" checked={true} />
+
               <select
                 className="dropdown-worker"
                 onChange={(e) => setWorker(e.target.value)}

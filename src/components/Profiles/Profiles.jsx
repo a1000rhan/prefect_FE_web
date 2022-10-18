@@ -17,6 +17,7 @@ const Profiles = () => {
   }
   const [pendingState, setPendingState] = useState(<></>);
   const [doneState, setDoneState] = useState(<></>);
+  const [cancelState, setCancelState] = useState(<></>);
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -27,10 +28,15 @@ const Profiles = () => {
         (req) => req.status === "pending"
       );
       const done = requestStore.requests.filter((req) => req.status === "done");
+      const cancel = requestStore.requests.filter(
+        (req) => req.status === "cancel"
+      );
       await delay(1000);
       console.log("after");
       setPendingState(pie(pending, "pending"));
       setDoneState(pie(done, "done"));
+      setCancelState(pie(cancel, "cancel"));
+
       setIsLoading = false;
     }
 
@@ -75,7 +81,7 @@ const Profiles = () => {
                 ) : null}
                 {pendingState}
                 {doneState}
-                <PieChart number={10} name="Cancel" />
+                {cancelState}
               </Suspense>
             </div>
             <div className="profile-container">{theProfiles}</div>
