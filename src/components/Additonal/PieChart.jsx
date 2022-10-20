@@ -84,7 +84,7 @@ const PieChart = ({ number, name }) => {
             options={state.optionsRadial}
             series={state.seriesRadial}
             type="radialBar"
-            width="180"
+            width="160"
           />
         </div>
       </div>

@@ -22,8 +22,6 @@ const Profiles = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function makeRequest() {
-      console.log("before");
-
       const pending = requestStore.requests.filter(
         (req) => req.status === "pending"
       );
@@ -31,13 +29,12 @@ const Profiles = () => {
       const cancel = requestStore.requests.filter(
         (req) => req.status === "cancel"
       );
-      await delay(1000);
-      console.log("after");
+
       setPendingState(pie(pending, "pending"));
       setDoneState(pie(done, "done"));
       setCancelState(pie(cancel, "cancel"));
 
-      setIsLoading = false;
+      setIsLoading(false);
     }
 
     makeRequest();
@@ -46,10 +43,6 @@ const Profiles = () => {
   //TODO the numbers Are not fetching from the database
   const pie = (number, name) => {
     return <PieChart number={number.length} name={name} />;
-  };
-
-  const nDone = () => {
-    return <PieChart number={10} name="Done" />;
   };
 
   const { t, i18n } = useTranslation();

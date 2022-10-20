@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
-import Chip from "@mui/material/Chip";
+import { MenuItem, Select, OutlinedInput, InputLabel } from "@mui/material";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
@@ -25,42 +25,29 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-
-  const isCheck = profileStore.workers.map((worker) =>
-    worker.requests.some((req) => req._id == updateRequest._id)
-  );
+  const [list, setList] = useState("primary");
 
   // Return classes based on whether item is checked
   const workersName = profileStore?.workers.map((worker, index) => (
-    <option key={index} value={worker._id}>
-      {worker.firstName}
-    </option>
+    <MenuItem key={index} value={worker._id}>
+      {worker.firstName} {worker.lastName}
+    </MenuItem>
   ));
+
   const handleCheck = (e, index) => {
     setChecked(e.target.checked ? !checked : checked);
     console.log(
       "🚀 ~ file: UpdateRequestProblem.jsx ~ line 35 ~ handleCheck ~ index",
       index,
       checked,
-      e.target.checked,
-      isCheck[index]
+      e.target.checked
     );
   };
   const handleClick = (index) => {
-    setChecked(!checked[index]);
-    console.log(checked);
-    isCheck[index] = checked;
+    setList(list === "primary" ? "secondary" : "primary");
+    setWorker(theWorker[index] ? false : true);
+    console.log(list);
   };
-  const workersNameBox = profileStore?.workers.map((worker, index) => (
-    <div>
-      <Chip
-        label={worker.firstName + " " + worker.lastName}
-        key={index}
-        onClick={() => handleClick(index)}
-        color={checked[index] ? "primary" : "secondary"}
-      />
-    </div>
-  ));
 
   //checkbox input in reactjs?
   const handleChange = (event) => {
@@ -92,6 +79,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
       problemDesc: problemDesc,
       status: updateStatus,
     };
+
     requestStore.updateRequest(allData, theWorker, navigate, Swal);
   };
   return (
@@ -172,16 +160,28 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                 onChange={handleChange}
               />
               <br />
-              <label className="labelT">Worker</label>
 
-              <select
+              {/*...........SELECT...........*/}
+              <label className="labelT">Worker</label>
+              {/* <div className="chips">{workersNameBox}</div> */}
+              {/* <InputLabel id="demo-multiple-name-label">Workers</InputLabel> */}
+
+              {/*...........SELECT...........*/}
+              <Select
+                defaultChecked="Select"
+                defaultValue="Select"
                 className="dropdown-worker"
                 onChange={(e) => setWorker(e.target.value)}
+                value={theWorker}
+                input={<OutlinedInput label="Workers" />}
+                labelId="demo-simple-select-label"
+                label="Workers"
               >
-                <option value="select">select</option>
+                <MenuItem value="select">select</MenuItem>
                 {workersName}
-              </select>
+              </Select>
 
+              {/*...........STATUS...........*/}
               <br />
               <br />
 
