@@ -33,7 +33,7 @@ const ProfileWorkerDetails = () => {
       <div className="bk">
         {profileStore.loading || authstore.loading || requestStore.loading ? (
           <div>
-            <Spinner color="black" />
+            <Spinner animation="border" role="status" />
           </div>
         ) : (
           <>

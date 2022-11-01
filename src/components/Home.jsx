@@ -6,8 +6,7 @@ import { observer } from "mobx-react";
 import profileStore from "../store/profileStore";
 import requestStore from "../store/requestsStore";
 import RequestItem from "../components/Requests/RequestItem";
-import { Spinner } from "react-bootstrap";
-import { Avatar } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import OneProfile from "./Profiles/OneProfile";
 import Profiles from "./Profiles/Profiles";
 import i18next from "i18next";
@@ -39,7 +38,7 @@ const Home = () => {
         {authstore?.user ? (
           profileStore.loading || authstore.loading || requestStore.loading ? (
             <div className="spinner">
-              <Spinner animation="border" variant="dark" />
+              <CircularProgress />
             </div>
           ) : (
             <>

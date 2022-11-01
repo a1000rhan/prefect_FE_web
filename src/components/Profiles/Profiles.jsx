@@ -5,8 +5,9 @@ import ProfileItem from "./ProfileItem";
 import requestStore from "../../store/requestsStore";
 import { useTranslation } from "react-i18next";
 import PieChart from "../Additonal/PieChart";
-import { Spinner } from "react-bootstrap";
 import authstore from "../../store/authStore";
+import { CircularProgress, Avatar } from "@mui/material";
+import { Card, Spinner } from "react-bootstrap";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const Profiles = () => {
@@ -20,6 +21,7 @@ const Profiles = () => {
   const [cancelState, setCancelState] = useState(<></>);
 
   const [isLoading, setIsLoading] = useState(true);
+  const repeSkeleton = [0, 0, 0, 0, 0];
   useEffect(() => {
     async function makeRequest() {
       const pending = requestStore.requests.filter(
@@ -49,12 +51,39 @@ const Profiles = () => {
   const theProfiles = profileStore.workers.map((profile) => (
     <ProfileItem key={profile._id} profile={profile} />
   ));
+  const skelton = repeSkeleton.map((profile) => (
+    <>
+      <Card className="card-detail">
+        <div className="link-detail">
+          <div className="circle"></div>
+          <div className="profile-item">
+            <div className="text-sk"></div>
+            <div className="text-sk"></div>
+          </div>
+        </div>
+      </Card>
+    </>
+  ));
+
   return (
     <>
       {profileStore.loading || requestStore.loading ? (
-        <div>
-          <Spinner />
-        </div>
+        <>
+          <header className="App-header">
+            <div>
+              <div className="text-sk"></div>
+              <div className="text-sk"></div>
+            </div>
+          </header>
+          <div className="profile-container">
+            <div className="ro-charts">
+              <div className="circle ch"></div>
+              <div className="circle ch"></div>
+              <div className="circle ch"></div>
+            </div>
+            {skelton}
+          </div>
+        </>
       ) : (
         <>
           <div className="bk">
@@ -66,10 +95,10 @@ const Profiles = () => {
             </header>
 
             <div className="charts">
-              <Suspense fallback={<Spinner />}>
+              <Suspense fallback={<CircularProgress />}>
                 {isLoading ? (
                   <div>
-                    <Spinner />
+                    <CircularProgress />
                   </div>
                 ) : null}
                 {pendingState}

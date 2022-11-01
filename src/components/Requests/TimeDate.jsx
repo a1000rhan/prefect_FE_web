@@ -32,7 +32,6 @@ const TimeDate = ({ setDate, date, setTime, time }) => {
         onChange={setDate}
       />
       <TimePicker
-        minTime={new Date()}
         className="date-picker"
         value={time}
         onChange={setTime}

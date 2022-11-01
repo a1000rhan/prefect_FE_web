@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import logo from "../../logo.svg";
-// import { observer } from "mobx-react";
+import { observer } from "mobx-react";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
 import Swal from "sweetalert2";
@@ -120,4 +120,4 @@ const UpdateProfileTwo = ({ profile, setProfile }) => {
   );
 };
 
-export default UpdateProfileTwo;
+export default observer(UpdateProfileTwo);

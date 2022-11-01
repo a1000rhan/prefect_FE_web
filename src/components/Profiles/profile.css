@@ -84,8 +84,42 @@
 
   align-items: center;
   overflow-x: scroll;
+  justify-content: center;
   width: 100%;
 }
+/* Skelton Loading Page */
+.detail-sk {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.circle {
+  animation: skeleton-loading 1s linear infinite alternate;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+.text-sk {
+  width: 60%;
+  height: 10px;
+  margin: 12px;
+  animation: skeleton-loading 1s linear infinite alternate;
+  opacity: 0.3;
+}
+.ch {
+  margin: 30px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #cbcbcb;
+  }
+  100% {
+    background-color: #a7a7a7;
+  }
+}
+/* Skelton Loading Page */
 
 @media screen and (max-width: 480px) {
   .profile-container {

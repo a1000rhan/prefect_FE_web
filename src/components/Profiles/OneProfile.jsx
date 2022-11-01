@@ -3,7 +3,7 @@ import profileStore from "../../store/profileStore";
 import RequestItem from "../Requests/RequestItem";
 import { observer } from "mobx-react";
 import authstore from "../../store/authStore";
-import { Avatar } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import { Spinner } from "react-bootstrap";
 import moment from "moment";
 import requestStore from "../../store/requestsStore";
@@ -12,7 +12,7 @@ import * as Icon from "react-bootstrap-icons";
 const OneProfile = () => {
   if (profileStore.loading || authstore.loading || requestStore.loading)
     <div className="spinner">
-      <Spinner color="white" />
+      <CircularProgress />
     </div>;
 
   const info = profileStore?.oneProfile;
@@ -32,7 +32,7 @@ const OneProfile = () => {
       <div className="bk">
         {profileStore.loading || authstore.loading || requestStore.loading ? (
           <div>
-            <Spinner color="black" />
+            <CircularProgress />
           </div>
         ) : (
           <>

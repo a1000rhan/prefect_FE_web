@@ -15,6 +15,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     operation: updateRequest?.problemDesc[0]?.operation,
     unit: updateRequest?.problemDesc[0]?.unit,
   });
+  const [selectedWorker, setSelectedWorker] = useState([]);
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
   const [theWorker, setWorker] = useState(
@@ -22,10 +23,9 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
       worker.requests.some((req) => req._id == updateRequest._id)
     )
   );
-  const [checked, setChecked] = useState(false);
+
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const [list, setList] = useState("primary");
 
   // Return classes based on whether item is checked
   const workersName = profileStore?.workers.map((worker, index) => (
@@ -34,22 +34,8 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     </MenuItem>
   ));
 
-  const handleCheck = (e, index) => {
-    setChecked(e.target.checked ? !checked : checked);
-    console.log(
-      "🚀 ~ file: UpdateRequestProblem.jsx ~ line 35 ~ handleCheck ~ index",
-      index,
-      checked,
-      e.target.checked
-    );
-  };
-  const handleClick = (index) => {
-    setList(list === "primary" ? "secondary" : "primary");
-    setWorker(theWorker[index] ? false : true);
-    console.log(list);
-  };
-
   //checkbox input in reactjs?
+
   const handleChange = (event) => {
     setUpdateRequest({
       ...updateRequest,
@@ -73,15 +59,26 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     setUpdateStatus(event.target.value);
   };
 
+  const handleSelectWorker = (e) => {
+    setWorker(e.target.value);
+    setSelectedWorker(selectedWorker, e.target.value);
+    console.log(
+      "🚀 ~ file: UpdateRequestProblem.jsx ~ line 65 ~ handleSelectWorker ~ selectedWorker",
+      selectedWorker
+    );
+  };
+
   const handleSubmit = () => {
     const allData = {
       ...updateRequest,
       problemDesc: problemDesc,
       status: updateStatus,
     };
-
-    requestStore.updateRequest(allData, theWorker, navigate, Swal);
+    theWorker == []
+      ? alert("please choose a worker")
+      : requestStore.updateRequest(allData, theWorker, navigate, Swal);
   };
+
   return (
     <>
       <div className="bk">
@@ -163,15 +160,13 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
 
               {/*...........SELECT...........*/}
               <label className="labelT">Worker</label>
-              {/* <div className="chips">{workersNameBox}</div> */}
-              {/* <InputLabel id="demo-multiple-name-label">Workers</InputLabel> */}
 
               {/*...........SELECT...........*/}
               <Select
                 defaultChecked="Select"
                 defaultValue="Select"
                 className="dropdown-worker"
-                onChange={(e) => setWorker(e.target.value)}
+                onChange={handleSelectWorker}
                 value={theWorker}
                 input={<OutlinedInput label="Workers" />}
                 labelId="demo-simple-select-label"
@@ -180,7 +175,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                 <MenuItem value="select">select</MenuItem>
                 {workersName}
               </Select>
-
+              <p>{selectedWorker}</p>
               {/*...........STATUS...........*/}
               <br />
               <br />

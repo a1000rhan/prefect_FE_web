@@ -31,7 +31,7 @@ const UpdateProfile = ({ profile, setProfile }) => {
     <div className="bk">
       {(profileStore.loading || authstore.loading) && (
         <div className="spinner">
-          <Spinner />
+          <Spinner animation="border" role="status" />
         </div>
       )}
       <div className="App">

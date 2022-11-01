@@ -37,8 +37,9 @@ const CreateRequestProblem = ({ request, setRequest }) => {
     e.preventDefault();
 
     const allData = { ...request, problemDesc: problemDesc };
-
-    requestStore.createNewRequests(allData, theWorker, navigate, Swal);
+    theWorker == []
+      ? alert("select a worker")
+      : requestStore.createNewRequests(allData, theWorker, navigate, Swal);
     setRequest({
       customerName: "",
       customerAddress: {},

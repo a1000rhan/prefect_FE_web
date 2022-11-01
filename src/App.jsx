@@ -30,7 +30,6 @@ import { observer } from "mobx-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import requestStore from "./store/requestsStore";
 
 function App() {
