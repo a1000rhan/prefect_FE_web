@@ -5,6 +5,8 @@ import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-time-picker/dist/TimePicker.css";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 
 import React, { useState, Suspense } from "react";
 import { Route, Routes, useLocation, Router } from "react-router-dom";

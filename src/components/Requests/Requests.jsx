@@ -8,6 +8,7 @@ import DatePicker from "react-date-picker/dist/entry.nostyle";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import profileStore from "../../store/profileStore";
+// import NewDate from "../Additonal/NewDate";
 
 const Requests = () => {
   const currentDate = new Date();
@@ -23,18 +24,18 @@ const Requests = () => {
   const workerRequestsPending = requestStore?.requests
     .filter(
       (req) =>
-        req.customerPhone
+        req?.customerPhone
           .toString()
           .toLowerCase()
           .includes(query.toLowerCase()) ||
-        req.customerName.toLowerCase().includes(query.toLowerCase())
+        req?.customerName.toLowerCase().includes(query.toLowerCase())
     )
     .filter((req) => {
       return moment(req.date).isBetween(rangeDate[0], rangeDate[1]);
     })
     .map((req) => (
       <div className="reqs">
-        {req.status === "pending" && (
+        {req?.status === "pending" && (
           <RequestItem request={req} key={req._id} />
         )}
       </div>
@@ -42,14 +43,14 @@ const Requests = () => {
   const workerRequestsDone = requestStore?.requests
     .filter(
       (req) =>
-        req.customerPhone
+        req?.customerPhone
           .toString()
           .toLowerCase()
           .includes(query.toLowerCase()) ||
-        req.customerName.toLowerCase().includes(query.toLowerCase())
+        req?.customerName.toLowerCase().includes(query.toLowerCase())
     )
     .filter((req) => {
-      return moment(req.date).isBetween(rangeDate[0], rangeDate[1]);
+      return moment(req?.date).isBetween(rangeDate[0], rangeDate[1]);
     })
     .map((req) => (
       <div className="reqs">
@@ -73,6 +74,7 @@ const Requests = () => {
         <div className="search-text">
           <SearchBar setQuery={setQuery} />
         </div>
+        {/* <NewDate /> */}
         <div className="container1">
           <DatePicker
             selected={rangeDate}
@@ -84,6 +86,7 @@ const Requests = () => {
           />
         </div>
         <div className="container">
+          {requestStore.loading || (authstore.loading && <h1>Loading</h1>)}
           <div className="all-req">{workerRequestsPending}</div>
           <div className="all-req">{workerRequestsDone}</div>
         </div>

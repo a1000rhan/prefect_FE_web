@@ -225,6 +225,11 @@ const RequestDetails = () => {
                 </p>
               </>
             )}
+            <div>
+              <p className="createDate">
+                Create date: {requestD?.createdAt.substring(0, 10)}
+              </p>
+            </div>
           </div>
         </div>
       </div>

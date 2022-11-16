@@ -37,7 +37,7 @@ class RequestStore {
     try {
       const response = await api.post("requests/createRequest", newRequest);
       this.requests.push(newRequest);
-      navigate("/requests");
+
       this.getAllRequests();
       const pushRequest = profileStore.workers.find(
         (worker) => worker._id == theWorker
@@ -55,6 +55,7 @@ class RequestStore {
         showConfirmButton: false,
         timer: 3000,
       });
+      navigate("/");
     } catch (error) {
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 27 ~ RequestStore ~ createNewRequests=async ~ error",
