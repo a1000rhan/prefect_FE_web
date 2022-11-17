@@ -22,13 +22,8 @@ const Requests = () => {
   ]);
 
   const workerRequestsPending = requestStore?.requests
-    .filter(
-      (req) =>
-        req?.customerPhone
-          .toString()
-          .toLowerCase()
-          .includes(query.toLowerCase()) ||
-        req?.customerName.toLowerCase().includes(query.toLowerCase())
+    .filter((req) =>
+      req.customerName.toLowerCase().includes(query.toLowerCase())
     )
     .filter((req) => {
       return moment(req.date).isBetween(rangeDate[0], rangeDate[1]);
@@ -41,13 +36,8 @@ const Requests = () => {
       </div>
     ));
   const workerRequestsDone = requestStore?.requests
-    .filter(
-      (req) =>
-        req?.customerPhone
-          .toString()
-          .toLowerCase()
-          .includes(query.toLowerCase()) ||
-        req?.customerName.toLowerCase().includes(query.toLowerCase())
+    .filter((req) =>
+      req?.customerName.toLowerCase().includes(query.toLowerCase())
     )
     .filter((req) => {
       return moment(req?.date).isBetween(rangeDate[0], rangeDate[1]);
