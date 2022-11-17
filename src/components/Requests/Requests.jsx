@@ -7,7 +7,6 @@ import SearchBar from "../Additonal/SearchBar";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import profileStore from "../../store/profileStore";
 // import NewDate from "../Additonal/NewDate";
 
 const Requests = () => {
@@ -16,14 +15,19 @@ const Requests = () => {
 
   if (requestStore.loading || authstore.loading) <h1>loading</h1>;
   const [query, setQuery] = useState("");
+
   const [rangeDate, setRangeDate] = useState([
     new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000),
     new Date(currentDate.getTime() + 10 * 24 * 60 * 60 * 1000),
   ]);
 
+  console.log(requestStore?.requests);
   const workerRequestsPending = requestStore?.requests
-    .filter((req) =>
-      req.customerName.toLowerCase().includes(query.toLowerCase())
+    .filter(
+      (req) =>
+        req.customerName.toLowerCase().includes(query.toLowerCase()) ||
+        (req.customerPhone != null &&
+          req.customerPhone.toString().includes(query))
     )
     .filter((req) => {
       return moment(req.date).isBetween(rangeDate[0], rangeDate[1]);
@@ -36,8 +40,11 @@ const Requests = () => {
       </div>
     ));
   const workerRequestsDone = requestStore?.requests
-    .filter((req) =>
-      req?.customerName.toLowerCase().includes(query.toLowerCase())
+    .filter(
+      (req) =>
+        req.customerName.toLowerCase().includes(query.toLowerCase()) ||
+        (req.customerPhone != null &&
+          req.customerPhone.toString().includes(query))
     )
     .filter((req) => {
       return moment(req?.date).isBetween(rangeDate[0], rangeDate[1]);
