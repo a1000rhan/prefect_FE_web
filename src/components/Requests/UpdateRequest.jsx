@@ -6,6 +6,7 @@ import * as Icon from "react-bootstrap-icons";
 import requestStore from "../../store/requestsStore";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import authstore from "../../store/authStore";
 
 const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   if (profileStore.loading || requestStore.loading) {
@@ -34,7 +35,9 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     customerPhone: updateRequest.customerPhone,
   });
   const navigate = useNavigate();
-
+  if (authstore.user?.type !== "admin") {
+    navigate("/");
+  }
   const handleChange = (event) => {
     setData({
       ...data,

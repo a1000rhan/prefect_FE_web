@@ -7,6 +7,7 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+import authstore from "../../store/authStore";
 
 const CreateRequestProblem = ({ request, setRequest }) => {
   const { t, i18n } = useTranslation();
@@ -19,6 +20,9 @@ const CreateRequestProblem = ({ request, setRequest }) => {
 
   const [theWorker, setWorker] = useState("");
   const navigate = useNavigate();
+  if (authstore.user?.type !== "admin") {
+    navigate("/");
+  }
 
   const workersName = profileStore.workers.map((worker) => (
     <option value={worker._id}>{worker.firstName}</option>

@@ -30,22 +30,10 @@ function Navbar(props) {
     t("allProfiles"),
     t("allRequests"),
     t("updateProfile"),
-    t("signout"),
   ];
-  const navItemsWorker = [
-    t("home"),
-    "Registration",
-    t("updateProfile"),
-    t("signout"),
-  ];
-  const pathsAdmin = [
-    "/",
-    "/profiles",
-    "/requests",
-    "/updateProfiles",
-    "/signin",
-  ];
-  const pathsWorker = ["/", "/signup", "/updateProfiles", "/signin"];
+  const navItemsWorker = [t("home"), "Registration", t("updateProfile")];
+  const pathsAdmin = ["/", "/profiles", "/requests", "/updateProfiles"];
+  const pathsWorker = ["/", "/signup", "/updateProfiles"];
   const navigate = useNavigate();
   const loaction = useLocation();
   const { window, location } = props;
@@ -73,6 +61,11 @@ function Navbar(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    authstore.signOut(navigate);
+  };
   currentLocation === "/signin" || currentLocation === "/signup"
     ? (showNav = "none")
     : (showNav = "block");
@@ -80,23 +73,26 @@ function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Perfect &emsp;
-        <Icon.Translate
-          size={30}
-          onClick={() => {
-            if (i18n.language === "ar") {
-              i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
-              document
-                .getElementsByTagName("html")[0]
-                .setAttribute("dir", "ltr");
-            } else {
-              i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
-              document
-                .getElementsByTagName("html")[0]
-                .setAttribute("dir", "rtl");
-            }
-          }}
-        />
+        <div className="top-nav">
+          <Icon.Power className="nav-icon" onClick={handleClick} />
+          Perfect &emsp;
+          <Icon.Translate
+            size={30}
+            onClick={() => {
+              if (i18n.language === "ar") {
+                i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+                document
+                  .getElementsByTagName("html")[0]
+                  .setAttribute("dir", "ltr");
+              } else {
+                i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+                document
+                  .getElementsByTagName("html")[0]
+                  .setAttribute("dir", "rtl");
+              }
+            }}
+          />
+        </div>
       </Typography>
       <Divider />
       <List>
@@ -142,11 +138,6 @@ function Navbar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const handleClick = (index) => {
-    if (index == 3) {
-      authstore.signOut(navigate);
-    }
-  };
   return (
     <React.Fragment>
       <Box sx={{ display: showNav }}>
@@ -172,6 +163,7 @@ function Navbar(props) {
             >
               Perfect
             </Typography>
+
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {authstore.user?.type === "admin"
                 ? navItemsAmin.map((item, index) => (
@@ -183,11 +175,7 @@ function Navbar(props) {
                   ))
                 : navItemsWorker.map((item, index) => (
                     <NavLink to={pathsWorker[index]} className="nav-txt">
-                      <Button
-                        key={item}
-                        sx={{ color: "#fff" }}
-                        onClick={() => handleClick(index)}
-                      >
+                      <Button key={item} sx={{ color: "#fff" }}>
                         {item}
                       </Button>
                     </NavLink>

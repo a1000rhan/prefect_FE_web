@@ -8,6 +8,7 @@ import PieChart from "../Additonal/PieChart";
 import authstore from "../../store/authStore";
 import { CircularProgress, Avatar } from "@mui/material";
 import { Card, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const Profiles = () => {
@@ -16,11 +17,17 @@ const Profiles = () => {
       <Spinner animation="border" role="status" />
     </div>;
   }
+
+  const navigate = useNavigate();
+
   const [pendingState, setPendingState] = useState(<></>);
   const [doneState, setDoneState] = useState(<></>);
   const [cancelState, setCancelState] = useState(<></>);
 
   const [isLoading, setIsLoading] = useState(true);
+  if (authstore.user?.type !== "admin") {
+    navigate("/signin");
+  }
   const repeSkeleton = [0, 0, 0, 0, 0];
   useEffect(() => {
     async function makeRequest() {
@@ -90,7 +97,7 @@ const Profiles = () => {
             <header className="App-header">
               <div>
                 <h1>{t("profile")}</h1>
-                <h6>Welcome {authstore?.user.username}</h6>
+                <h6>Welcome {authstore?.user?.username}</h6>
               </div>
             </header>
 

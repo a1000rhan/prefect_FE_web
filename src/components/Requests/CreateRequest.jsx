@@ -5,6 +5,7 @@ import profileStore from "../../store/profileStore";
 import * as Icon from "react-bootstrap-icons";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import authstore from "../../store/authStore";
 
 const CreateRequest = ({ request, setRequest }) => {
   const [time, setTime] = useState("10:00");
@@ -20,7 +21,9 @@ const CreateRequest = ({ request, setRequest }) => {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
-
+  if (authstore.user?.type !== "admin") {
+    navigate("/");
+  }
   const handleChange = (event) => {
     setRequest({ ...request, [event.target.name]: event.target.value });
   };

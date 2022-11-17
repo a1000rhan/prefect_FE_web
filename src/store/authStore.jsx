@@ -40,7 +40,7 @@ class AuthStore {
     }
   };
 
-  signIn = async (user, Swal, navigate) => {
+  signIn = async (user, Swal, navigate, setIsLoading) => {
     try {
       const resp = await api.post("/signin", user);
       await this.setUser(resp.data.token);
@@ -60,7 +60,9 @@ class AuthStore {
         showConfirmButton: false,
         timer: 3000,
       });
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(
         "🚀 ~ file: authStore.js ~ line 47 ~ AuthStore ~ signIn= ~ error",
         error
@@ -75,15 +77,17 @@ class AuthStore {
       });
     }
   };
-  signUp = async (user, Swal, navigate) => {
+  signUp = async (user, Swal, navigate, setIsLoading) => {
     try {
       const resp = await api.post("/signup", user);
 
       await this.setUser(resp.data.token);
       navigate("/updateProfiles");
       profileStore.fetchProfiles();
+      setIsLoading(false);
       Swal.fire("Good job!", "You clicked the button!", "success");
     } catch (error) {
+      setIsLoading(false);
       console.log(
         "🚀 ~ file: authStore.js ~ line 57 ~ AuthStore ~ signUp= ~ error",
         error
@@ -97,12 +101,12 @@ class AuthStore {
   };
 
   signOut = (navigate) => {
-    delete api.defaults.headers.common.Authorization;
-    // AsyncStorage.removeItem("myToken");
-    localStorage.removeItem("myToken");
-    navigate("/signin");
     this.user = null;
+    delete api.defaults.headers.common.Authorization;
+    localStorage.removeItem("myToken");
+    localStorage.clear();
     this.loading = false;
+    navigate("/");
   };
 }
 const authstore = new AuthStore();

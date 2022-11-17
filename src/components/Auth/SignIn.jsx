@@ -7,17 +7,17 @@ import authstore from "../../store/authStore";
 import { observer } from "mobx-react";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+import { CircularProgress } from "@mui/material";
 
 const SignIn = () => {
   const { t, i18n } = useTranslation();
 
-  authstore.loading && <h1>loading</h1>;
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,7 +29,8 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    authstore.signIn(user, Swal, navigate);
+    setIsLoading(true);
+    authstore.signIn(user, Swal, navigate, setIsLoading);
   };
 
   return (
@@ -67,6 +68,7 @@ const SignIn = () => {
                 name="username"
                 value={user.username}
                 type="text"
+                disabled={isLoading}
                 placeholder={t("pUsername")}
                 onChange={handleChange}
               />
@@ -93,6 +95,7 @@ const SignIn = () => {
                 value={user.password}
                 type={showPassword ? "text" : "password"}
                 placeholder={t("pPassword")}
+                disabled={isLoading}
                 onChange={handleChange}
               />
 
@@ -107,10 +110,9 @@ const SignIn = () => {
               </div>
             </div>
           </Form>
-
           <hr className="divider" />
           <button className="btns" onClick={handleSubmit}>
-            {t("signin")}
+            {isLoading ? <CircularProgress /> : <> {t("signin")}</>}
           </button>
           <p className="under-sign">
             {t("notSignup")}

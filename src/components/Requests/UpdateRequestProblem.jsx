@@ -8,12 +8,13 @@ import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import { MenuItem, Select, OutlinedInput, InputLabel } from "@mui/material";
+import authstore from "../../store/authStore";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
   const [problemDesc, setProblemDesc] = useState({
-    operation: updateRequest?.problemDesc[0]?.operation,
-    unit: updateRequest?.problemDesc[0]?.unit,
+    operation: updateRequest?.problemDesc[0]?.operation ?? "",
+    unit: updateRequest?.problemDesc[0]?.unit ?? "",
   });
   const [selectedWorker, setSelectedWorker] = useState([]);
 
@@ -25,6 +26,9 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   );
 
   const navigate = useNavigate();
+  if (authstore.user?.type !== "admin") {
+    navigate("/signin");
+  }
   const { t, i18n } = useTranslation();
 
   // Return classes based on whether item is checked

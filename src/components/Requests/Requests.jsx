@@ -7,6 +7,7 @@ import SearchBar from "../Additonal/SearchBar";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 // import NewDate from "../Additonal/NewDate";
 
 const Requests = () => {
@@ -20,12 +21,16 @@ const Requests = () => {
     new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000),
     new Date(currentDate.getTime() + 10 * 24 * 60 * 60 * 1000),
   ]);
-
+  const navigate = useNavigate();
+  if (authstore.user?.type !== "admin") {
+    navigate("/");
+  }
   console.log(requestStore?.requests);
   const workerRequestsPending = requestStore?.requests
     .filter(
       (req) =>
-        req.customerName.toLowerCase().includes(query.toLowerCase()) ||
+        (req.customerName != null &&
+          req.customerName.toLowerCase().includes(query.toLowerCase())) ||
         (req.customerPhone != null &&
           req.customerPhone.toString().includes(query))
     )
@@ -42,7 +47,8 @@ const Requests = () => {
   const workerRequestsDone = requestStore?.requests
     .filter(
       (req) =>
-        req.customerName.toLowerCase().includes(query.toLowerCase()) ||
+        (req.customerName != null &&
+          req.customerName.toLowerCase().includes(query.toLowerCase())) ||
         (req.customerPhone != null &&
           req.customerPhone.toString().includes(query))
     )

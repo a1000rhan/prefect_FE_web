@@ -13,11 +13,13 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  CircularProgress,
 } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const { t, i18n } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState({
     username: "",
@@ -33,21 +35,17 @@ const SignUp = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
-
-    console.log(
-      "🚀 ~ file: SignUp.jsx ~ line 38 ~ handleChange ~ confirmPassword",
-      confirmPassword
-    );
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (user.password !== confirmPassword) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
       });
     } else {
-      authstore.signUp(user, Swal, navigate);
+      authstore.signUp(user, Swal, navigate, setIsLoading);
     }
   };
 
@@ -93,6 +91,7 @@ const SignUp = () => {
                 type="text"
                 placeholder={t("pUsername")}
                 onChange={handleChange}
+                disabled={isLoading}
               />
             </Form.Group>
             <Form.Group className="form-controls">
@@ -106,6 +105,7 @@ const SignUp = () => {
                 type="password"
                 placeholder={t("pPassword")}
                 onChange={handleChange}
+                disabled={isLoading}
               />
             </Form.Group>
             <Form.Group className="form-controls">
@@ -119,6 +119,7 @@ const SignUp = () => {
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(value) => setConfirmPassword(value.target.value)}
+                disabled={isLoading}
               />
             </Form.Group>
             <Form.Group className="form-controls">
@@ -132,6 +133,7 @@ const SignUp = () => {
                 type="text"
                 placeholder="Enter Email"
                 onChange={handleChange}
+                disabled={isLoading}
               />
             </Form.Group>
             <h3>{t("type")}</h3>
@@ -154,7 +156,7 @@ const SignUp = () => {
           </Form>
         </div>
         <button className="btns" onClick={handleSubmit}>
-          {t("signup")}
+          {isLoading ? <CircularProgress /> : <> {t("signup")}</>}
         </button>
       </div>
     </div>
