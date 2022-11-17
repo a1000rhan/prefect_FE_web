@@ -44,11 +44,27 @@ const RequestDetails = () => {
 
   const showWorekers = theWorkerRequests.map((workerName, index) => (
     <div key={index}>
-      <p>
+      <>
         {workerName.firstName} {workerName.lastName} -
-      </p>
+      </>
     </div>
   ));
+
+  const tConvert = (time) => {
+    // Check correct time format and split into components
+    time = time
+      .toString()
+      .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      // If time format correct
+      time = time.slice(1); // Remove full string match value
+      time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    console.log(time);
+    return time.join(""); // return adjusted time or original string
+  };
 
   return (
     <div>
@@ -113,7 +129,7 @@ const RequestDetails = () => {
                 <Icon.GeoAltFill />
                 &emsp;
               </h4>
-              <p>
+              <>
                 &nbsp;{t("house")}:&nbsp;
                 {requestD?.customerAddress[0].house}, &nbsp;{t("street")}:&nbsp;
                 {requestD?.customerAddress[0].street}, &nbsp;{t("block")}:&nbsp;
@@ -124,7 +140,7 @@ const RequestDetails = () => {
                 :&nbsp;
                 {requestD?.customerAddress[0].floor}, &nbsp;{t("city")}:&nbsp;
                 {requestD?.customerAddress[0].city}
-              </p>
+              </>
             </div>
             <hr className="divider" />
             <div className="detail-phone">
@@ -135,18 +151,17 @@ const RequestDetails = () => {
               <a href="">{requestD?.customerPhone}</a>
             </div>
             <hr className="divider" />
-            <div className="detail-phone">
+            <div className="detail-date">
               <h4>
                 {" "}
                 <Icon.Calendar2Date />
-                &nbsp;
+                &emsp;{" "}
               </h4>
-              <p>{requestD?.date}</p>
+              <>{requestD?.date}</>
               <h4>
-                &emsp; <Icon.Clock />
-                :&nbsp;
+                &emsp; <Icon.Clock />: &emsp;
               </h4>
-              <p>{requestD?.time}</p>
+              <>{tConvert(requestD?.time)}</>
             </div>
             <hr className="divider" />
             <div className="detail-phone">
@@ -168,7 +183,7 @@ const RequestDetails = () => {
                 <Icon.JournalText />
                 :&emsp;
               </h4>
-              <p> {requestD?.notes}</p>
+              <> {requestD?.notes}</>
             </div>
             <div className="ro">
               <h4>
@@ -184,6 +199,7 @@ const RequestDetails = () => {
               <h5>{t("status")}:&emsp;</h5>
               <p
                 style={{
+                  margin: 0,
                   color:
                     requestD?.status == "pending"
                       ? "blue"

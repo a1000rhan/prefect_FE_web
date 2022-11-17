@@ -53,6 +53,21 @@ const RequestItem = ({ request }) => {
     e.preventDefault();
     <a href={filePdf} target="_blank"></a>;
   };
+  const tConvert = (time) => {
+    // Check correct time format and split into components
+    time = time
+      .toString()
+      .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      // If time format correct
+      time = time.slice(1); // Remove full string match value
+      time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    console.log(time);
+    return time.join(""); // return adjusted time or original string
+  };
 
   return (
     <div className="reqs">
@@ -60,7 +75,13 @@ const RequestItem = ({ request }) => {
         <div className="card-header">
           <Link className="req-link" to={`/requests/${request.slug}`}>
             <p className="reqItem-text">{request?.customerName}</p>
-            <p className="reqItem-sub-text">date: {request?.date}</p>
+            <div className="row-req-items">
+              <p className="reqItem-sub-text">Date: {request?.date}</p>
+
+              <p className="reqItem-sub-text">
+                Time: {tConvert(request?.time)}
+              </p>
+            </div>
           </Link>
 
           <Icon.ThreeDots

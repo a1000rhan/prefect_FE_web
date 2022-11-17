@@ -137,9 +137,15 @@
 }
 .detail-phone {
   display: flex;
+  vertical-align: baseline;
   align-items: center;
 }
 
+.detail-date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .date-picker {
   background-color: #fff;
 }
@@ -148,6 +154,14 @@
   width: 95%;
 
   z-index: 1;
+}
+
+.row-req-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px;
 }
 
 .dropdown-menu1 {

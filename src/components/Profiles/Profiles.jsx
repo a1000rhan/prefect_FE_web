@@ -26,7 +26,7 @@ const Profiles = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   if (authstore.user?.type !== "admin") {
-    navigate("/signin");
+    navigate("/");
   }
   const repeSkeleton = [0, 0, 0, 0, 0];
   useEffect(() => {
