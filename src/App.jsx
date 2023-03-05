@@ -8,7 +8,7 @@ import "react-time-picker/dist/TimePicker.css";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation, Router } from "react-router-dom";
 import Home from "./components/Home";
 import SignIn from "./components/Auth/SignIn";
@@ -34,10 +34,21 @@ import PullToRefresh from "react-simple-pull-to-refresh";
 
 import requestStore from "./store/requestsStore";
 
+import { useTranslation } from "react-i18next";
 function App() {
+  const { t, i18n } = useTranslation();
   if (profileStore.loading) {
     <h1>loading</h1>;
   }
+  useEffect(() => {
+    if (i18n.language === "ar") {
+      document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
+    } else {
+      document.getElementsByTagName("html")[0].setAttribute("dir", "ltr");
+    }
+  }, []);
+
+  const [lan, setLan] = useState();
   const [showNav, setShowNav] = useState("none");
   const [profile, setProfile] = useState({
     firstName: profileStore.oneProfile?.firstName,

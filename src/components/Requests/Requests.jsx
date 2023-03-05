@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import authstore from "../../store/authStore";
 import requestStore from "../../store/requestsStore";
 import RequestItem from "./RequestItem";
@@ -43,7 +43,9 @@ const Requests = () => {
           <RequestItem request={req} key={req._id} />
         )}
       </div>
-    ));
+    ))
+    .sort((a, b) => a.date - b.date && a.time - b.time);
+
   const workerRequestsDone = requestStore?.requests
     .filter(
       (req) =>
@@ -61,7 +63,8 @@ const Requests = () => {
           <RequestItem request={req} key={req._id} />
         )}
       </div>
-    ));
+    ))
+    .sort((a, b) => a.date - b.date && a.time - b.time);
 
   const handleRangeDate = (date) => {
     setRangeDate(date);

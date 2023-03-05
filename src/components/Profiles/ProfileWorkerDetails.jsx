@@ -17,11 +17,22 @@ const ProfileWorkerDetails = () => {
   const { worker } = useParams();
   const info = profileStore.profiles.find((profile) => profile._id === worker);
 
-  const requestPending = info?.requests.map((req, index) => (
+  const sortRequest = info.requests
+    .map((req) => req)
+    .sort((a, b) => {
+      a.time - b.time;
+    });
+  console.log(
+    "🚀 ~ file: ProfileWorkerDetails.jsx ~ line 26 ~ ProfileWorkerDetails ~ sortRequest",
+    sortRequest
+  );
+
+  const requestPending = sortRequest.map((req, index) => (
     <div className="reqs">
       {req.status === "pending" && <RequestItem request={req} key={index} />}
     </div>
   ));
+
   const requestothers = info?.requests.map((req, index) => (
     <div className="reqs">
       {req.status !== "pending" && <RequestItem request={req} key={index} />}

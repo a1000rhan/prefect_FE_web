@@ -38,7 +38,6 @@ class RequestStore {
       const response = await api.post("requests/createRequest", newRequest);
       this.requests.push(newRequest);
 
-      this.getAllRequests();
       const pushRequest = profileStore.workers.find(
         (worker) => worker._id == theWorker
       );
@@ -46,6 +45,7 @@ class RequestStore {
       pushRequest.requests.push(response.data._id);
       await api.put(`/profiles/${pushRequest._id}`, pushRequest);
 
+      await this.getAllRequests();
       this.isLoading = false;
 
       Swal.fire({

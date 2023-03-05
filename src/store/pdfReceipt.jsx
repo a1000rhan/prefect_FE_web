@@ -15,6 +15,7 @@ class PDFReceipt {
       unit: "px",
       format: "A4",
     });
+    pdf.setFont("../assets/Cairo-VariableFont_slnt,wght.ttf", "Cairo");
 
     pdf.addImage(logo, "JPG", 40, 10, 50, 50);
     pdf.setFontSize(40);
@@ -23,7 +24,6 @@ class PDFReceipt {
     pdf.setFontSize(12);
     pdf.text("Customer Info:", 40, 80);
     autoTable(pdf, { html: "#my-table", margin: { top: 80 } });
-    pdf.setFont("Amiri");
     autoTable(pdf, {
       head: [["Name", "Phone", "address"]],
       body: [
@@ -36,7 +36,7 @@ class PDFReceipt {
     });
     pdf.text("The Problem:", 40, 150);
     autoTable(pdf, { html: "#my-table", margin: { top: 100 } });
-    pdf.setFont("Amiri");
+    pdf.setFont("Cairo");
     const note = prompt("Enter your Notes");
     pdf.text(40, 220, "Notes:   " + note);
 

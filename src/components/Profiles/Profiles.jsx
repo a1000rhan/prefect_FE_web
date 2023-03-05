@@ -97,7 +97,9 @@ const Profiles = () => {
             <header className="App-header">
               <div>
                 <h1>{t("profile")}</h1>
-                <h6>Welcome {authstore?.user?.username}</h6>
+                <h6>
+                  {t("welcome")} {authstore?.user?.username}
+                </h6>
               </div>
             </header>
 

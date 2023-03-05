@@ -88,10 +88,7 @@ class AuthStore {
       Swal.fire("Good job!", "You clicked the button!", "success");
     } catch (error) {
       setIsLoading(false);
-      console.log(
-        "🚀 ~ file: authStore.js ~ line 57 ~ AuthStore ~ signUp= ~ error",
-        error
-      );
+
       Swal.fire(
         "You have Entered wrong info!",
         "You clicked the button!",

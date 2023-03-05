@@ -25,7 +25,8 @@ const OneProfile = () => {
           <RequestItem request={req} key={req._id} />
         )}
       </div>
-    ));
+    ))
+    .sort((a, b) => a.date - b.date && a.time - b.time);
 
   return (
     <>

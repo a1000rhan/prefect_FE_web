@@ -36,7 +36,14 @@ const RequestItem = ({ request }) => {
     e.preventDefault();
     requestStore.removeRequest(request, navigate, Swal);
   };
-
+  let conditon =
+    request.status === "done"
+      ? t("done")
+      : request.status === "canceled"
+      ? t("cancel")
+      : request.status === "pending"
+      ? t("pending")
+      : null;
   const onDone = (e) => {
     e.preventDefault();
     // setShow(true);
@@ -65,7 +72,6 @@ const RequestItem = ({ request }) => {
       time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
       time[0] = +time[0] % 12 || 12; // Adjust hours
     }
-    console.log(time);
     return time.join(""); // return adjusted time or original string
   };
 
@@ -76,10 +82,12 @@ const RequestItem = ({ request }) => {
           <Link className="req-link" to={`/requests/${request.slug}`}>
             <p className="reqItem-text">{request?.customerName}</p>
             <div className="row-req-items">
-              <p className="reqItem-sub-text">Date: {request?.date}</p>
+              <p className="reqItem-sub-text">
+                {t("date")}: {request?.date}
+              </p>
 
               <p className="reqItem-sub-text">
-                Time: {tConvert(request?.time)}
+                {t("time")}: {tConvert(request?.time)}
               </p>
             </div>
           </Link>
@@ -121,7 +129,7 @@ const RequestItem = ({ request }) => {
                     : "red",
               }}
             >
-              &nbsp; {request?.status}
+              &nbsp; {conditon}
             </span>
           </p>
           <div className="ic-end">
