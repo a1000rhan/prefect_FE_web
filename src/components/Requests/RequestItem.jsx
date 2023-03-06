@@ -48,6 +48,7 @@ const RequestItem = ({ request }) => {
     e.preventDefault();
     // setShow(true);
     pdfReceipt.pdfFunction(request, setFilePdf);
+
     request.status = "done";
   };
   const onCancel = (e) => {

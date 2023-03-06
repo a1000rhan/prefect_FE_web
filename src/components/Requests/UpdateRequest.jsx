@@ -25,7 +25,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     house: updateRequest?.customerAddress?.[0].house,
     street: updateRequest?.customerAddress?.[0].street,
     city: updateRequest?.customerAddress?.[0].city,
-    block: updateRequest?.customerAddress?.[0].block,
+    block: updateRequest?.customerAddress?.[0].block ?? "",
     apartment: updateRequest?.customerAddress?.[0].apartment,
     floor: updateRequest?.customerAddress?.[0].floor,
   });

@@ -22,10 +22,6 @@ const ProfileWorkerDetails = () => {
     .sort((a, b) => {
       a.time - b.time;
     });
-  console.log(
-    "🚀 ~ file: ProfileWorkerDetails.jsx ~ line 26 ~ ProfileWorkerDetails ~ sortRequest",
-    sortRequest
-  );
 
   const requestPending = sortRequest.map((req, index) => (
     <div className="reqs">
@@ -70,7 +66,7 @@ const ProfileWorkerDetails = () => {
                     width: 80,
                     height: 80,
                     marginTop: 2,
-                    marginRight: 5,
+                    margin: 2,
                     objectFit: "fill",
                     border: "3px solid white",
                   }}

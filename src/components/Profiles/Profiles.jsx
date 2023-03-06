@@ -39,9 +39,9 @@ const Profiles = () => {
         (req) => req.status === "cancel"
       );
 
-      setPendingState(pie(pending, "pending"));
-      setDoneState(pie(done, "done"));
-      setCancelState(pie(cancel, "cancel"));
+      setPendingState(pie(pending, t("pending")));
+      setDoneState(pie(done, t("done")));
+      setCancelState(pie(cancel, t("cancel")));
 
       setIsLoading(false);
     }

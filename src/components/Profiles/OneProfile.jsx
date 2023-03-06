@@ -50,6 +50,7 @@ const OneProfile = () => {
                     width: 80,
                     height: 80,
                     marginTop: 2,
+                    margin: 2,
                     objectFit: "fill",
                     border: "3px solid white",
                   }}
