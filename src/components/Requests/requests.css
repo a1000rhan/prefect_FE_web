@@ -149,7 +149,9 @@
 .date-picker {
   background-color: #fff;
 }
-
+.required-star {
+  color: red;
+}
 .search-text {
   width: 95%;
 
@@ -193,7 +195,13 @@
   z-index: 30;
   margin: 20px;
 }
+.apt-floor {
+  display: flex;
+  flex-direction: row;
 
+  z-index: 30;
+  margin: 20px;
+}
 .v-line {
   width: 5px;
   height: 240px;

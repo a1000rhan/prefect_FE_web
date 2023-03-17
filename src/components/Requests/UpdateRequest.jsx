@@ -22,7 +22,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   const [time, setTime] = useState(updateRequest.time);
   const [date, setDate] = useState(moment(updateRequest.date).toDate());
   const [address, setAddress] = useState({
-    house: updateRequest?.customerAddress?.[0].house,
+    house: updateRequest?.customerAddress?.[0]?.house,
     street: updateRequest?.customerAddress?.[0].street,
     city: updateRequest?.customerAddress?.[0].city,
     block: updateRequest?.customerAddress?.[0].block ?? "",

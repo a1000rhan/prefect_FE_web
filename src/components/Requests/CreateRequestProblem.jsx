@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import {
+  CircularProgress,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import profileStore from "../../store/profileStore";
 import requestStore from "../../store/requestsStore";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +13,17 @@ import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import authstore from "../../store/authStore";
+import { Spinner } from "react-bootstrap";
 
 const CreateRequestProblem = ({ request, setRequest }) => {
   const { t, i18n } = useTranslation();
 
-  profileStore.loading && <h1>loading</h1>;
+  profileStore.loading ||
+    (requestStore.loading && (
+      <div className="spinner">
+        <CircularProgress />
+      </div>
+    ));
   const [problemDesc, setProblemDesc] = useState({
     operation: "",
     unit: "",
@@ -41,8 +52,17 @@ const CreateRequestProblem = ({ request, setRequest }) => {
     e.preventDefault();
 
     const allData = { ...request, problemDesc: problemDesc };
-    theWorker == []
-      ? alert("select a worker")
+    theWorker == [] ||
+    customerName == "" ||
+    customerPhone == "" ||
+    customerAddress == ""
+      ? Swal.fire({
+          position: "top-center",
+          icon: "warning",
+          title: "fill all data",
+          showConfirmButton: false,
+          timer: 3000,
+        })
       : requestStore.createNewRequests(allData, theWorker, navigate, Swal);
     setRequest({
       customerName: "",
@@ -56,93 +76,105 @@ const CreateRequestProblem = ({ request, setRequest }) => {
   };
   return (
     <>
-      <div className="bk">
-        <header className="App-header">
-          {i18n.language === "ar" ? (
-            <Icon.ArrowRight
-              onClick={() => navigate(-1)}
-              size={30}
-              className="top-icon"
-            />
-          ) : (
-            <Icon.ArrowLeft
-              onClick={() => navigate(-1)}
-              size={30}
-              className="top-icon"
-            />
-          )}
-
-          <h1>{t("createRequest")}</h1>
-        </header>
-        <div className="container">
-          <form className="requst-form" onSubmit={handleSubmit}>
-            <div className="felids">
-              <label className="labelT">{t("problem")}</label>
-              <br />
-              <RadioGroup
-                name="unit"
-                className="checkbox2"
-                onChange={handleChangeUnit}
-              >
-                <FormControlLabel
-                  value="split"
-                  name="unit"
-                  sx={{ color: "white" }}
-                  control={<Radio sx={{ color: "white" }} />}
-                  label={t("split")}
-                />
-
-                <FormControlLabel
-                  value="central"
-                  name="problem2"
-                  sx={{ color: "white" }}
-                  control={<Radio sx={{ color: "white" }} />}
-                  label={t("central")}
-                />
-              </RadioGroup>
-              <RadioGroup
-                name="operation"
-                className="checkbox3"
-                onChange={handleChangeOperation}
-              >
-                <FormControlLabel
-                  value="Maintenance"
-                  name="operation"
-                  sx={{ color: "white" }}
-                  control={<Radio sx={{ color: "white" }} />}
-                  label={t("maintenance")}
-                />
-
-                <FormControlLabel
-                  value="Installing"
-                  name="problemDesc"
-                  sx={{ color: "white" }}
-                  control={<Radio sx={{ color: "white" }} />}
-                  label={t("installing")}
-                />
-              </RadioGroup>
-
-              <br />
-              <label className="labelT">{t("problemDescription")}</label>
-              <textarea
-                className="textF"
-                name="notes"
-                value={request.notes}
-                onChange={handleChange}
-              />
-              <br />
-              <label className="labelT">Worker</label>
-              <select onChange={(e) => setWorker(e.target.value)}>
-                <option required>select</option>
-                {workersName}
-              </select>
-            </div>
-          </form>
-          <button className="btns" onClick={handleSubmit}>
-            {t("createRequest")}
-          </button>
+      {requestStore.loading ? (
+        <div className="spinner">
+          <Spinner />
         </div>
-      </div>
+      ) : (
+        <div className="bk">
+          <header className="App-header">
+            {i18n.language === "ar" ? (
+              <Icon.ArrowRight
+                onClick={() => navigate(-1)}
+                size={30}
+                className="top-icon"
+              />
+            ) : (
+              <Icon.ArrowLeft
+                onClick={() => navigate(-1)}
+                size={30}
+                className="top-icon"
+              />
+            )}
+
+            <h1>{t("createRequest")}</h1>
+          </header>
+          <div className="container">
+            <form className="requst-form" onSubmit={handleSubmit}>
+              <div className="felids">
+                <label className="labelT">
+                  {t("problem")} <span className="required-star">*</span>
+                </label>
+                <br />
+                <p>{t("type_unit")}</p>
+                <RadioGroup
+                  name="unit"
+                  className="checkbox2"
+                  onChange={handleChangeUnit}
+                >
+                  <FormControlLabel
+                    value="split"
+                    name="unit"
+                    sx={{ color: "white" }}
+                    control={<Radio sx={{ color: "white" }} />}
+                    label={t("split")}
+                  />
+
+                  <FormControlLabel
+                    value="central"
+                    name="problem2"
+                    sx={{ color: "white" }}
+                    control={<Radio sx={{ color: "white" }} />}
+                    label={t("central")}
+                  />
+                </RadioGroup>
+                <p>{t("type_issue")}</p>
+                <RadioGroup
+                  name="operation"
+                  className="checkbox3"
+                  onChange={handleChangeOperation}
+                >
+                  <FormControlLabel
+                    value="Maintenance"
+                    name="operation"
+                    sx={{ color: "white" }}
+                    control={<Radio sx={{ color: "white" }} />}
+                    label={t("maintenance")}
+                  />
+
+                  <FormControlLabel
+                    value="Installing"
+                    name="problemDesc"
+                    sx={{ color: "white" }}
+                    control={<Radio sx={{ color: "white" }} />}
+                    label={t("Installing")}
+                  />
+                </RadioGroup>
+
+                <br />
+                <label className="labelT">{t("problemDescription")}</label>
+                <textarea
+                  className="textF"
+                  name="notes"
+                  value={request.notes}
+                  onChange={handleChange}
+                />
+                <br />
+                <label className="labelT">
+                  {t("worker")} <span className="required-star">*</span>
+                </label>
+                <select onChange={(e) => setWorker(e.target.value)}>
+                  <option required>{t("select_worker")}</option>
+                  {workersName}
+                </select>
+              </div>
+            </form>
+            <button className="btns" onClick={handleSubmit}>
+              {t("createRequest")}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

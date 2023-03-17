@@ -25,6 +25,13 @@ const CreateRequest = ({ request, setRequest }) => {
     navigate("/");
   }
   const handleChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+    const phoneRegex = /^\d{0,8}$/;
+
+    if (inputName === "customerPhone" && !phoneRegex.test(inputValue)) {
+      return; // do not update state if input exceeds 8 digits
+    }
     setRequest({ ...request, [event.target.name]: event.target.value });
   };
 
@@ -63,7 +70,10 @@ const CreateRequest = ({ request, setRequest }) => {
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">{t("customerName")}</label>
+              <label className="labelT">
+                {t("customerName")}
+                <span className="required-star">*</span>
+              </label>
               <input
                 className="textF"
                 value={request.customerName}
@@ -71,7 +81,9 @@ const CreateRequest = ({ request, setRequest }) => {
                 name="customerName"
                 onChange={handleChange}
               />
-              <label className="labelT">{t("customerAddress")}</label>
+              <label className="labelT">
+                {t("customerAddress")} <span className="required-star">*</span>
+              </label>
               <div className="addressB">
                 <p className="addressL">{t("house")}:</p>
                 <input
@@ -113,40 +125,46 @@ const CreateRequest = ({ request, setRequest }) => {
                   }
                   style={{ width: "100px", margin: "5px" }}
                 />
-                <div></div>
-                <p className="addressL">{t("apt")}:</p>
-                <input
-                  value={address.apartment}
-                  type="text"
-                  name="apartment"
-                  onChange={(e) =>
-                    setAddress({ ...address, apartment: e.target.value })
-                  }
-                  className="addressF"
-                />
-                <p className="addressL">{t("floor")}:</p>
-                <input
-                  className="addressF"
-                  value={address.floor}
-                  type="text"
-                  name="floor"
-                  onChange={(e) =>
-                    setAddress({ ...address, floor: e.target.value })
-                  }
-                />
+                <div className="apt-floor">
+                  <p className="addressL">{t("apt")}:</p>
+                  <input
+                    value={address.apartment}
+                    type="text"
+                    name="apartment"
+                    onChange={(e) =>
+                      setAddress({ ...address, apartment: e.target.value })
+                    }
+                    className="addressF"
+                  />
+                  <p className="addressL">{t("floor")}:</p>
+                  <input
+                    className="addressF"
+                    value={address.floor}
+                    type="text"
+                    name="floor"
+                    onChange={(e) =>
+                      setAddress({ ...address, floor: e.target.value })
+                    }
+                  />
+                </div>
               </div>
-              <label className="labelT">{t("customerPhone")}</label>
+              <label className="labelT">
+                {t("customerPhone")} <span className="required-star">*</span>
+              </label>
               <input
                 className="textF"
                 value={request.customerPhone}
-                type="text"
+                type="number"
                 name="customerPhone"
                 onChange={handleChange}
+                maxLength={8}
               />
             </div>
             <br />
             <div>
-              <label className="labelT">{t("date")}</label>
+              <label className="labelT">
+                {t("date")} <span className="required-star">*</span>
+              </label>
               <TimeDate
                 setTime={setTime}
                 time={time}

@@ -35,6 +35,7 @@ class RequestStore {
 
   createNewRequests = async (newRequest, theWorker, navigate, Swal) => {
     try {
+      this.isLoading = true;
       const response = await api.post("requests/createRequest", newRequest);
       this.requests.push(newRequest);
 
@@ -95,10 +96,13 @@ class RequestStore {
           if (foundRequest) {
             Swal.fire({
               position: "top-center",
-              icon: "error",
-              title: "the request already exist",
+              icon: "success",
+              title: "the request is chenged",
               showConfirmButton: false,
             });
+            navigate("/");
+            profileStore.fetchProfiles();
+            return;
           } else {
             if (theChoosenWorker != null) {
               theChoosenWorker?.requests.push(resp.data._id);
@@ -209,7 +213,7 @@ class RequestStore {
           Swal.fire("Deleted!", "", "success");
         }
       });
-
+      profileStore.fetchProfiles();
       this.getAllRequests();
       this.loading = false;
     } catch (error) {
