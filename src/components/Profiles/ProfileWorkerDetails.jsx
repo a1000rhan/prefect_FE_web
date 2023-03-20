@@ -20,7 +20,13 @@ const ProfileWorkerDetails = () => {
   const sortRequest = info?.requests
     .map((req) => req)
     .sort((a, b) => {
-      a.time - b.time;
+      // sort by time
+      if (a.time < b.time) {
+        return -1;
+      }
+      if (a.time > b.time) {
+        return 1;
+      }
     });
 
   const requestPending = sortRequest.map((req, index) => (
