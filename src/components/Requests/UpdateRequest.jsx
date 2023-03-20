@@ -12,6 +12,7 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   if (profileStore.loading || requestStore.loading) {
     <h1>loading</h1>;
   }
+
   const { requestId } = useParams();
   const request = requestStore.requests.find(
     (request) => request._id === requestId
@@ -22,12 +23,12 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
   const [time, setTime] = useState(updateRequest.time);
   const [date, setDate] = useState(moment(updateRequest.date).toDate());
   const [address, setAddress] = useState({
-    house: updateRequest?.customerAddress?.[0]?.house,
-    street: updateRequest?.customerAddress?.[0].street,
-    city: updateRequest?.customerAddress?.[0].city,
+    house: updateRequest?.customerAddress?.[0]?.house ?? "",
+    street: updateRequest?.customerAddress?.[0].street ?? "",
+    city: updateRequest?.customerAddress?.[0].city ?? "",
     block: updateRequest?.customerAddress?.[0].block ?? "",
-    apartment: updateRequest?.customerAddress?.[0].apartment,
-    floor: updateRequest?.customerAddress?.[0].floor,
+    apartment: updateRequest?.customerAddress?.[0].apartment ?? "",
+    floor: updateRequest?.customerAddress?.[0].floor ?? "",
   });
 
   const [data, setData] = useState({
@@ -39,6 +40,13 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
     navigate("/");
   }
   const handleChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+    const phoneRegex = /^\d{0,8}$/;
+
+    if (inputName === "customerPhone" && !phoneRegex.test(inputValue)) {
+      return; // do not update state if input exceeds 8 digits
+    }
     setData({
       ...data,
       [event.target.name]: event.target.value,
@@ -78,7 +86,10 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">{t("customerName")}</label>
+              <label className="labelT">
+                {t("customerName")}
+                <span className="required-star">*</span>
+              </label>
               <input
                 className="textF"
                 value={data.customerName}
@@ -86,7 +97,9 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                 name="customerName"
                 onChange={handleChange}
               />
-              <label className="labelT">{t("customerAddress")}</label>
+              <label className="labelT">
+                {t("customerAddress")} <span className="required-star">*</span>
+              </label>
               <div className="addressB">
                 <p className="addressL">{t("house")}:</p>
                 <input
@@ -411,7 +424,9 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
                   }
                 />
               </div>
-              <label className="labelT">{t("customerPhone")}</label>
+              <label className="labelT">
+                {t("customerPhone")} <span className="required-star">*</span>
+              </label>
               <input
                 className="textF"
                 value={data.customerPhone}
@@ -422,7 +437,9 @@ const UpdateRequest = ({ updateRequest, setUpdateRequest }) => {
             </div>
             <br />
             <div>
-              <label className="labelT">{t("date")}</label>
+              <label className="labelT">
+                {t("date")} <span className="required-star">*</span>
+              </label>
               <TimeDate
                 setTime={setTime}
                 time={time}

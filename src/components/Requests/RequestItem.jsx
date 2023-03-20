@@ -20,6 +20,7 @@ const RequestItem = ({ request }) => {
   let sigPad = useRef(null);
   const [show, setShow] = useState(false);
   const [sign, setSign] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [filePdf, setFilePdf] = useState(request.receipt);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -34,7 +35,8 @@ const RequestItem = ({ request }) => {
   };
   const handleDelete = (e) => {
     e.preventDefault();
-    requestStore.removeRequest(request, navigate, Swal);
+    setIsLoading(true);
+    requestStore.removeRequest(request, navigate, Swal, setIsLoading);
   };
   let conditon =
     request.status === "done"

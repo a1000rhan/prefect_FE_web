@@ -18,7 +18,7 @@ const OneProfile = () => {
   const info = profileStore?.oneProfile;
 
   const requests = info?.requests
-    // .filter((req) => req?.date == moment(new Date()).format("YYYY-MM-DD"))
+    .filter((req) => req?.date == moment(new Date()).format("YYYY-MM-DD"))
     .map((req) => (
       <div className="reqs">
         {req.status === "pending" && (

@@ -3,6 +3,7 @@ import { makeAutoObservable, configure } from "mobx";
 import api from "./api";
 import authstore from "./authStore";
 import profileStore from "./profileStore";
+
 configure({
   enforceActions: "never",
 });
@@ -33,7 +34,13 @@ class RequestStore {
     }
   };
 
-  createNewRequests = async (newRequest, theWorker, navigate, Swal) => {
+  createNewRequests = async (
+    newRequest,
+    theWorker,
+    navigate,
+    Swal,
+    setIsLoading
+  ) => {
     try {
       this.isLoading = true;
       const response = await api.post("requests/createRequest", newRequest);
@@ -48,7 +55,7 @@ class RequestStore {
 
       await this.getAllRequests();
       this.isLoading = false;
-
+      setIsLoading(false);
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -71,10 +78,16 @@ class RequestStore {
       });
     }
   };
-  updateRequest = async (updateRequest, theWorker, navigate, Swal) => {
+  updateRequest = async (
+    updateRequest,
+    theWorker,
+    navigate,
+    Swal,
+    setIsLoading
+  ) => {
     try {
       Swal.fire({
-        title: "Do you want to save the changes?",
+        title: "Are you sure you want to change the request?",
 
         showCancelButton: true,
         confirmButtonText: "Save",
@@ -88,7 +101,6 @@ class RequestStore {
             `requests/updateRequest/${updateRequest._id}`,
             updateRequest
           );
-
           const foundRequest = theChoosenWorker?.requests.some((req) => {
             return req._id === resp.data._id;
           });
@@ -118,7 +130,13 @@ class RequestStore {
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");
         }
+
+        console.log(
+          "🚀 ~ file: requestsStore.jsx:133 ~ RequestStore ~ updateRequest:",
+          updateRequest
+        );
       });
+      setIsLoading(false);
 
       profileStore.fetchProfiles();
       this.getAllRequests();
@@ -126,9 +144,10 @@ class RequestStore {
       this.isLoading = false;
     } catch (error) {
       console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 38 ~ RequestStore ~ updateRequest= ~ error",
+        "🚀 ~ file: requestsStore.jsx:145 ~ RequestStore ~ error:",
         error
       );
+      setIsLoading(false);
       Swal.fire({
         position: "top-center",
         icon: "error",
@@ -198,7 +217,7 @@ class RequestStore {
     }
   };
 
-  removeRequest = async (request, navigate, Swal) => {
+  removeRequest = async (request, navigate, Swal, setIsLoading) => {
     try {
       Swal.fire({
         title: "Do you want to Delete the Request?",
@@ -216,11 +235,9 @@ class RequestStore {
       profileStore.fetchProfiles();
       this.getAllRequests();
       this.loading = false;
+      setIsLoading(false);
     } catch (error) {
-      console.log(
-        "🚀 ~ file: requestsStore.jsx ~ line 87 ~ RequestStore ~ removeRequest= ~ error",
-        error
-      );
+      setIsLoading(false);
     }
   };
 }

@@ -17,7 +17,7 @@ const ProfileWorkerDetails = () => {
   const { worker } = useParams();
   const info = profileStore.profiles.find((profile) => profile._id === worker);
 
-  const sortRequest = info.requests
+  const sortRequest = info?.requests
     .map((req) => req)
     .sort((a, b) => {
       a.time - b.time;

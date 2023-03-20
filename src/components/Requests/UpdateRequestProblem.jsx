@@ -7,16 +7,25 @@ import { observer } from "mobx-react";
 import * as Icon from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
-import { MenuItem, Select, OutlinedInput, InputLabel } from "@mui/material";
+import {
+  MenuItem,
+  Select,
+  OutlinedInput,
+  CircularProgress,
+} from "@mui/material";
 import authstore from "../../store/authStore";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   profileStore.loading && <h1>loading</h1>;
+  // if (updateRequest === undefined) {
+  //   return console.log("aziz");
+  // }
   const [problemDesc, setProblemDesc] = useState({
     operation: updateRequest?.problemDesc[0]?.operation ?? "",
     unit: updateRequest?.problemDesc[0]?.unit ?? "",
   });
   const [selectedWorker, setSelectedWorker] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [updateStatus, setUpdateStatus] = useState(updateRequest.status);
   const [theWorker, setWorker] = useState(
@@ -66,21 +75,35 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
   const handleSelectWorker = (e) => {
     setWorker(e.target.value);
     setSelectedWorker(selectedWorker, e.target.value);
-    console.log(
-      "🚀 ~ file: UpdateRequestProblem.jsx ~ line 65 ~ handleSelectWorker ~ selectedWorker",
-      selectedWorker
-    );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
     const allData = {
       ...updateRequest,
       problemDesc: problemDesc,
       status: updateStatus,
     };
-    theWorker == []
-      ? alert("please choose a worker")
-      : requestStore.updateRequest(allData, theWorker, navigate, Swal);
+    theWorker == [] ||
+    updateRequest.customerName == null ||
+    updateRequest.customerPhone == null ||
+    updateRequest.customerAddress == null
+      ? Swal.fire({
+          position: "top-center",
+          icon: "warning",
+          title: "fill all data",
+          showConfirmButton: false,
+          timer: 3000,
+        })
+      : requestStore.updateRequest(
+          allData,
+          theWorker,
+          navigate,
+          Swal,
+          setIsLoading
+        );
   };
 
   return (
@@ -105,7 +128,9 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
         <div className="container">
           <form className="requst-form" onSubmit={handleSubmit}>
             <div className="felids">
-              <label className="labelT">{t("problem")}</label>
+              <label className="labelT">
+                {t("problem")} <span className="required-star">*</span>
+              </label>
               <br />
               <RadioGroup
                 name="unit"
@@ -148,7 +173,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
                   name="operation"
                   sx={{ color: "white" }}
                   control={<Radio sx={{ color: "white" }} />}
-                  label={t("installing")}
+                  label={t("Installing")}
                 />
               </RadioGroup>
 
@@ -163,7 +188,9 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               <br />
 
               {/*...........SELECT...........*/}
-              <label className="labelT">Worker</label>
+              <label className="labelT">
+                {t("worker")} <span className="required-star">*</span>
+              </label>
 
               {/*...........SELECT...........*/}
               <Select
@@ -184,8 +211,9 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               <br />
               <br />
 
-              <label className="labelT">{t("status")}:</label>
-
+              <label className="labelT">
+                {t("status")} <span className="required-star">*</span>
+              </label>
               <RadioGroup
                 name="status"
                 value={updateStatus}
@@ -219,7 +247,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
             </div>
           </form>
           <button className="btns" onClick={handleSubmit}>
-            Update the Request
+            {isLoading ? <CircularProgress /> : t("continueUpdateRequest")}
           </button>
         </div>
       </div>
