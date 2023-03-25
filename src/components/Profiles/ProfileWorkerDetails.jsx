@@ -20,22 +20,21 @@ const ProfileWorkerDetails = () => {
   const sortRequest = info?.requests
     .map((req) => req)
     .sort((a, b) => {
-      // sort by time
-      if (a.time < b.time) {
+      if (a.time < b.time || a.date > b.date) {
         return -1;
       }
-      if (a.time > b.time) {
+      if (a.time > b.time || a.date < b.date) {
         return 1;
       }
     });
 
-  const requestPending = sortRequest.map((req, index) => (
+  const requestPending = sortRequest?.map((req, index) => (
     <div className="reqs">
       {req.status === "pending" && <RequestItem request={req} key={index} />}
     </div>
   ));
 
-  const requestothers = info?.requests.map((req, index) => (
+  const requestothers = sortRequest?.map((req, index) => (
     <div className="reqs">
       {req.status !== "pending" && <RequestItem request={req} key={index} />}
     </div>

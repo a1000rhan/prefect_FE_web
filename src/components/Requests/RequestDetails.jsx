@@ -38,8 +38,8 @@ const RequestDetails = () => {
     requestStore.updateRequest(request, navigate, "", Swal);
   };
   const theWorkerRequests = profileStore.workers.filter((worker) => {
-    const req = worker.requests;
-    return req.find((req) => req._id === requestD._id);
+    const req = worker?.requests;
+    return req.find((req) => req?._id === requestD?._id);
   });
 
   const showWorekers = theWorkerRequests.map((workerName, index) => (
@@ -51,6 +51,9 @@ const RequestDetails = () => {
   ));
 
   const tConvert = (time) => {
+    if (time === undefined) {
+      return;
+    }
     // Check correct time format and split into components
     time = time
       .toString()
@@ -62,10 +65,10 @@ const RequestDetails = () => {
       time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
       time[0] = +time[0] % 12 || 12; // Adjust hours
     }
-    console.log(time);
+
     return time.join(""); // return adjusted time or original string
   };
-
+  // }
   return (
     <div>
       <div className="bk">

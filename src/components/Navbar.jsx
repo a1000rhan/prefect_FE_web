@@ -31,9 +31,9 @@ function Navbar(props) {
     t("allRequests"),
     t("updateProfile"),
   ];
-  const navItemsWorker = [t("home"), "Registration", t("updateProfile")];
+  const navItemsWorker = [t("home"), t("updateProfile")];
   const pathsAdmin = ["/", "/profiles", "/requests", "/updateProfiles"];
-  const pathsWorker = ["/", "/signup", "/updateProfiles"];
+  const pathsWorker = ["/", "/updateProfiles"];
   const navigate = useNavigate();
   const loaction = useLocation();
   const { window, location } = props;

@@ -1,4 +1,4 @@
-import { Button, Card } from "@mui/material";
+import { Button, Card, CircularProgress } from "@mui/material";
 import React, { useState, useRef } from "react";
 import authstore from "../../store/authStore";
 import profileStore from "../../store/profileStore";
@@ -46,18 +46,18 @@ const RequestItem = ({ request }) => {
       : request.status === "pending"
       ? t("pending")
       : null;
-  const onDone = (e) => {
+  const onDone = async (e) => {
     e.preventDefault();
     // setShow(true);
-    pdfReceipt.pdfFunction(request, setFilePdf);
+    await pdfReceipt.pdfFunction(request, setFilePdf);
 
     request.status = "done";
   };
   const onCancel = (e) => {
     e.preventDefault();
-    request.status = "canceled";
-    requestStore.cancelRequest(request);
-    requestStore.updateRequest(request, navigate, "", Swal);
+    request.status = "cancel";
+    // requestStore.updateRequest(request, navigate, "", Swal);
+    requestStore.cancelRequest(request, navigate, Swal);
   };
   const handleDownload = (e) => {
     e.preventDefault();
@@ -119,60 +119,66 @@ const RequestItem = ({ request }) => {
             <MenuItem onClick={handleDelete}>{t("deleteRequest")}</MenuItem>
           </Menu>
         </div>
-        <div className="ro">
-          <p className="subtitle">
-            {t("status")}:
-            <span
-              style={{
-                color:
-                  request.status == "pending"
-                    ? "blue"
-                    : request.status == "done"
-                    ? "green"
-                    : "red",
-              }}
-            >
-              &nbsp; {conditon}
-            </span>
-          </p>
-          <div className="ic-end">
-            {request?.status === "pending" ? (
-              <>
-                <Signature
-                  setSign={setSign}
-                  sigPad={sigPad}
-                  show={show}
-                  setShow={setShow}
-                />
-                <Icon.CheckCircle
-                  style={{ marginLeft: 10 }}
-                  size={30}
-                  color="green"
-                  onClick={onDone}
-                />
 
-                <Icon.XCircle
-                  style={{ marginLeft: 10 }}
-                  size={30}
-                  color="red"
-                  onClick={onCancel}
-                />
-              </>
-            ) : (
-              <>
-                {request?.status === "done" ? (
-                  <>
-                    <a href={filePdf} target="_blank">
-                      {t("invoice")}
-                    </a>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </>
-            )}
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <div className="ro">
+            <p className="subtitle">
+              {t("status")}:
+              <span
+                style={{
+                  color:
+                    request.status == "pending"
+                      ? "blue"
+                      : request.status == "done"
+                      ? "green"
+                      : "red",
+                }}
+              >
+                &nbsp; {conditon}
+              </span>
+            </p>
+
+            <div className="ic-end">
+              {request?.status === "pending" ? (
+                <>
+                  <Signature
+                    setSign={setSign}
+                    sigPad={sigPad}
+                    show={show}
+                    setShow={setShow}
+                  />
+                  <Icon.CheckCircle
+                    style={{ marginLeft: 10 }}
+                    size={30}
+                    color="green"
+                    onClick={onDone}
+                  />
+
+                  <Icon.XCircle
+                    style={{ marginLeft: 10 }}
+                    size={30}
+                    color="red"
+                    onClick={onCancel}
+                  />
+                </>
+              ) : (
+                <>
+                  {request?.status === "done" ? (
+                    <>
+                      <a href={filePdf} target="_blank">
+                        {t("invoice")}
+                      </a>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

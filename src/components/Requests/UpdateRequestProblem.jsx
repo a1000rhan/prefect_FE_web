@@ -16,13 +16,14 @@ import {
 import authstore from "../../store/authStore";
 
 const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
+  const navigate = useNavigate();
   profileStore.loading && <h1>loading</h1>;
-  // if (updateRequest === undefined) {
-  //   return console.log("aziz");
-  // }
+  if (updateRequest === null) {
+    return navigate("/404");
+  }
   const [problemDesc, setProblemDesc] = useState({
-    operation: updateRequest?.problemDesc[0]?.operation ?? "",
-    unit: updateRequest?.problemDesc[0]?.unit ?? "",
+    operation: updateRequest.problemDesc[0]?.operation ?? "",
+    unit: updateRequest.problemDesc[0]?.unit ?? "",
   });
   const [selectedWorker, setSelectedWorker] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +35,6 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
     )
   );
 
-  const navigate = useNavigate();
   if (authstore.user?.type !== "admin") {
     navigate("/signin");
   }
@@ -134,7 +134,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               <br />
               <RadioGroup
                 name="unit"
-                value={problemDesc.unit}
+                value={problemDesc.unit ?? ""}
                 className="checkbox2"
                 onChange={handleChangeUnit}
               >
@@ -156,7 +156,7 @@ const UpdateRequestProblem = ({ updateRequest, setUpdateRequest }) => {
               </RadioGroup>
               <RadioGroup
                 name="operation"
-                value={problemDesc.operation}
+                value={problemDesc.operation ?? ""}
                 className="checkbox3"
                 onChange={handleChangeOperation}
               >

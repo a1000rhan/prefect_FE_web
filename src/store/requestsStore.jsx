@@ -65,6 +65,7 @@ class RequestStore {
       });
       navigate("/");
     } catch (error) {
+      setIsLoading(false);
       console.log(
         "🚀 ~ file: requestsStore.jsx ~ line 27 ~ RequestStore ~ createNewRequests=async ~ error",
         error
@@ -204,6 +205,7 @@ class RequestStore {
             showConfirmButton: false,
             timer: 3000,
           });
+
           this.getAllRequests();
           window.location.reload();
         }

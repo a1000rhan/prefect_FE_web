@@ -14,6 +14,16 @@ const NotFound = () => {
           </div>
         </div>
       </div>
+      <div className="text-center">
+        <button
+          className="btns"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          home
+        </button>
+      </div>
     </div>
   );
 };
