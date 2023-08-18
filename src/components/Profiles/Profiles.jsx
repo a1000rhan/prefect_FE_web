@@ -17,6 +17,11 @@ const Profiles = () => {
       <Spinner animation="border" role="status" />
     </div>;
   }
+  useEffect(() => {
+    profileStore.fetchProfiles();
+
+    return () => {};
+  }, [0]);
 
   const navigate = useNavigate();
 

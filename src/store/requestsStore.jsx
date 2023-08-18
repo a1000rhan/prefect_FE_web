@@ -245,5 +245,5 @@ class RequestStore {
 }
 
 const requestStore = new RequestStore();
-requestStore.getAllRequests();
+// requestStore.getAllRequests();
 export default requestStore;

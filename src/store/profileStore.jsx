@@ -75,5 +75,5 @@ class ProfileStore {
 }
 
 const profileStore = new ProfileStore();
-profileStore.fetchProfiles();
+
 export default profileStore;

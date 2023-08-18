@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import profileStore from "../../store/profileStore";
+import requestStore from "../../store/requestsStore";
 import RequestItem from "../Requests/RequestItem";
 import { observer } from "mobx-react";
 import authstore from "../../store/authStore";
 import { Avatar, CircularProgress } from "@mui/material";
 import { Spinner } from "react-bootstrap";
 import moment from "moment";
-import requestStore from "../../store/requestsStore";
 import * as Icon from "react-bootstrap-icons";
 
 const OneProfile = () => {
@@ -16,6 +16,12 @@ const OneProfile = () => {
     </div>;
 
   const info = profileStore?.oneProfile;
+
+  useEffect(() => {
+    profileStore.fetchWorkersProfiles();
+    requestStore.getAllRequests();
+    return () => {};
+  }, [0]);
 
   const requests = info?.requests
     .filter((req) => req?.date == moment(new Date()).format("YYYY-MM-DD"))

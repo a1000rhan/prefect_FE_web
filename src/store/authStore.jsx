@@ -45,14 +45,13 @@ class AuthStore {
       const resp = await api.post("/signin", user);
       await this.setUser(resp.data.token);
 
-      this.loading = false;
-
       this.user.type === "admin"
         ? await requestStore.getAllRequests()
         : await profileStore.fetchProfiles();
 
       this.user.type === "admin" ? navigate("/profiles") : navigate("/");
 
+      this.loading = false;
       Swal.fire({
         position: "top-center",
         icon: "success",
